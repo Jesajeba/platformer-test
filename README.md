@@ -19,6 +19,7 @@ A 3D platformer vertical slice in Godot 4 (GDScript), inspired by the feel of Ki
   godot --headless --path . res://tests/stage6_boss_test.tscn
   godot --headless --path . res://tests/stage7_menus_test.tscn
   godot --headless --path . res://tests/stage8_full_flow_test.tscn
+  godot --headless --path . res://tests/camera_audit_test.tscn
   ```
   The tests use `user://test_save.cfg` and `user://test_settings.cfg`, so they never touch your real save or settings.
 - **Visual tours**: run these windowed to watch, optionally with `--write-movie out.png` to capture frames.
@@ -83,7 +84,7 @@ Every tuning value is an `@export` variable grouped with `@export_group`. Select
 
 | Node | Groups |
 |---|---|
-| **Player** (`scenes/player/player.tscn`) | Movement, Jump (height and time-to-peak; gravity is derived from them), Hover, Attack (timings, knockback, hit-stop), Health (hearts, invincibility, pit damage, respawn), Visuals (squash and stretch), Juice (dust, sparks, landing shake) |
+| **Player** (`scenes/player/player.tscn`) | Movement, Jump (height and time-to-peak; gravity is derived from them), Hover, Attack (reach and radius, timings, knockback, hit-stop), Health (hearts, invincibility, pit damage, respawn), Visuals (squash and stretch), Juice (dust, sparks, landing shake) |
 | **RailCamera** (in each level) | Rail Following (damping, max speed, max lag, backtracking), Smoothing, Collision, Shake |
 | **RailCameraKey** (children of `CameraRail`) | Framing (offset, FOV, look height, look-ahead, pitch), Follow, Blend, Lock |
 | **Enemies** (`scenes/enemies/*.tscn`) | Health, Contact, Movement, Rewards, Activation, plus per-type Detection, Patrol, Chase, Lunge Attack, Spacing, Shooting, Snap Attack |
@@ -97,7 +98,7 @@ Every tuning value is an `@export` variable grouped with `@export_group`. Select
 - **Camera-relative movement**: "forward" is the camera's forward vector flattened onto the ground, so controls follow the rail camera around curves.
 - **Jump**: holding jump gives a full jump (2.6 m). Releasing early cuts upward speed to 45%. Coyote time and the jump buffer are both 0.12 s.
 - **Hover**: pressing jump in the air uses coyote time first, otherwise it starts the hover. The hover starts with a small pop, then falls slowly (1.4 m/s) while jump is held, for up to 1.2 s. It can't be used again until you land. Once it's used, a further press is buffered and becomes a jump on landing.
-- **Attack**: the hitbox is only live during the active part of the swing. Each swing hits each target once, with hit-stop and a spark. It works on the ground (with a small lunge) and in the air (with a little hang time), and cancels a hover. **Attack priority**: while you're attacking, enemies in front of you can't hurt you by touch, so your swing wins the trade.
+- **Attack**: the hitbox reaches about 2.15 m (`attack_reach` + `attack_radius`) and is only live during the active part of the swing. Each swing hits each target once, with hit-stop and a spark. It works on the ground (with a small lunge) and in the air (with a little hang time), and cancels a hover. **Attack priority**: while you're attacking, enemies in front of you can't hurt you by touch, so your swing wins the trade.
 - **Damage**: 5 hearts. A hit gives 1.2 s of blinking invincibility, knockback and a camera shake.
 - **Pits**: falling in costs 1 heart and returns you to the last checkpoint, keeping what you collected.
 - **Defeat**: a short spin-out, then the **Game Over** screen offers Retry (back to the last checkpoint with full health, items rolled back to it) or Quit to Menu. This follows Kirby and the Forgotten Land: there are no lives. The tuning greybox respawns you automatically instead.
@@ -114,7 +115,10 @@ The camera rides a rail (`Path3D`) that follows the player's route through the l
   - Offsets are relative to the rail's direction: `x` = right, `y` = up, `z` = back.
 - **Look-ahead**: slides the camera and its aim point forward together rather than turning the camera. The camera's angle therefore comes only from the key, which keeps camera-relative controls steady: in a side-scroller, "right" always runs along the path.
 - **Locked keys** (`locked`, `lock_camera_point`, `lock_look_point`): the camera holds a fixed shot, as in the boss arena.
-- **Collision**: a sphere cast from the player to the camera pulls the camera in front of walls, then lets it ease back out. It uses the `world` layer. Fixed shots (locked keys and cutscene overrides) skip collision.
+- **Occluding props fade out**: pillars, walls, lintels, gates, tree trunks and breakable walls are in the `camera_fade` group (set `camera_fade` on a `GreyboxBlock`). While one hides the player it turns see-through, and the camera keeps its framing.
+- **Collision**: for everything else (terrain, cliffs), a sphere cast from the player to the camera pulls the camera in front of the obstacle, then lets it ease back out. It uses the `world` layer and ignores fading props. Fixed shots (locked or orbit keys, cutscene overrides) skip collision.
+- **Orbit keys** (`orbit`, `orbit_center`, `orbit_distance`, `orbit_height`...): the camera circles a center point and stays behind the player as seen from that point, turning smoothly (`orbit_turn_rate`). It holds still within `orbit_deadzone` of the center. The boss arena uses this, so the boss stays in view wherever you run, and "forward" always points toward the middle of the arena.
+- **Camera audit**: `tests/camera_audit_test.tscn` stands the player on every walkable spot (route, side lanes, secrets, shortcut, arena) and fails if the camera loses sight of the player or gets jammed closer than 3 m.
 - **API**:
   - `shake(strength, duration)`: strength 0 to 1. It respects the Screen Shake setting.
   - `set_override(position, look, fov)` / `clear_override()`: cutscene shots.
@@ -137,7 +141,7 @@ The route is about 390 m long. It runs north from the start, turns east at the c
 | 2 | Colonnade | Side-scroller | Thorns, 3 m gap, moving platform over a 12 m pit, pillar stumps, crumbling bridge, a cracked wall blocking the path, Sporelings introduced, checkpoint 2 |
 | 3 | Stairway | Angled 3/4, climbing | Stairs with thorns, ramp, 4 m lift, cracked wall hiding Lost Sprite 3, crumbling bridge, Snapthorns introduced, checkpoint 3 |
 | 4 | Sunken Garden | Pulled back | Islands, moving platform, 8 m hover gap, thorn island, crumbling platforms, shortcut corridor behind a cracked wall, hidden lift to Lost Sprite 2, mixed enemies, checkpoint 4 |
-| 5 | Throne Arena | Locked | King Mossback: entrance gate, 4 pillars, 4 outer platforms, throne, exit gate and goal |
+| 5 | Throne Arena | Orbit (circles the arena behind you) | King Mossback: entrance gate, 4 pillars, 4 outer platforms, throne, exit gate and goal |
 
 **Colour language**:
 - Crimson means a hazard.
@@ -209,8 +213,8 @@ Every attack is telegraphed: the enemy glows orange (`set_telegraph()`) before i
 
 The `BossArena` node in the level (`scripts/boss/boss_arena.gd`) runs the fight. The boss itself is `scenes/boss/king_mossback.tscn` (`KingMossback`, which extends `EnemyBase`).
 
-- **Intro**: walking in closes the gate behind you, and the arena entrance becomes the respawn point. Your controls lock, the camera cuts to a close shot of the king, a name card plays, the boss bar appears and the boss music starts.
-- **Hitting him**: he only takes damage in the **vulnerable window** after each attack. You can tell it's open by the dizzy stars, the pulsing gold glow and the floating "Attack!" label ("Dizzy! Attack!" after a pillar crash). Each window allows up to 3 hits. Hits outside a window clank off. A hit that lands flashes him, shakes the camera and adds hit-stop.
+- **Intro**: walking in closes the gate behind you, and the arena entrance becomes the respawn point. Your controls lock, the camera cuts to a close shot of the king, a name card plays, the boss bar appears and the boss music starts. During the fight the camera orbits the arena behind you.
+- **Hitting him**: he only takes damage in the **vulnerable window** after each attack. You can tell it's open by the dizzy stars, the pulsing gold glow and the floating "Attack!" label ("Dizzy! Attack!" after a pillar crash). Each window allows up to 3 hits. Hits outside a window clank off. His touch-damage zone hugs his body, and for 0.6 s after a window closes his touch is harmless (`contact_grace_after_window`), so you can back out of a combo. A hit that lands flashes him, shakes the camera and adds hit-stop.
 - **12 HP, three phases** (changing at 8 and 4 HP, each with a roar):
   1. **Ground slam**: a shockwave ring you jump over. **Summon**: Mosslings on the far side of the arena (at most 3 alive).
   2. **Spore barrage**: 3 rings of slow spores, each with a gap. **Charge**: if he hits a pillar or the throne he's stunned for a long window. If he misses, he stops at the edge with only a short opening.

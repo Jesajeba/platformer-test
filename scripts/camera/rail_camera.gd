@@ -41,6 +41,11 @@ extends Camera3D
 ## Height above the player's feet the collision cast starts from.
 @export var collision_pivot_height: float = 1.0
 
+@export_group("Occlusion")
+## Props in the "camera_fade" group (pillars, walls, trunks...) turn see-through while they hide
+## the player, and the spring-arm ignores them, so the camera keeps its framing.
+@export var fade_occluders: bool = true
+
 @export_group("Shake")
 @export var shake_max_offset: float = 0.35
 @export var shake_max_roll_degrees: float = 2.0
@@ -85,6 +90,11 @@ var _shake_clock: float = 0.0
 var _noise: FastNoiseLite = FastNoiseLite.new()
 
 var _override_active: bool = false
+var _orbit_angle: float = 0.0
+var _orbit_key: RailCameraKey
+var _faded: Array[Node] = []
+var _fade_rids: Array[RID] = []
+var _fade_count: int = -1
 var _override_pose: Pose = Pose.new()
 
 var _debug_key_a: String = ""
@@ -115,9 +125,11 @@ func _physics_process(delta: float) -> void:
 		return
 	_update_progress(delta)
 	var desired: Pose = _override_pose if _override_active else _compute_pose(_progress)
+	_update_orbit(delta)
 	var weight: float = 1.0 - exp(-_smoothing_rate() * delta)
 	_pose = _pose.blend(desired, weight)
 	_apply_pose(_pose, delta)
+	_update_occluders()
 	_apply_shake(delta)
 
 
@@ -147,6 +159,8 @@ func snap_to_target() -> void:
 	_target_progress = _closest_offset()
 	_progress = _target_progress
 	_furthest_progress = _progress
+	_compute_pose(_progress)  # Finds the active orbit key, if any.
+	_update_orbit(0.0)
 	_pose = _compute_pose(_progress)
 	_arm_length = 1.0e6
 	_apply_pose(_pose, 0.0)
@@ -289,6 +303,7 @@ func _compute_pose(offset: float) -> Pose:
 				blend_len = span
 			t = clampf((offset - (_key_offsets[index + 1] - blend_len)) / blend_len, 0.0, 1.0)
 
+	_orbit_key = key_b if key_b != null and key_b.orbit and t > 0.0 else (key_a if key_a.orbit else null)
 	_debug_key_a = key_a.name if key_a != _fallback_key else "(default)"
 	_debug_key_b = key_b.name if key_b != null else ""
 	_debug_blend = t
@@ -317,7 +332,13 @@ func _pose_for_key(key: RailCameraKey, frame: Array[Vector3]) -> Pose:
 	var pose: Pose = Pose.new()
 	pose.fov = key.fov
 	pose.pitch = key.pitch_offset_degrees
-	if key.locked and key.lock_camera_point != null:
+	if key.orbit and key.orbit_center != null:
+		var center: Vector3 = key.orbit_center.global_position
+		var around: Vector3 = Vector3(cos(_orbit_angle), 0.0, sin(_orbit_angle))
+		pose.position = center + around * key.orbit_distance + Vector3.UP * key.orbit_height
+		pose.look = (center + Vector3.UP * key.orbit_look_height).lerp(player + Vector3.UP * 1.0, key.orbit_player_look_weight)
+		pose.fixed = 1.0
+	elif key.locked and key.lock_camera_point != null:
 		pose.position = key.lock_camera_point.global_position
 		var center: Vector3 = key.lock_look_point.global_position if key.lock_look_point != null else origin
 		pose.look = center.lerp(player + Vector3.UP * key.look_height, key.lock_player_look_weight)
@@ -347,6 +368,64 @@ func _smoothing_rate() -> float:
 #endregion
 
 
+#region Orbit and occlusion
+
+## Swings the orbit angle so the camera stays behind the player as seen from the orbit center.
+## `delta` = 0 snaps straight there.
+func _update_orbit(delta: float) -> void:
+	if _orbit_key == null or _orbit_key.orbit_center == null:
+		return
+	var offset: Vector3 = target.global_position - _orbit_key.orbit_center.global_position
+	offset.y = 0.0
+	if offset.length() < _orbit_key.orbit_deadzone and delta > 0.0:
+		return
+	var goal: float = atan2(offset.z, offset.x)
+	_orbit_angle = goal if delta <= 0.0 else lerp_angle(_orbit_angle, goal, 1.0 - exp(-_orbit_key.orbit_turn_rate * delta))
+
+
+## Fades "camera_fade" props that block the view of the player and restores the rest.
+func _update_occluders() -> void:
+	if not fade_occluders:
+		return
+	var group: Array[Node] = get_tree().get_nodes_in_group("camera_fade")
+	if group.size() != _fade_count:
+		_fade_count = group.size()
+		_fade_rids.clear()
+		for node: Node in group:
+			if node is CollisionObject3D:
+				_fade_rids.append((node as CollisionObject3D).get_rid())
+	var space: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var hiding: Array[Node] = []
+	for height: float in [0.4, 0.95]:
+		var exclude: Array[RID] = []
+		if target is CollisionObject3D:
+			exclude.append((target as CollisionObject3D).get_rid())
+		for attempt: int in 6:
+			var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(global_position, target.global_position + Vector3.UP * height, collision_mask, exclude)
+			var hit: Dictionary = space.intersect_ray(query)
+			if hit.is_empty():
+				break
+			var collider: Object = hit["collider"]
+			if not (collider is Node and (collider as Node).is_in_group("camera_fade")):
+				break
+			if not hiding.has(collider):
+				hiding.append(collider as Node)
+			exclude.append(hit["rid"])
+	for node: Variant in _faded:
+		if is_instance_valid(node) and not hiding.has(node):
+			(node as Node).call("set_camera_faded", false)
+	for node: Node in hiding:
+		node.call("set_camera_faded", true)
+	_faded = hiding
+
+
+## Props currently faded out because they hide the player (for tests and debugging).
+func get_faded_occluders() -> Array[Node]:
+	return _faded
+
+#endregion
+
+
 #region Collision
 
 ## Spring-arm: sphere-cast from the player toward the desired camera position and pull in on hits.
@@ -367,7 +446,10 @@ func _resolve_collision(desired: Vector3, delta: float) -> Vector3:
 	params.motion = to_camera
 	params.collision_mask = collision_mask
 	if target is CollisionObject3D:
-		params.exclude = [(target as CollisionObject3D).get_rid()]
+		var exclude: Array[RID] = [(target as CollisionObject3D).get_rid()]
+		if fade_occluders:
+			exclude.append_array(_fade_rids)
+		params.exclude = exclude
 	var result: PackedFloat32Array = get_world_3d().direct_space_state.cast_motion(params)
 
 	var allowed: float = distance

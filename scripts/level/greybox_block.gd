@@ -32,12 +32,34 @@ enum ShapeType { BOX, CYLINDER }
 		top_thickness = maxf(value, 0.01)
 		_rebuild()
 
+@export_group("Camera")
+## Props (pillars, walls, trunks) turn see-through while they block the camera's view of the
+## player, instead of pulling the camera in. Leave off for terrain the camera should collide with.
+@export var camera_fade: bool = false
+
 var _visual: Node3D
 var _collision: CollisionShape3D
 
 
 func _ready() -> void:
 	_rebuild()
+	if camera_fade and not Engine.is_editor_hint():
+		add_to_group("camera_fade")
+
+
+## Called by RailCamera while this block hides the player.
+func set_camera_faded(faded: bool) -> void:
+	set_occluder_faded(self, _visual, faded)
+
+
+## Shared fade helper: tweens the transparency of every mesh under `visual`.
+static func set_occluder_faded(owner_node: Node, visual: Node, faded: bool) -> void:
+	if visual == null or owner_node.get_meta("camera_faded", false) == faded:
+		return
+	owner_node.set_meta("camera_faded", faded)
+	var tween: Tween = owner_node.create_tween().set_parallel(true)
+	for mesh: Node in visual.find_children("*", "GeometryInstance3D", true, false):
+		tween.tween_property(mesh, "transparency", 0.75 if faded else 0.0, 0.15)
 
 
 func _rebuild() -> void:

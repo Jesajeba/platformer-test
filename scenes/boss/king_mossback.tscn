@@ -14,8 +14,8 @@ radius = 1.9
 height = 4.4
 
 [sub_resource type="CapsuleShape3D" id="Shape_contact"]
-radius = 2.2
-height = 4.6
+radius = 2.0
+height = 4.5
 
 [sub_resource type="SphereMesh" id="Mesh_body"]
 material = ExtResource("6_stone")

@@ -18,7 +18,7 @@ The test suites cover logic, flow and placement: 278 checks across 8 suites, plu
 - **Placeholder content**: primitive meshes, flat colours and generated chiptune audio. There are no animations beyond procedural squash and stretch, and no real character model.
 - **One level**: the level is built by `tools/build_ruins_level.gd`. Re-running the generator overwrites hand edits to `level_ruins.tscn`. When the layout is final, stop using the generator and edit the scene directly.
 - **Enemies stay defeated** after you die and respawn. Only collectibles roll back to the checkpoint. This is forgiving, but means a death-heavy section gets easier.
-- **Fixed boss camera**: in the arena the player can occasionally be hidden behind a pillar. The pillars were lowered to 3.5 m to reduce this. A see-through silhouette for the player would fix it properly.
+- **Camera occlusion** is handled by fading props that hide the player, and the camera audit checks every walkable spot. Tree canopies and other mesh-only decor have no collision, so they never fade. Keep them away from the camera's path.
 - **Ledge-avoiding enemies won't step down drops** deeper than 0.8 m, so enemies never follow you down a level.
 - **Rail tracking**: the camera picks the closest point on the rail. A route that loops back close to itself could make the camera jump between the two passes. The current level doesn't do this.
 - **No gizmos**: moving platforms show their travel only while running, and camera keys have no editor preview of their framing (use F3 in game).
@@ -32,7 +32,7 @@ The test suites cover logic, flow and placement: 278 checks across 8 suites, plu
 2. **Art pass**:
    - Character model and animations (`AnimationTree` driven by the existing player states).
    - Modular ruin pieces to replace the boxes, foliage, and light shafts.
-   - A player silhouette shader for occlusion.
+   - Optionally a player silhouette shader in addition to the prop fading.
 3. **Audio pass**: real music and SFX dropped into `assets/audio/`, plus music crossfades.
 4. **Respawn enemies at checkpoints** (optional), using the same snapshot idea as collectibles.
 5. **Editor tooling**: gizmos for `MovingPlatform` travel and `RailCameraKey` framing. Optionally a dock to preview the camera at any rail offset.

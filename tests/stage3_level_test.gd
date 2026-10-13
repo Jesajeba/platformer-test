@@ -175,8 +175,14 @@ func _test_camera_segments() -> void:
 		_teleport(entry[0])
 		await _frames(3)
 		_check("camera segment '%s' is active at %s" % [entry[1], entry[0]], _camera._debug_key_a == entry[1], _camera._debug_key_a)
-	var lock_point: Vector3 = _level.get_node("CameraPoints/ArenaCamera").global_position
-	_check("arena camera is locked", _camera.global_position.distance_to(lock_point) < 0.5)
+	# Orbit camera: the player stands between the camera and the arena center (off-center: the
+	# center itself is the orbit deadzone).
+	_teleport(Vector3(270, 10.05, -73))
+	await _frames(3)
+	var center: Vector3 = _level.get_node("CameraPoints/ArenaCenter").global_position
+	var to_player: Vector3 = (_player.global_position - center) * Vector3(1, 0, 1)
+	var to_camera: Vector3 = (_camera.global_position - center) * Vector3(1, 0, 1)
+	_check("arena camera orbits behind the player", to_camera.length() > to_player.length() and to_camera.normalized().dot(to_player.normalized()) > 0.9)
 
 
 func _test_thorns() -> void:

@@ -443,12 +443,11 @@ func _build_camera_rail(player: Node3D) -> Camera3D:
 		"lateral_follow": 0.5, "vertical_follow": 0.3, "blend_in_distance": 8.0})
 
 	var points: Node3D = _group(root, "CameraPoints")
-	var arena_camera: Marker3D = _own(Marker3D.new(), points, "ArenaCamera") as Marker3D
-	arena_camera.position = Vector3(270, 21, -59)
 	var arena_center: Marker3D = _own(Marker3D.new(), points, "ArenaCenter") as Marker3D
-	arena_center.position = Vector3(270, 10.5, -78.5)
-	_key(rail, "ThroneArena", Vector3(257, 10, -80), {"locked": true, "lock_camera_point": arena_camera,
-		"lock_look_point": arena_center, "lock_player_look_weight": 0.3, "blend_in_distance": 5.0})
+	arena_center.position = Vector3(270, 10, -80)
+	# Orbit camera: circles the arena behind the player, looking toward the center (and the boss).
+	_key(rail, "ThroneArena", Vector3(257, 10, -80), {"orbit": true, "orbit_center": arena_center, "orbit_distance": 19.0,
+		"orbit_height": 11.0, "orbit_look_height": 1.5, "orbit_player_look_weight": 0.35, "fov": 60.0, "blend_in_distance": 5.0})
 	_key(rail, "Exit", Vector3(284, 10, -80), {"offset": Vector3(12.0, 4.0, 0.0), "fov": 55.0, "look_ahead": 3.0,
 		"lateral_follow": 0.2, "blend_in_distance": 3.0})
 
@@ -589,6 +588,8 @@ func _box(parent: Node, node_name: String, a: Vector3, b: Vector3, material_name
 	if cap != "":
 		block.top_material = _materials[cap]
 	block.position = (lo + hi) * 0.5
+	# Walls and lintels fade out when they hide the player instead of pulling the camera in.
+	block.camera_fade = material_name == "stone_dark" or node_name.begins_with("Lintel") or node_name.begins_with("Throne")
 	return _own(block, parent, node_name) as GreyboxBlock
 
 
@@ -621,6 +622,7 @@ func _pillar(parent: Node, base: Vector3, diameter: float, height: float) -> Gre
 	block.material = _materials["stone"]
 	block.top_material = _materials["moss"]
 	block.position = base + Vector3(0, height * 0.5, 0)
+	block.camera_fade = true
 	return _own(block, parent, "Pillar") as GreyboxBlock
 
 
@@ -634,6 +636,7 @@ func _tree(parent: Node, base: Vector3, height: float, canopy: float, solid: boo
 		trunk.size = Vector3(0.8, height, 0.8)
 		trunk.material = _materials["bark"]
 		trunk.position = Vector3(0, height * 0.5, 0)
+		trunk.camera_fade = true
 		_own(trunk, tree, "Trunk")
 	else:
 		var trunk_mesh: CylinderMesh = CylinderMesh.new()

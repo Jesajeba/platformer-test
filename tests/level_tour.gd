@@ -14,6 +14,10 @@ const STOPS: Array[Vector3] = [
 	Vector3(184, 10.05, -80),    # Sunken garden islands
 	Vector3(250, 10.05, -80),    # Arena approach
 	Vector3(270, 10.05, -75),    # Throne arena
+	Vector3(198, 10.05, -88),    # Shortcut corridor (near wall fades out)
+	Vector3(53, 2.05, -81.6),    # Colonnade, behind a pillar stump
+	Vector3(272, 10.05, -90.5),  # Arena, behind the boss by the throne (orbit camera)
+	Vector3(281, 10.05, -76),    # Arena, east side (orbit camera)
 ]
 
 @export var frames_per_stop: int = 40

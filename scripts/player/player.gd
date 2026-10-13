@@ -54,6 +54,10 @@ enum State { IDLE, RUN, JUMP, FALL, HOVER, ATTACK, HURT, DEAD }
 
 @export_group("Attack")
 @export var attack_damage: int = 1
+## Distance from the player's center to the middle of the attack hitbox (reach = this + radius).
+@export var attack_reach: float = 1.15
+## Radius of the attack hitbox.
+@export var attack_radius: float = 1.0
 @export var attack_windup: float = 0.05
 @export var attack_active_time: float = 0.14
 @export var attack_recovery: float = 0.12
@@ -147,6 +151,7 @@ func _ready() -> void:
 	_foot_right_base = _foot_right.position
 	_arm_right_base = _arm_right.position
 	_swipe_pivot.visible = false
+	_apply_attack_shape()
 
 
 func _physics_process(delta: float) -> void:
@@ -177,6 +182,18 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 	_check_floor_transitions()
 	_update_visuals(delta)
+
+
+## Sizes the attack hitbox (and the swipe effect) from attack_reach / attack_radius.
+func _apply_attack_shape() -> void:
+	var shape_node: CollisionShape3D = _hitbox.get_node("CollisionShape3D") as CollisionShape3D
+	var sphere: SphereShape3D = SphereShape3D.new()
+	sphere.radius = attack_radius
+	shape_node.shape = sphere
+	shape_node.position = Vector3(0.0, 0.55, -attack_reach)
+	var swipe: Node3D = _swipe_pivot.get_node("Swipe") as Node3D
+	swipe.position = Vector3(0.0, 0.0, -attack_reach)
+	swipe.scale = Vector3(1.15 * attack_radius, 0.08, 0.3 * attack_radius)
 
 
 #region Public API
@@ -351,6 +368,7 @@ func _set_state(new_state: State) -> void:
 
 	if old_state == State.ATTACK:
 		_swipe_pivot.visible = false
+	_apply_attack_shape()
 	if old_state == State.DEAD:
 		_visual.scale = Vector3.ONE
 

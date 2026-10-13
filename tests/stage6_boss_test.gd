@@ -27,6 +27,7 @@ func _run() -> void:
 	_boss.idle_time = 999.0  # Only the attacks the test starts.
 	await _test_clank()
 	await _test_slam_and_vulnerable()
+	await _test_attack_reach()
 	await _test_jump_over_shockwave()
 	await _test_summon()
 	await _test_phase2_and_barrage()
@@ -105,6 +106,38 @@ func _test_slam_and_vulnerable() -> void:
 	_check("HUD boss bar follows his health", absf(bar.value - _boss.health) < 0.5, "%.1f vs %d" % [bar.value, _boss.health])
 	await _wait_until(func() -> bool: return _boss.get_state() == KingMossback.State.IDLE, 200)
 	await _wait_until(func() -> bool: return not _player.is_invincible(), 150)
+
+
+## The player's attack must reach the boss from outside his touch-damage zone.
+func _test_attack_reach() -> void:
+	_heal()
+	await _wait_until(func() -> bool: return not _player.is_invincible(), 150)
+	await _place_boss(_center)
+	var contact_reach: float = ((_boss.get_node("ContactArea/CollisionShape3D") as CollisionShape3D).shape as CapsuleShape3D).radius + 0.45
+	# Stand just outside the touch zone, facing him (-Z of the player = toward the boss).
+	_teleport(_ground(_center.x, _center.z + contact_reach + 0.3))
+	_camera.snap_to_target()
+	await _face_forward()
+	_teleport(_ground(_center.x, _center.z + contact_reach + 0.3))
+	await _place_boss(_center)
+	var hp_before: int = GameState.health
+	_boss.force_vulnerable(3.0)
+	var saved_hp: int = _boss.health
+	_boss.health = _boss.max_health  # Far from a phase threshold, so this hit can't change phase.
+	var boss_hp: int = _boss.health
+	await _press_action("attack")
+	await _frames(20)
+	_check("attack reaches the boss from outside his touch zone", _boss.health == boss_hp - 1, "boss hp %d -> %d" % [boss_hp, _boss.health])
+	_check("player wasn't hurt landing that hit", GameState.health == hp_before)
+	_boss.health = saved_hp
+	# Window closes while the player is right next to him: brief grace before touch damage resumes.
+	_boss.global_position = _player.global_position + Vector3(0, 0.05, -1.5)
+	_boss._set_state(KingMossback.State.IDLE)
+	await _frames(10)
+	_check("touching him right after a window closes is harmless (grace)", GameState.health == hp_before)
+	await _frames(60)
+	await _wait_until(func() -> bool: return not _player.is_invincible(), 150)
+	_heal()
 
 
 func _test_jump_over_shockwave() -> void:

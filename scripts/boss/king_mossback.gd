@@ -42,6 +42,9 @@ const PATTERNS: Dictionary = {
 @export_group("Vulnerability")
 ## Hits allowed per vulnerable window before he recovers early.
 @export var max_hits_per_window: int = 3
+## After a vulnerable window closes, touching him stays harmless this long, so a player still
+## mid-combo isn't punished for being close.
+@export var contact_grace_after_window: float = 0.6
 
 @export_group("Ground Slam")
 @export var slam_windup: float = 1.0
@@ -104,6 +107,7 @@ var _summons: Array[Node] = []
 var _anim_time: float = 0.0
 var _defeat_tween: Tween
 var _gold: StandardMaterial3D
+var _contact_grace: float = 0.0
 
 @onready var _arm_left: Node3D = $Visual/ArmLeft
 @onready var _arm_right: Node3D = $Visual/ArmRight
@@ -149,6 +153,8 @@ func reset_fight() -> void:
 	health = max_health
 	phase = 1
 	_dead = false
+	contact_enabled = true
+	_contact_grace = 0.0
 	_attack_queue.clear()
 	collision_layer = 132
 	_collision.disabled = false
@@ -193,7 +199,7 @@ func _set_state(new_state: State) -> void:
 	if new_state != State.VULNERABLE and was_vulnerable:
 		_stars.visible = false
 		_vulnerable_label.visible = false
-		contact_enabled = true
+		_contact_grace = contact_grace_after_window
 		set_telegraph(0.0)
 		vulnerability_changed.emit(false)
 	if new_state == State.IDLE or new_state == State.INACTIVE:
@@ -202,6 +208,10 @@ func _set_state(new_state: State) -> void:
 
 func _ai_process(delta: float) -> void:
 	_state_time += delta
+	if _contact_grace > 0.0:
+		_contact_grace -= delta
+		if _contact_grace <= 0.0 and _state != State.VULNERABLE:
+			contact_enabled = true
 	_prune_summons()
 	match _state:
 		State.INACTIVE:

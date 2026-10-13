@@ -31,6 +31,23 @@ extends Marker3D
 ## Distance before this key over which the camera blends into it. 0 = whole span from the previous key.
 @export var blend_in_distance: float = 6.0
 
+@export_group("Orbit")
+## Orbit keys circle `orbit_center`, staying behind the player and looking toward the center
+## (e.g. a boss arena: the boss stays in view wherever the player runs).
+@export var orbit: bool = false
+@export var orbit_center: Node3D
+## Horizontal distance of the camera from the center.
+@export var orbit_distance: float = 19.0
+@export var orbit_height: float = 12.0
+## Height above the center the camera aims at.
+@export var orbit_look_height: float = 1.5
+## 0 = aim at the center, 1 = aim at the player.
+@export_range(0.0, 1.0) var orbit_player_look_weight: float = 0.35
+## How quickly the camera swings around to stay behind the player (higher = faster).
+@export var orbit_turn_rate: float = 2.5
+## Inside this radius around the center the camera stops turning (avoids whipping around).
+@export var orbit_deadzone: float = 2.5
+
 @export_group("Lock")
 ## Locked keys hold the camera at `lock_camera_point` (e.g. a boss arena).
 @export var locked: bool = false

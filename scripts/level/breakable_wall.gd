@@ -41,6 +41,11 @@ func _process(delta: float) -> void:
 	_visual.position = Vector3(randf_range(-1.0, 1.0), 0.0, randf_range(-1.0, 1.0)) * strength
 
 
+## Called by RailCamera while this wall hides the player.
+func set_camera_faded(faded: bool) -> void:
+	GreyboxBlock.set_occluder_faded(self, _visual, faded)
+
+
 func take_hit(damage: int, _source_position: Vector3, _knockback: float) -> void:
 	if _hits_left <= 0:
 		return

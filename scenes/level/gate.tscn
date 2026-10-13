@@ -30,6 +30,7 @@ script = ExtResource("2_block")
 size = Vector3(1.5, 5.5, 1.5)
 material = ExtResource("3_dark")
 top_material = ExtResource("4_moss")
+camera_fade = true
 
 [node name="PillarRight" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 2.75, 0)
@@ -37,6 +38,7 @@ script = ExtResource("2_block")
 size = Vector3(1.5, 5.5, 1.5)
 material = ExtResource("3_dark")
 top_material = ExtResource("4_moss")
+camera_fade = true
 
 [node name="Lintel" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
@@ -44,6 +46,7 @@ script = ExtResource("2_block")
 size = Vector3(7.2, 1, 1.8)
 material = ExtResource("3_dark")
 top_material = ExtResource("4_moss")
+camera_fade = true
 
 [node name="Bars" type="AnimatableBody3D" parent="."]
 
