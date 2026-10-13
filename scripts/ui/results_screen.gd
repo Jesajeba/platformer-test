@@ -29,6 +29,7 @@ func _ready() -> void:
 	menu_button = UiFactory.button("Main Menu", _on_menu)
 	box.add_child(replay_button)
 	box.add_child(menu_button)
+	UiFactory.chain_focus_vertical([replay_button, menu_button])
 	MenuSounds.wire(_root)
 	visible = false
 
@@ -51,6 +52,11 @@ func open() -> void:
 	visible = true
 	get_tree().paused = true
 	replay_button.grab_focus()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and UiFactory.recover_focus(event, replay_button):
+		get_viewport().set_input_as_handled()
 
 
 func _on_replay() -> void:

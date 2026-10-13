@@ -26,6 +26,7 @@ func _run() -> void:
 	await _test_intro()
 	_boss.idle_time = 999.0  # Only the attacks the test starts.
 	await _test_clank()
+	await _test_boss_faces_player()
 	await _test_slam_and_vulnerable()
 	await _test_attack_reach()
 	await _test_jump_over_shockwave()
@@ -81,6 +82,15 @@ func _test_clank() -> void:
 	var hp: int = _boss.health
 	_boss.take_hit(1, _boss.global_position + Vector3(0, 0, 3), 9.0)
 	_check("hits outside a vulnerable window clank off", _boss.health == hp and AudioManager.last_played == &"stone_hit")
+
+
+func _test_boss_faces_player() -> void:
+	for spot: Vector3 in [_ground(_center.x - 7.0, _center.z), _ground(_center.x + 3.0, _center.z + 8.0)]:
+		_teleport(spot)
+		await _frames(90)
+		var forward: Vector3 = -(_boss.get_node("Visual") as Node3D).global_basis.z * Vector3(1, 0, 1)
+		var to_player: Vector3 = (_player.global_position - _boss.global_position) * Vector3(1, 0, 1)
+		_check("boss turns to face the player (%s)" % spot, forward.normalized().dot(to_player.normalized()) > 0.9, "dot %.2f" % forward.normalized().dot(to_player.normalized()))
 
 
 func _test_slam_and_vulnerable() -> void:

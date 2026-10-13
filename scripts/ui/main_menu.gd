@@ -46,6 +46,10 @@ func _ready() -> void:
 	if continue_button.disabled:
 		continue_button.focus_mode = Control.FOCUS_NONE  # Keyboard/gamepad navigation skips it.
 	_buttons = [start_button, continue_button, settings_button, quit_button]
+	if continue_button.disabled:
+		UiFactory.chain_focus_vertical([start_button, settings_button, quit_button])
+	else:
+		UiFactory.chain_focus_vertical(_buttons)
 
 	var records: Dictionary = GameState.get_records(SceneManager.FIRST_LEVEL)
 	var record_text: String = "Best: %s   Lost Sprites %d/3   Coins %d" % [GameState.format_time(records["best_time"]), records["best_sprites"], records["best_coins"]] \
@@ -62,6 +66,11 @@ func _process(delta: float) -> void:
 	_time += delta
 	_mascot.position.y = sin(_time * 2.2) * 6.0
 	_mascot.rotation = sin(_time * 1.3) * 0.06
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_settings_open() and UiFactory.recover_focus(event, start_button):
+		get_viewport().set_input_as_handled()
 
 
 func _on_start() -> void:

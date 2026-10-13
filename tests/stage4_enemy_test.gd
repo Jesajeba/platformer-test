@@ -11,6 +11,7 @@ const SPORE: PackedScene = preload("res://scenes/enemies/spore_projectile.tscn")
 func _run() -> void:
 	await _frames(10)
 	await _test_mossling_detect_and_chase()
+	await _test_facing()
 	await _test_mossling_telegraphed_lunge()
 	await _test_damage_knockback_death()
 	await _test_player_attack_kills()
@@ -51,6 +52,32 @@ func _test_mossling_detect_and_chase() -> void:
 	await _frames(15)
 	_check("mossling chases the player", chasing and mossling.global_position.distance_to(_player.global_position) < start_distance - 0.3)
 	mossling.queue_free()
+
+
+## World-space direction the enemy's model is facing (its front is -Z).
+func _model_forward(enemy: EnemyBase) -> Vector3:
+	var forward: Vector3 = -(enemy.get_node("Visual") as Node3D).global_basis.z
+	forward.y = 0.0
+	return forward.normalized()
+
+
+func _test_facing() -> void:
+	await _reset_player(Vector3(0, 0.05, 6))
+	# Placed at 180 degrees = facing +Z, toward the player standing at +Z.
+	var mossling: Mossling = _spawn(MOSSLING, Vector3(0, 0.1, -2), 180.0) as Mossling
+	mossling.detect_range = 0.0
+	await _frames(3)
+	_check("an enemy placed at 180 degrees faces that way (not backwards)", _model_forward(mossling).dot(Vector3(0, 0, 1)) > 0.95, str(_model_forward(mossling)))
+	mossling.detect_range = 12.0
+	await _wait_until(func() -> bool: return mossling.get_state() == Mossling.State.CHASE, 90)
+	await _frames(20)
+	var to_player: Vector3 = (_player.global_position - mossling.global_position) * Vector3(1, 0, 1)
+	_check("a chasing Mossling faces the player", _model_forward(mossling).dot(to_player.normalized()) > 0.9)
+	var lunged: bool = await _wait_until(func() -> bool: return mossling.get_state() == Mossling.State.LUNGE, 240)
+	to_player = (_player.global_position - mossling.global_position) * Vector3(1, 0, 1)
+	_check("a lunging Mossling dashes face first", lunged and _model_forward(mossling).dot(mossling._lunge_direction) > 0.8)
+	mossling.queue_free()
+	GameState.restore_health()
 
 
 func _test_mossling_telegraphed_lunge() -> void:

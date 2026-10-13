@@ -20,6 +20,7 @@ func _run() -> void:
 	GameState.start_new_run()
 
 	await _test_main_menu()
+	await _test_gamepad_menus()
 	await _test_settings()
 	await _test_start_and_pause()
 	await _test_checkpoint_save_and_restart()
@@ -91,6 +92,48 @@ func _test_main_menu() -> void:
 	_check("navigation moves back up to Start", _focused() == menu.start_button)
 
 
+## Presses a gamepad button (A = 0, B = 1, D-pad up/down = 11/12) as a real controller would.
+func _pad(button: JoyButton) -> void:
+	var press: InputEventJoypadButton = InputEventJoypadButton.new()
+	press.button_index = button
+	press.pressed = true
+	Input.parse_input_event(press)
+	await _frames(2)
+	var release: InputEventJoypadButton = InputEventJoypadButton.new()
+	release.button_index = button
+	release.pressed = false
+	Input.parse_input_event(release)
+	await _frames(2)
+
+
+func _test_gamepad_menus() -> void:
+	var menu: MainMenu = _scene() as MainMenu
+	menu.start_button.grab_focus()
+	await _pad(JOY_BUTTON_DPAD_DOWN)
+	_check("gamepad: D-pad moves focus in the main menu", _focused() == menu.settings_button, str(_focused()))
+	await _pad(JOY_BUTTON_A)
+	_check("gamepad: A presses the focused button (opens Settings)", menu.is_settings_open())
+	var settings: SettingsMenu = menu.find_children("*", "SettingsMenu", true, false)[0] as SettingsMenu
+	await _frames(2)
+	var back: Button = settings.find_children("*", "Button", true, false).filter(func(b: Node) -> bool: return (b as Button).text == "Back")[0]
+	var reached: bool = false
+	for i: int in 40:
+		await _pad(JOY_BUTTON_DPAD_DOWN)
+		if _focused() == back or (_focused() is Button and (_focused() as Button).text == "Reset Controls"):
+			reached = true
+			break
+	_check("gamepad: D-pad reaches the bottom buttons of Settings", reached, str(_focused()))
+	settings.find_children("*", "OptionButton", true, false)[0].call("grab_focus")
+	await _pad(JOY_BUTTON_DPAD_UP)
+	_check("gamepad: up from the first setting wraps to the bottom buttons", _focused() is Button and ((_focused() as Button).text == "Back" or (_focused() as Button).text == "Reset Controls"), str(_focused()))
+	await _pad(JOY_BUTTON_B)
+	_check("gamepad: B backs out of Settings", not menu.is_settings_open() and _focused() == menu.settings_button)
+
+	get_viewport().gui_release_focus()
+	await _pad(JOY_BUTTON_DPAD_DOWN)
+	_check("gamepad: navigation recovers focus after it was lost", _focused() == menu.start_button, str(_focused()))
+
+
 func _test_settings() -> void:
 	var menu: MainMenu = _scene() as MainMenu
 	menu.settings_button.grab_focus()
@@ -155,6 +198,19 @@ func _test_start_and_pause() -> void:
 	await _ui_action(&"ui_cancel")
 	await _ui_action(&"ui_cancel")
 	_check("ui_cancel resumes the game", not pause.is_open() and not get_tree().paused)
+
+	# Same flow on a gamepad.
+	await _pad(JOY_BUTTON_START)
+	_check("gamepad: Start opens the pause menu", pause.is_open() and _focused() == pause.resume_button)
+	await _pad(JOY_BUTTON_DPAD_DOWN)
+	await _pad(JOY_BUTTON_A)
+	_check("gamepad: A opens Settings from the pause menu", pause.find_children("*", "SettingsMenu", true, false).size() == 1)
+	await _pad(JOY_BUTTON_B)
+	await _frames(2)
+	_check("gamepad: B backs out of Settings to the pause menu", pause.is_open() and pause.find_children("*", "SettingsMenu", true, false).is_empty()
+		and _focused() == pause.settings_button)
+	await _pad(JOY_BUTTON_B)
+	_check("gamepad: B resumes the game", not pause.is_open() and not get_tree().paused)
 
 
 func _test_checkpoint_save_and_restart() -> void:

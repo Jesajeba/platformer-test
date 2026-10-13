@@ -55,6 +55,21 @@ static func chain_focus_vertical(controls: Array[Control]) -> void:
 		controls[i].focus_neighbor_bottom = controls[i].get_path_to(next)
 
 
+## If nothing has focus (e.g. after a mouse click) and a menu direction/confirm is pressed on
+## keyboard or gamepad, focuses `fallback` so navigation picks up again. Returns true if it did.
+static func recover_focus(event: InputEvent, fallback: Control) -> bool:
+	if fallback == null or not fallback.is_visible_in_tree():
+		return false
+	var owner_control: Control = fallback.get_viewport().gui_get_focus_owner()
+	if owner_control != null and owner_control.is_visible_in_tree():
+		return false
+	for action: StringName in [&"ui_up", &"ui_down", &"ui_left", &"ui_right", &"ui_accept"]:
+		if event.is_action_pressed(action):
+			fallback.grab_focus()
+			return true
+	return false
+
+
 ## Focuses the first enabled button (call when a menu opens).
 static func focus_first(controls: Array[Control]) -> void:
 	for control: Control in controls:

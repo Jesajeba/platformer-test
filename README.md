@@ -49,6 +49,12 @@ A 3D platformer vertical slice in Godot 4 (GDScript), inspired by the feel of Ki
 - The stick deadzone is 0.2 on the movement actions, and analog input gives proportional speed.
 - Godot maps gamepad buttons by position, so Xbox and PlayStation pads use the same bindings.
 - Every binding can be changed in **Settings → Controls**, with a reset to defaults.
+- **Menus**: the `ui_*` actions are defined explicitly in `project.godot`, so menus work the same on keyboard and pad:
+  - **A / Enter / Space** confirms.
+  - **B / Esc** goes back: it closes Settings and resumes from the pause menu.
+  - The **D-pad, left stick or arrow keys** move focus. Every list wraps, and Settings links each row so the Reset and Back buttons are always reachable.
+  - If focus gets lost (for example after a mouse click), the next direction or confirm press puts it back on the first button.
+- **Rebinding**: when rebinding a keyboard key, B cancels the capture. When rebinding a pad button, Esc cancels it.
 
 ## Project structure
 

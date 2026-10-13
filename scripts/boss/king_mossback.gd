@@ -108,6 +108,7 @@ var _anim_time: float = 0.0
 var _defeat_tween: Tween
 var _gold: StandardMaterial3D
 var _contact_grace: float = 0.0
+var _home_facing: Vector3 = Vector3.FORWARD
 
 @onready var _arm_left: Node3D = $Visual/ArmLeft
 @onready var _arm_right: Node3D = $Visual/ArmRight
@@ -121,6 +122,7 @@ func _ready() -> void:
 	remove_from_group("enemies")
 	add_to_group("boss")
 	_home = global_transform
+	_home_facing = _facing
 	_arena_center = global_position
 	_stars.visible = false
 	_vulnerable_label.visible = false
@@ -163,6 +165,8 @@ func reset_fight() -> void:
 	_visual.scale = Vector3.ONE
 	_visual.position = Vector3.ZERO
 	_visual.rotation = Vector3.ZERO
+	_facing = _home_facing
+	_visual.rotation.y = atan2(-_facing.x, -_facing.z)
 	global_transform = _home
 	velocity = Vector3.ZERO
 	clear_minions()

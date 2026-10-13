@@ -22,6 +22,7 @@ func _ready() -> void:
 	quit_button = UiFactory.button("Quit to Menu", _on_quit)
 	box.add_child(retry_button)
 	box.add_child(quit_button)
+	UiFactory.chain_focus_vertical([retry_button, quit_button])
 	MenuSounds.wire(_root)
 	visible = false
 
@@ -34,6 +35,11 @@ func open() -> void:
 	visible = true
 	get_tree().paused = true
 	retry_button.grab_focus()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and UiFactory.recover_focus(event, retry_button):
+		get_viewport().set_input_as_handled()
 
 
 func _on_retry() -> void:

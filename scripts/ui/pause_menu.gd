@@ -32,6 +32,7 @@ func _ready() -> void:
 	_buttons = [resume_button, settings_button, restart_button, menu_button]
 	for button: Control in _buttons:
 		box.add_child(button)
+	UiFactory.chain_focus_vertical(_buttons)
 	MenuSounds.wire(_root)
 	visible = false
 
@@ -58,6 +59,9 @@ func close() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible or is_instance_valid(_settings):
+		return
+	if UiFactory.recover_focus(event, resume_button):
+		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()

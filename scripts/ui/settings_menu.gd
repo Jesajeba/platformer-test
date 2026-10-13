@@ -10,6 +10,8 @@ var _binding_buttons: Dictionary = {}  # "action|pad" -> Button
 var _capture_action: StringName = &""
 var _capture_gamepad: bool = false
 var _first: Control
+## Focusable controls per visual row (for explicit up/down/left/right focus links).
+var _rows: Array = []
 
 
 func _ready() -> void:
@@ -62,6 +64,7 @@ func _ready() -> void:
 			row.add_child(bind)
 			_binding_buttons["%s|%s" % [action, gamepad]] = bind
 			_focusables.append(bind)
+			(_rows.back() as Array).append(bind)
 	_refresh_bindings()
 
 	var footer: HBoxContainer = HBoxContainer.new()
@@ -74,6 +77,8 @@ func _ready() -> void:
 	footer.add_child(back)
 	_focusables.append(reset)
 	_focusables.append(back)
+	_rows.append([reset, back])
+	_link_focus()
 	MenuSounds.wire(self)
 	_first.call_deferred("grab_focus")
 
@@ -88,7 +93,13 @@ func is_capturing() -> bool:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_capturing() and event.is_action_pressed("ui_cancel"):
+	if is_capturing():
+		return
+	if UiFactory.recover_focus(event, _first):
+		get_viewport().set_input_as_handled()
+		return
+	# B / Esc acts as the Back button.
+	if event.is_action_pressed("ui_cancel"):
 		AudioManager.play_ui(&"ui_back")
 		get_viewport().set_input_as_handled()
 		close()
@@ -103,6 +114,9 @@ func _input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 	if captured is InputEventKey and (captured as InputEventKey).physical_keycode == KEY_ESCAPE and _capture_action != &"pause":
 		_end_capture()  # Escape cancels (except when binding Pause itself).
+		return
+	if not _capture_gamepad and captured is InputEventJoypadButton and (captured as InputEventJoypadButton).button_index == JOY_BUTTON_B:
+		_end_capture()  # B cancels a keyboard capture.
 		return
 	if SettingsManager.is_gamepad_event(captured) != _capture_gamepad:
 		return
@@ -163,6 +177,23 @@ func _normalize(event: InputEvent) -> InputEvent:
 	return null
 
 
+## Explicit focus links: up/down move between rows (keeping the column where possible and
+## wrapping around), left/right move within a row. Sliders keep left/right for their value.
+func _link_focus() -> void:
+	var rows: Array = _rows.filter(func(row: Array) -> bool: return not row.is_empty())
+	for i: int in rows.size():
+		var row: Array = rows[i]
+		var above: Array = rows[(i - 1 + rows.size()) % rows.size()]
+		var below: Array = rows[(i + 1) % rows.size()]
+		for column: int in row.size():
+			var control: Control = row[column]
+			control.focus_neighbor_top = control.get_path_to(above[mini(column, above.size() - 1)])
+			control.focus_neighbor_bottom = control.get_path_to(below[mini(column, below.size() - 1)])
+			if not control is Range:
+				control.focus_neighbor_left = control.get_path_to(row[maxi(column - 1, 0)])
+				control.focus_neighbor_right = control.get_path_to(row[mini(column + 1, row.size() - 1)])
+
+
 #region Row builders
 
 func _heading(list: VBoxContainer, text: String) -> void:
@@ -172,6 +203,7 @@ func _heading(list: VBoxContainer, text: String) -> void:
 
 
 func _row(list: VBoxContainer, text: String) -> HBoxContainer:
+	_rows.append([])
 	var row: HBoxContainer = HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
 	row.add_child(_fixed_label(text, 270))
@@ -194,6 +226,7 @@ func _option(list: VBoxContainer, text: String, items: PackedStringArray, select
 	option.item_selected.connect(func(index: int) -> void: SettingsManager.set_setting(setting, index))
 	_row(list, text).add_child(option)
 	_focusables.append(option)
+	(_rows.back() as Array).append(option)
 	return option
 
 
@@ -203,6 +236,7 @@ func _check(list: VBoxContainer, text: String, value: bool, setting: String) -> 
 	check.toggled.connect(func(on: bool) -> void: SettingsManager.set_setting(setting, on))
 	_row(list, text).add_child(check)
 	_focusables.append(check)
+	(_rows.back() as Array).append(check)
 	return check
 
 
@@ -222,6 +256,7 @@ func _slider(list: VBoxContainer, text: String, value: float, setting: String) -
 	row.add_child(slider)
 	row.add_child(readout)
 	_focusables.append(slider)
+	(_rows.back() as Array).append(slider)
 	return slider
 
 #endregion

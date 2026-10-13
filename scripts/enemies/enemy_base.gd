@@ -64,6 +64,10 @@ func _ready() -> void:
 	_facing = -global_basis.z
 	_facing.y = 0.0
 	_facing = _facing.normalized() if _facing.length_squared() > 0.001 else Vector3.FORWARD
+	# The spawn yaw becomes the starting facing, and the body itself stays unrotated: the Visual's
+	# yaw is set from the world-space facing every frame, so a rotated root would add on top of it
+	# (an enemy placed at 180 degrees would run at you backwards).
+	rotation.y = 0.0
 	_visual.rotation.y = atan2(-_facing.x, -_facing.z)
 	for node: Node in _visual.find_children("*", "MeshInstance3D", true, false):
 		_meshes.append(node as MeshInstance3D)
