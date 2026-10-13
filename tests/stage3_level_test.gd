@@ -117,7 +117,7 @@ func _test_contents() -> void:
 	_check("level has moving platforms", _level.find_children("*", "MovingPlatform", true, false).size() >= 3)
 	_check("level has crumbling platforms", _level.find_children("*", "CrumblingPlatform", true, false).size() >= 6)
 	_check("level has thorn hazards", _level.find_children("*", "ThornPatch", true, false).size() >= 4)
-	_check("level has 3 Lost Sprite spots", _level.get_node("SpriteSpots").get_child_count() == 3)
+	_check("level has 3 Lost Sprites", _level.find_children("*", "LostSprite", true, false).size() == 3)
 	_check("level has a kill plane", _level.get_node_or_null("KillPlane") is KillPlane)
 	_check("level has entrance and exit gates", _level.find_children("*", "Gate", true, false).size() == 2)
 

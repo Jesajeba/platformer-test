@@ -150,6 +150,7 @@ func _die() -> void:
 	set_deferred("collision_layer", 0)
 	_alert_label.visible = false
 	died.emit(self)
+	AudioManager.play_sfx(&"enemy_death")
 	Fx.puff(get_parent(), global_position + Vector3.UP * 0.6, death_puff_color, 16, 0.45, 3.5)
 	_drop_rewards()
 	var tween: Tween = create_tween()
@@ -166,6 +167,7 @@ func _drop_rewards() -> void:
 		return
 	for i: int in coin_reward:
 		var coin: Node3D = coin_scene.instantiate() as Node3D
+		coin.set("persistent", false)  # Drops aren't restored by checkpoints.
 		get_parent().add_child(coin)
 		var angle: float = TAU * float(i) / float(coin_reward)
 		coin.global_position = global_position + Vector3(cos(angle), 1.0, sin(angle)) * 0.6

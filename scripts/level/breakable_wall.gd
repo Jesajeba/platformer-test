@@ -2,7 +2,7 @@
 class_name BreakableWall
 extends StaticBody3D
 ## Wall that breaks after a number of player attacks.
-## Stage 5 adds debris, particles and sound; this version shakes and shrinks away.
+## Shakes when hit; on breaking it bursts into debris and dust with a sound and a camera shake.
 
 signal broken
 
@@ -17,6 +17,8 @@ signal broken
 @export var shake_strength: float = 0.08
 @export var shake_duration: float = 0.15
 @export var break_duration: float = 0.2
+@export var debris_color: Color = Color(0.86, 0.8, 0.68)
+@export var break_camera_shake: float = 0.35
 
 var _hits_left: int = 0
 var _shake_timer: float = 0.0
@@ -47,11 +49,20 @@ func take_hit(damage: int, _source_position: Vector3, _knockback: float) -> void
 		_break()
 	else:
 		_shake_timer = shake_duration
+		AudioManager.play_sfx(&"stone_hit")
+		Fx.chunks(get_parent(), global_position, debris_color, 4, 0.2, 4.0, 0.6, size * 0.4)
 
 
 func _break() -> void:
 	_collision.set_deferred("disabled", true)
 	broken.emit()
+	var amount: int = clampi(int(size.x * size.y * size.z * 2.5), 10, 40)
+	Fx.chunks(get_parent(), global_position, debris_color, amount, 0.32, 7.0, 1.1, size * 0.45)
+	Fx.puff(get_parent(), global_position, Color(0.92, 0.88, 0.78), 14, 0.9, 2.5, 0.8)
+	AudioManager.play_sfx(&"wall_break")
+	var camera: Camera3D = get_viewport().get_camera_3d()
+	if camera != null and camera.has_method("shake"):
+		camera.call("shake", break_camera_shake, 0.25)
 	var tween: Tween = create_tween()
 	tween.tween_property(_visual, "scale", Vector3(1.2, 0.05, 1.2), break_duration).set_ease(Tween.EASE_IN)
 	tween.tween_callback(queue_free)

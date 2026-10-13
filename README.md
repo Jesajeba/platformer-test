@@ -2,7 +2,7 @@
 
 A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby and the Forgotten Land. Built in stages from [GAME_SPEC.md](GAME_SPEC.md).
 
-**Current status: Stage 4 (enemies).** F5 opens the Overgrown Ruins level (`scenes/levels/level_ruins.tscn`). The tuning test scene is `scenes/levels/test_greybox.tscn`. The main menu takes over in Stage 7.
+**Current status: Stage 5 (collectibles, breakables, checkpoints).** F5 opens the Overgrown Ruins level (`scenes/levels/level_ruins.tscn`). The tuning test scene is `scenes/levels/test_greybox.tscn`. The main menu takes over in Stage 7.
 
 ## Running
 
@@ -16,6 +16,7 @@ A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby a
   godot --headless --path . res://tests/stage2_rail_camera_test.tscn
   godot --headless --path . res://tests/stage3_level_test.tscn
   godot --headless --path . res://tests/stage4_enemy_test.tscn
+  godot --headless --path . res://tests/stage5_collectibles_test.tscn
   ```
 - Visual tours (windowed): `res://tests/camera_tour.tscn` visits every camera segment of the test greybox with the debug overlay on, `res://tests/level_tour.tscn` stops at each part of the ruins level, and `res://tests/enemy_showcase.tscn` shows the three enemies idle and attacking:
   ```
@@ -38,19 +39,22 @@ The stick deadzone is 0.2 on the movement actions, and analog input gives propor
 ## Project structure
 
 ```
-autoload/         Global singletons: GameState, SettingsManager (Audio/Scene managers come later)
+autoload/         Global singletons: GameState, SettingsManager, AudioManager (SceneManager comes in Stage 7)
 assets/
   materials/      Greybox materials (prototype grid textures, 1 tile = 1 m)
   materials/ruins Ruins palette: stone, moss, grass, thorns, crumbling sandstone, teal runes...
+  audio/sfx/      Optional sound files that replace the generated placeholders (see Audio)
   textures/       Prototype grid textures
 scenes/
   player/         player.tscn
   enemies/        mossling, sporeling (+ spore_projectile), snapthorn
+  pickups/        coin, lost_sprite, health_pickup
+  ui/             hud.tscn
   level/          Reusable level pieces (see "Building levels")
   levels/         level_ruins.tscn (the level), test_greybox.tscn (tuning sandbox)
   test/           Test-only objects (training dummy)
 scripts/
-  player/  camera/  enemies/  level/  ui/  util/ (HitStop, Fx particles)
+  player/  camera/  enemies/  pickups/  level/  ui/  audio/ (SfxSynth)  util/ (HitStop, Fx particles)
 tools/            build_ruins_level.gd: generator for level_ruins.tscn
 tests/            Headless smoke tests (shared SmokeTestBase) and visual tours
 ```
@@ -153,6 +157,25 @@ Every attack has a wind-up: the enemy glows orange (`set_telegraph()`) before it
 **Placement**: Enemies are listed in `_build_enemies()` in `tools/build_ruins_level.gd`. The courtyard introduces the Mossling, the colonnade the Sporeling, and the stairway landing the Snapthorn, each on its own first. The garden and arena approach mix all three. To add an enemy by hand, instance its scene under `Enemies`. Its -Z is the direction it faces at start.
 
 **Adding a new enemy type**: Extend `EnemyBase` and implement `_ai_process(delta)`, plus optionally `_on_hurt()` and `_update_visual(delta)`. The scene needs a `Visual` node holding the meshes and a `ContactArea` (an `Area3D` with mask = player). Put the body on the `enemy` layer with mask = `world`.
+
+## Collectibles, checkpoints and HUD
+
+- **Coins** (scenes/pickups/coin.tscn): there are about 120 in the level. They trace the route, and arcs of coins show where to jump over a gap. The shortcut corridor is lined with them as a reward. Enemies drop their coin_reward as coins that pop out, land, and blink away after 10 s.
+- **Lost Sprites** (lost_sprite.tscn, sprite_id 1-3): three per level. Sprite 1 is behind the courtyard's cracked wall. Sprite 3 is behind the cracked wall on the stairway's upper ledge. Sprite 2 is on the floating platform reached by the hidden lift beside garden island B.
+- **Hearts** (health_pickup.tscn): restore heal_amount (2). A heart is only picked up when you're hurt, otherwise it stays put. There are three: after the colonnade's crumbling bridge, on the stairway's upper ledge, and before the boss gate.
+- **Checkpoints** save the respawn point and a snapshot of what you've collected:
+  - **Dying** puts you back at the checkpoint with coins, Lost Sprites and pickups rolled back to that snapshot. Anything you collected since then reappears.
+  - **Pits** cost a heart and return you to the checkpoint, but keep everything you collected.
+  - Placed pickups are tracked by node path (Pickup.persistent). Dropped coins aren't tracked.
+- **Breakable walls** throw debris chunks and dust, play a stone sound and shake the camera when they break. A hit that doesn't break the wall gives a small chip.
+- **HUD** (scenes/ui/hud.tscn): hearts, coin count and Lost Sprites (x/3) in the top-left, plus a boss health bar at the bottom. The boss bar appears on GameState.start_boss(). The icons are drawn in code (HudIcon), so no textures are needed. The HUD runs entirely on GameState signals.
+- **Level timer**: GameState.level_time counts while the level is running. Stage 7's results screen will show it.
+
+To add a pickup, instance its scene anywhere in the level. Placed pickups are persistent by default. For a new kind of pickup, extend Pickup and override _on_collected(player) (and can_collect(player) if it needs a condition).
+
+## Audio
+
+AudioManager.play_sfx(&"name") plays a sound on the SFX bus, and play_ui() uses the UI bus. The buses (Master, Music, SFX, UI) are defined in default_bus_layout.tres. Every sound is generated in code by scripts/audio/sfx_synth.gd (tone sweeps, note sequences, filtered noise). To use a real recording instead, put <name>.wav or <name>.ogg in es://assets/audio/sfx/ and it's picked up automatically. Sounds: coin, sprite, heal, checkpoint, wall_break, stone_hit, jump, hover, attack, hit, hurt, enemy_death, spore_fire, land, ui_move, ui_select, ui_back. Stage 8 adds music and wires up the remaining gameplay sounds.
 
 ## Gameplay rules and defaults
 

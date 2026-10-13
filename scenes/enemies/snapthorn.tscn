@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/enemies/snapthorn.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/pickups/coin.tscn" id="9_coin"]
 
 [sub_resource type="CylinderShape3D" id="Shape_body"]
 height = 1.4
@@ -64,6 +65,7 @@ height = 0.16
 collision_layer = 4
 collision_mask = 1
 script = ExtResource("1_script")
+coin_scene = ExtResource("9_coin")
 knockback_multiplier = 0.0
 coin_reward = 2
 avoid_edges = false

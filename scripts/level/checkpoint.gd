@@ -50,6 +50,8 @@ func activate() -> void:
 	_crystal.scale = Vector3(1.8, 1.8, 1.8)
 	tween.tween_property(_crystal, "scale", Vector3.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	GameState.set_checkpoint(get_spawn_transform())
+	AudioManager.play_sfx(&"checkpoint", 0.0)
+	Fx.puff(get_parent(), _crystal.global_position, Color(0.5, 1.0, 0.6), 14, 0.25, 3.0, 0.6)
 	activated.emit(self)
 
 

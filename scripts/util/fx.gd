@@ -48,7 +48,7 @@ static func puff(parent: Node, at: Vector3, color: Color = Color(1, 1, 1), amoun
 
 ## Fast burst of small chunks that fall with gravity, e.g. debris.
 static func chunks(parent: Node, at: Vector3, color: Color, amount: int = 12, size: float = 0.25,
-		speed: float = 6.0, lifetime: float = 0.9) -> CPUParticles3D:
+		speed: float = 6.0, lifetime: float = 0.9, extents: Vector3 = Vector3(0.4, 0.4, 0.4)) -> CPUParticles3D:
 	var material: StandardMaterial3D = StandardMaterial3D.new()
 	material.albedo_color = color
 	material.roughness = 0.9
@@ -63,7 +63,7 @@ static func chunks(parent: Node, at: Vector3, color: Color, amount: int = 12, si
 	particles.one_shot = true
 	particles.explosiveness = 1.0
 	particles.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX
-	particles.emission_box_extents = Vector3(0.4, 0.4, 0.4)
+	particles.emission_box_extents = extents
 	particles.direction = Vector3.UP
 	particles.spread = 70.0
 	particles.initial_velocity_min = speed * 0.5

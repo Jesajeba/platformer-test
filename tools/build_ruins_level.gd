@@ -13,10 +13,14 @@ const SCENES: String = "res://scenes/level/"
 const MOSSLING: String = "res://scenes/enemies/mossling.tscn"
 const SPORELING: String = "res://scenes/enemies/sporeling.tscn"
 const SNAPTHORN: String = "res://scenes/enemies/snapthorn.tscn"
+const COIN: String = "res://scenes/pickups/coin.tscn"
+const LOST_SPRITE: String = "res://scenes/pickups/lost_sprite.tscn"
+const HEART: String = "res://scenes/pickups/health_pickup.tscn"
 
 var root: Node3D
 var _materials: Dictionary = {}
-var _sprite_spots: Node3D
+var _sprites: Node3D
+var _coins: Node3D
 
 
 func _ready() -> void:
@@ -45,13 +49,15 @@ func _build() -> void:
 	root.set("start_point", start)
 
 	var geometry: Node3D = _group(root, "Geometry")
-	_sprite_spots = _group(root, "SpriteSpots")
+	_sprites = _group(root, "LostSprites")
 	_build_courtyard(_group(geometry, "S1_Courtyard"))
 	_build_colonnade(_group(geometry, "S2_Colonnade"))
 	_build_stairway(_group(geometry, "S3_Stairway"))
 	_build_garden(_group(geometry, "S4_SunkenGarden"))
 	_build_arena(_group(geometry, "S5_ThroneArena"))
 	_build_enemies(_group(root, "Enemies"))
+	_build_pickups(_group(root, "Pickups"))
+	_own((load("res://scenes/ui/hud.tscn") as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE), root, "Hud")
 	_build_backdrop(_group(root, "Backdrop"))
 
 	var camera: Camera3D = _build_camera_rail(player)
@@ -278,6 +284,81 @@ func _build_enemies(parent: Node3D) -> void:
 func _enemy(path: String, parent: Node, node_name: String, pos: Vector3, yaw_degrees: float) -> void:
 	var enemy: Node3D = _instance(path, parent, node_name, pos)
 	enemy.rotation_degrees.y = yaw_degrees
+
+#endregion
+
+
+#region Pickups
+
+## Coins trace the route (y = surface + 0.9) and arc over gaps to show the jump; the shortcut
+## corridor is lined with coins as a reward. Hearts sit before the harder stretches and the boss.
+func _build_pickups(parent: Node3D) -> void:
+	_coins = _group(parent, "Coins")
+	# Courtyard.
+	_coin_line(Vector3(0, 0.9, -2), Vector3(0, 0.9, -20), 6)
+	_coin_line(Vector3(5.5, 2.9, -12.5), Vector3(5.5, 2.9, -14.5), 3)
+	for p: Vector3 in [Vector3(-12, 0.9, -12.5), Vector3(-13.5, 0.9, -11), Vector3(-13.5, 0.9, -14), Vector3(-15, 0.9, -12.5)]:
+		_coin(p)
+	_coin_line(Vector3(0, 1.4, -25.5), Vector3(0, 2.6, -30.5), 3)
+	_coin_line(Vector3(0, 2.9, -34), Vector3(0, 2.9, -43), 4)
+	_coin_arc(Vector3(0, 2.9, -45), Vector3(0, 2.9, -50), 1.8, 4)
+	_coin_arc(Vector3(0, 2.9, -56.5), Vector3(0, 2.9, -64.5), 1.5, 6)
+	# Colonnade.
+	_coin_line(Vector3(15, 2.9, -80), Vector3(17.5, 2.9, -80), 3)
+	_coin_arc(Vector3(18.5, 2.9, -80), Vector3(21, 2.9, -80), 1.5, 3)
+	_coin_arc(Vector3(23.5, 2.9, -80), Vector3(27.5, 2.9, -80), 1.5, 4)
+	_coin_line(Vector3(35, 3.0, -80), Vector3(43, 3.0, -80), 5)
+	for x: float in [46.0, 47.5, 51.5, 56.5]:
+		_coin(Vector3(x, 2.9, -80))
+	for x: float in [60.5, 64.5, 68.5, 72.5]:
+		_coin(Vector3(x, 2.9, -80))
+	_coin_line(Vector3(77, 2.9, -80), Vector3(82, 2.9, -80), 4)
+	_coin_line(Vector3(86, 2.9, -80), Vector3(91, 2.9, -80), 4)
+	# Stairway.
+	for i: int in 5:
+		_coin(Vector3(105.25 + 2.5 * i, 3.9 + i, -80))
+	_coin_line(Vector3(123.5, 8.35, -80), Vector3(130.5, 10.45, -80), 4)
+	_coin(Vector3(135, 10.9, -80))
+	_coin_line(Vector3(142, 14.9, -80), Vector3(155, 14.9, -80), 5)
+	for p: Vector3 in [Vector3(147, 14.9, -86.5), Vector3(149, 14.9, -86.5), Vector3(148, 14.9, -89.2)]:
+		_coin(p)
+	for x: float in [157.9, 161.2, 164.5]:
+		_coin(Vector3(x, 14.9, -80))
+	# Sunken garden.
+	_coin_line(Vector3(179, 10.9, -80), Vector3(185, 10.9, -80), 4)
+	_coin_line(Vector3(188, 10.9, -80), Vector3(195, 10.9, -80), 4)
+	_coin_line(Vector3(197, 10.9, -80), Vector3(201, 10.9, -80), 2)
+	_coin_arc(Vector3(202.5, 10.9, -80), Vector3(209.5, 10.9, -80), 1.5, 6)
+	_coin_line(Vector3(211, 10.9, -80), Vector3(215, 10.9, -80), 2)
+	_coin(Vector3(221, 10.9, -77))
+	_coin(Vector3(225, 10.9, -77))
+	_coin(Vector3(228.5, 10.9, -80))
+	_coin(Vector3(232, 10.9, -80))
+	_coin_line(Vector3(188, 10.9, -88), Vector3(208, 10.9, -88), 10)
+	_coin(Vector3(205, 15.9, -74.5))
+	_coin(Vector3(206.5, 15.9, -72.5))
+	_coin_line(Vector3(236, 10.9, -80), Vector3(252, 10.9, -80), 5)
+
+	var hearts: Node3D = _group(parent, "Hearts")
+	_instance(HEART, hearts, "Heart1", Vector3(78, 2.7, -78.6))
+	_instance(HEART, hearts, "Heart2", Vector3(150, 14.7, -77.2))
+	_instance(HEART, hearts, "Heart3", Vector3(237, 10.7, -81.5))
+
+
+func _coin(pos: Vector3) -> void:
+	_instance(COIN, _coins, "Coin", pos)
+
+
+func _coin_line(a: Vector3, b: Vector3, count: int) -> void:
+	for i: int in count:
+		_coin(a.lerp(b, float(i) / maxf(count - 1, 1)))
+
+
+## Coins along a parabola from  to  peaking pex meters above the straight line.
+func _coin_arc(a: Vector3, b: Vector3, apex: float, count: int) -> void:
+	for i: int in count:
+		var t: float = float(i) / maxf(count - 1, 1)
+		_coin(a.lerp(b, t) + Vector3.UP * apex * 4.0 * t * (1.0 - t))
 
 #endregion
 
@@ -542,9 +623,9 @@ func _checkpoint(parent: Node, node_name: String, id: int, pos: Vector3, yaw_deg
 	checkpoint.rotation_degrees.y = yaw_degrees
 
 
-## Placeholder for a Lost Sprite collectible (Stage 5).
+## Lost Sprite collectible; spot_name ends in its id (1-3).
 func _sprite_spot(spot_name: String, pos: Vector3) -> void:
-	var spot: Marker3D = _own(Marker3D.new(), _sprite_spots, spot_name) as Marker3D
-	spot.position = pos
+	var sprite_id: int = int(spot_name.right(1))
+	_instance(LOST_SPRITE, _sprites, "LostSprite%d" % sprite_id, pos, {"sprite_id": sprite_id})
 
 #endregion

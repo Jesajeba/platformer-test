@@ -16,3 +16,10 @@ func _ready() -> void:
 		player.place_at_checkpoint()
 	if camera != null:
 		camera.snap_to_target()
+	if player != null:
+		# A death rolls collected items back to the checkpoint (pits don't).
+		player.respawned.connect(GameState.revert_to_checkpoint)
+
+
+func _process(delta: float) -> void:
+	GameState.tick_level_time(delta)

@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/enemies/mossling.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/pickups/coin.tscn" id="9_coin"]
 
 [sub_resource type="SphereShape3D" id="Shape_body"]
 radius = 0.5
@@ -59,6 +60,7 @@ height = 0.2
 collision_layer = 4
 collision_mask = 1
 script = ExtResource("1_script")
+coin_scene = ExtResource("9_coin")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
