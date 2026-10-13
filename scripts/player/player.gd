@@ -93,6 +93,9 @@ enum State { IDLE, RUN, JUMP, FALL, HOVER, ATTACK, HURT, DEAD }
 @export var run_cycle_speed: float = 2.2
 @export var foot_swing: float = 0.18
 
+## When false the player ignores input (cutscenes, boss intro).
+var controls_enabled: bool = true
+
 var _state: State = State.IDLE
 var _state_time: float = 0.0
 var _anim_time: float = 0.0
@@ -137,7 +140,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_tick_timers(delta)
-	if Input.is_action_just_pressed("jump"):
+	if controls_enabled and Input.is_action_just_pressed("jump"):
 		_jump_buffer_timer = jump_buffer_time
 
 	var move_dir: Vector3 = _get_move_direction() if _has_control() else Vector3.ZERO
@@ -258,16 +261,18 @@ func _state_airborne(delta: float, move_dir: Vector3) -> void:
 	if _jump_rising:
 		if velocity.y <= 0.0:
 			_jump_rising = false
-		elif not Input.is_action_pressed("jump"):
+		elif not controls_enabled or not Input.is_action_pressed("jump"):
 			velocity.y *= jump_cut_multiplier
 			_jump_rising = false
 	_apply_gravity(delta)
 
 	if Input.is_action_just_pressed("jump"):
-		if _coyote_timer > 0.0:
+		if not controls_enabled:
+			pass
+		elif _coyote_timer > 0.0:
 			_do_jump()
 			return
-		if _can_hover:
+		elif _can_hover:
 			_start_hover()
 			return
 		# Otherwise the press stays buffered and fires on landing.
@@ -283,7 +288,7 @@ func _state_hover(delta: float, move_dir: Vector3) -> void:
 
 	if _try_attack():
 		return
-	if _hover_timer <= 0.0 or not Input.is_action_pressed("jump"):
+	if _hover_timer <= 0.0 or not controls_enabled or not Input.is_action_pressed("jump"):
 		_set_state(State.FALL)
 
 
@@ -368,7 +373,7 @@ func _free_state() -> State:
 
 
 func _has_control() -> bool:
-	return _state != State.HURT and _state != State.DEAD
+	return controls_enabled and _state != State.HURT and _state != State.DEAD
 
 
 func _do_jump() -> void:
@@ -386,7 +391,7 @@ func _start_hover() -> void:
 
 
 func _try_attack() -> bool:
-	if Input.is_action_just_pressed("attack") and _attack_cooldown_timer <= 0.0:
+	if controls_enabled and Input.is_action_just_pressed("attack") and _attack_cooldown_timer <= 0.0:
 		_set_state(State.ATTACK)
 		return true
 	return false

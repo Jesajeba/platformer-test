@@ -54,6 +54,8 @@ class Pose:
 	var look: Vector3
 	var fov: float
 	var pitch: float
+	## 1 = fixed shot (locked key / override): no spring-arm collision.
+	var fixed: float = 0.0
 
 	func blend(other: Pose, weight: float) -> Pose:
 		var result: Pose = Pose.new()
@@ -61,6 +63,7 @@ class Pose:
 		result.look = look.lerp(other.look, weight)
 		result.fov = lerpf(fov, other.fov, weight)
 		result.pitch = lerpf(pitch, other.pitch, weight)
+		result.fixed = lerpf(fixed, other.fixed, weight)
 		return result
 
 var _keys: Array[RailCameraKey] = []
@@ -80,6 +83,9 @@ var _shake_duration: float = 0.0
 var _shake_time_left: float = 0.0
 var _shake_clock: float = 0.0
 var _noise: FastNoiseLite = FastNoiseLite.new()
+
+var _override_active: bool = false
+var _override_pose: Pose = Pose.new()
 
 var _debug_key_a: String = ""
 var _debug_key_b: String = ""
@@ -108,7 +114,7 @@ func _physics_process(delta: float) -> void:
 	if not _is_ready_to_track():
 		return
 	_update_progress(delta)
-	var desired: Pose = _compute_pose(_progress)
+	var desired: Pose = _override_pose if _override_active else _compute_pose(_progress)
 	var weight: float = 1.0 - exp(-_smoothing_rate() * delta)
 	_pose = _pose.blend(desired, weight)
 	_apply_pose(_pose, delta)
@@ -156,6 +162,26 @@ func shake(strength: float = 0.5, duration: float = 0.3) -> void:
 	_shake_strength = clampf(strength, 0.0, 1.0)
 	_shake_duration = duration
 	_shake_time_left = duration
+
+
+## Takes the camera off the rail to a fixed shot (cutscenes, boss intro). It blends there smoothly.
+func set_override(camera_position: Vector3, look_point: Vector3, override_fov: float = 50.0) -> void:
+	_override_pose = Pose.new()
+	_override_pose.position = camera_position
+	_override_pose.look = look_point
+	_override_pose.fov = override_fov
+	_override_pose.pitch = 0.0
+	_override_pose.fixed = 1.0
+	_override_active = true
+
+
+## Returns the camera to the rail (blending back).
+func clear_override() -> void:
+	_override_active = false
+
+
+func has_override() -> bool:
+	return _override_active
 
 
 func get_progress() -> float:
@@ -295,6 +321,7 @@ func _pose_for_key(key: RailCameraKey, frame: Array[Vector3]) -> Pose:
 		pose.position = key.lock_camera_point.global_position
 		var center: Vector3 = key.lock_look_point.global_position if key.lock_look_point != null else origin
 		pose.look = center.lerp(player + Vector3.UP * key.look_height, key.lock_player_look_weight)
+		pose.fixed = 1.0
 	else:
 		pose.position = anchor + right * key.offset.x + Vector3.UP * key.offset.y - forward * key.offset.z
 		pose.look = anchor + Vector3.UP * key.look_height
@@ -302,7 +329,8 @@ func _pose_for_key(key: RailCameraKey, frame: Array[Vector3]) -> Pose:
 
 
 func _apply_pose(pose: Pose, delta: float) -> void:
-	var position_out: Vector3 = _resolve_collision(pose.position, delta)
+	# Fixed shots (locked keys, overrides) are placed deliberately, so collision fades out for them.
+	var position_out: Vector3 = _resolve_collision(pose.position, delta).lerp(pose.position, clampf(pose.fixed, 0.0, 1.0))
 	global_position = position_out
 	var look_dir: Vector3 = pose.look - position_out
 	if look_dir.length_squared() > 0.0001:

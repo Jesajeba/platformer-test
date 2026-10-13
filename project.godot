@@ -94,6 +94,7 @@ debug_toggle={
 3d_physics/layer_5="hazard"
 3d_physics/layer_6="breakable"
 3d_physics/layer_7="pickup"
+3d_physics/layer_8="boss"
 
 [physics]
 

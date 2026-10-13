@@ -2,7 +2,7 @@
 
 A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby and the Forgotten Land. Built in stages from [GAME_SPEC.md](GAME_SPEC.md).
 
-**Current status: Stage 5 (collectibles, breakables, checkpoints).** F5 opens the Overgrown Ruins level (`scenes/levels/level_ruins.tscn`). The tuning test scene is `scenes/levels/test_greybox.tscn`. The main menu takes over in Stage 7.
+**Current status: Stage 6 (boss fight).** F5 opens the Overgrown Ruins level (`scenes/levels/level_ruins.tscn`). The tuning test scene is `scenes/levels/test_greybox.tscn`. The main menu takes over in Stage 7.
 
 ## Running
 
@@ -17,8 +17,9 @@ A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby a
   godot --headless --path . res://tests/stage3_level_test.tscn
   godot --headless --path . res://tests/stage4_enemy_test.tscn
   godot --headless --path . res://tests/stage5_collectibles_test.tscn
+  godot --headless --path . res://tests/stage6_boss_test.tscn
   ```
-- Visual tours (windowed): `res://tests/camera_tour.tscn` visits every camera segment of the test greybox with the debug overlay on, `res://tests/level_tour.tscn` stops at each part of the ruins level, and `res://tests/enemy_showcase.tscn` shows the three enemies idle and attacking:
+- Visual tours (windowed): `res://tests/camera_tour.tscn` visits every camera segment of the test greybox with the debug overlay on, `res://tests/level_tour.tscn` stops at each part of the ruins level, `res://tests/enemy_showcase.tscn` shows the three enemies idle and attacking, and `res://tests/boss_showcase.tscn` runs through the boss's attacks:
   ```
   godot --path . res://tests/level_tour.tscn
   ```
@@ -49,12 +50,13 @@ scenes/
   player/         player.tscn
   enemies/        mossling, sporeling (+ spore_projectile), snapthorn
   pickups/        coin, lost_sprite, health_pickup
+  boss/           king_mossback, shockwave, falling_rock
   ui/             hud.tscn
   level/          Reusable level pieces (see "Building levels")
   levels/         level_ruins.tscn (the level), test_greybox.tscn (tuning sandbox)
   test/           Test-only objects (training dummy)
 scripts/
-  player/  camera/  enemies/  pickups/  level/  ui/  audio/ (SfxSynth)  util/ (HitStop, Fx particles)
+  player/  camera/  enemies/  boss/  pickups/  level/  ui/  audio/ (SfxSynth)  util/ (HitStop, Fx particles)
 tools/            build_ruins_level.gd: generator for level_ruins.tscn
 tests/            Headless smoke tests (shared SmokeTestBase) and visual tours
 ```
@@ -172,6 +174,21 @@ Every attack has a wind-up: the enemy glows orange (`set_telegraph()`) before it
 - **Level timer**: GameState.level_time counts while the level is running. Stage 7's results screen will show it.
 
 To add a pickup, instance its scene anywhere in the level. Placed pickups are persistent by default. For a new kind of pickup, extend Pickup and override _on_collected(player) (and can_collect(player) if it needs a condition).
+
+## Boss: King Mossback
+
+The fight is run by the BossArena node in the level (scripts/boss/boss_arena.gd), and the boss is scenes/boss/king_mossback.tscn (KingMossback, which extends EnemyBase).
+
+- **Intro**: Walking through the entrance trigger closes the gate behind you. The arena entrance becomes the respawn point, your controls lock, the camera cuts to a close shot of the king, and a name card plays ("King Mossback, King of the Ruins"). The boss bar appears and the fight starts after intro_duration.
+- **Hitting him**: He only takes damage in the **vulnerable window** after each attack. You can tell it's open by the dizzy stars over his head, the pulsing gold glow and the floating "Attack!" label ("Dizzy! Attack!" after a pillar crash). Each window allows up to max_hits_per_window (3) hits. Hits outside a window clank off with a stone sound and sparks. A hit that lands flashes him and shakes the camera.
+- **12 HP**, with phases at 8 and 4 HP. Each phase change starts with a roar (phase_transition_time). Every attack has an orange wind-up glow first.
+  - **Phase 1**: The **ground slam** raises his fists, then slams, sending out a shockwave ring. Jump over it, since it only hurts you on the ground. The **summon** calls Mosslings at the far side of the arena (at most 3 alive). The pattern is slam, summon, slam.
+  - **Phase 2**: The **spore barrage** fires 3 rings of slow spores, each with a 3-spore gap to slip through or jump over. The **charge** lowers his head, locks aim just before going, and rushes you. If he hits a pillar or the throne he's **stunned** for a long window. If he misses, he stops at the arena edge with only a short opening. The pattern is barrage, charge, slam, charge.
+  - **Phase 3**: Wind-ups are 35% faster, and attacks come in **combos** (slam+charge, barrage+slam, charge+barrage) with the window after the last one. The **arena changes**: the four outer platforms shake and fall away, and **rocks fall** with red ground markers. About half of them target your position.
+- **Defeat**: slow motion, debris bursts, and he topples and sinks. 10 coins burst out, the boss bar fades, and after exit_open_delay the exit gate opens to the level goal.
+- **Dying in the fight** resets him (full health, phase 1, back by the throne), restores the arena, and clears summons and hazards. You respawn at the arena entrance and the fight restarts after a short intro. Falling into a pit just costs a heart and returns you to the entrance.
+
+All timings, speeds, counts and thresholds are exported on the KingMossback and BossArena nodes. start_attack() and orce_vulnerable() are there for testing and tuning. The pillars and throne are in the oss_pillar group (things his charge crashes into). He's on his own physics layer (oss), so he's solid to the player but doesn't pull the camera in. Locked camera keys and the intro shot skip camera collision entirely.
 
 ## Audio
 

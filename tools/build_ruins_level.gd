@@ -21,6 +21,9 @@ var root: Node3D
 var _materials: Dictionary = {}
 var _sprites: Node3D
 var _coins: Node3D
+var _entrance_gate: Node3D
+var _exit_gate: Node3D
+var _outer_platforms: Node3D
 
 
 func _ready() -> void:
@@ -62,6 +65,7 @@ func _build() -> void:
 
 	var camera: Camera3D = _build_camera_rail(player)
 	root.set("camera", camera)
+	_build_boss_arena(player, camera)
 
 	_instance(SCENES + "kill_plane.tscn", root, "KillPlane", Vector3(150, -8, -60))
 
@@ -219,11 +223,11 @@ func _build_arena(parent: Node3D) -> void:
 	var center: Vector3 = Vector3(270, 10, -80)
 	var arena: GreyboxBlock = _box(parent, "ArenaFloor", Vector3(257, 4, -93), Vector3(283, 10, -67), "stone", "moss")
 	arena.shape_type = GreyboxBlock.ShapeType.CYLINDER
-	var entrance: Node3D = _instance(SCENES + "gate.tscn", parent, "EntranceGate", Vector3(254, 10, -80), {"start_open": true})
-	entrance.rotation_degrees.y = 90.0
+	_entrance_gate = _instance(SCENES + "gate.tscn", parent, "EntranceGate", Vector3(254, 10, -80), {"start_open": true})
+	_entrance_gate.rotation_degrees.y = 90.0
 	_ground(parent, "ExitWalk", 283, 292, -77, -83, 10.0, 6.0)
-	var exit_gate: Node3D = _instance(SCENES + "gate.tscn", parent, "ExitGate", Vector3(287, 10, -80), {"start_open": false})
-	exit_gate.rotation_degrees.y = 90.0
+	_exit_gate = _instance(SCENES + "gate.tscn", parent, "ExitGate", Vector3(287, 10, -80), {"start_open": false})
+	_exit_gate.rotation_degrees.y = 90.0
 	_ground(parent, "GoalPlatform", 292, 302, -74, -86, 10.0, 6.0)
 	var goal: Node3D = _instance(SCENES + "level_goal.tscn", parent, "LevelGoal", Vector3(297, 10, -80))
 	goal.rotation_degrees.y = 90.0
@@ -231,17 +235,19 @@ func _build_arena(parent: Node3D) -> void:
 	# Pillars the boss can crash into (Stage 6), and outer platforms that crumble in phase 3.
 	var pillars: Node3D = _group(parent, "ArenaPillars")
 	var outer: Node3D = _group(parent, "OuterPlatforms")
+	_outer_platforms = outer
 	for i: int in 4:
 		var angle: float = PI * 0.25 + i * PI * 0.5
 		var dir: Vector3 = Vector3(cos(angle), 0, sin(angle))
-		_pillar(pillars, center + dir * 8.0, 1.6, 5.0)
+		# Kept short (3.5 m) so they block little of the locked camera's view.
+		_pillar(pillars, center + dir * 8.0, 1.6, 3.5).add_to_group("boss_pillar", true)
 		var p: Vector3 = center + dir * 16.0
 		_box(outer, "Outer%d" % (i + 1), Vector3(p.x - 2, 6, p.z - 2), Vector3(p.x + 2, 10, p.z + 2), "stone", "moss")
 
 	# Throne at the back of the arena.
 	_box(parent, "ThroneDais", Vector3(266, 10, -91), Vector3(274, 10.6, -94), "stone_dark", "moss")
-	_box(parent, "ThroneSeat", Vector3(268, 10.6, -92), Vector3(272, 12, -94), "stone_dark", "")
-	_box(parent, "ThroneBack", Vector3(267.5, 10.6, -93.5), Vector3(272.5, 16, -94.5), "stone_dark", "moss")
+	_box(parent, "ThroneSeat", Vector3(268, 10.6, -92), Vector3(272, 12, -94), "stone_dark", "").add_to_group("boss_pillar", true)
+	_box(parent, "ThroneBack", Vector3(267.5, 10.6, -93.5), Vector3(272.5, 16, -94.5), "stone_dark", "moss").add_to_group("boss_pillar", true)
 	_box(parent, "ThroneGemSocket", Vector3(269.4, 14.4, -93.4), Vector3(270.6, 15.6, -93.6), "gold_accent", "")
 
 #endregion
@@ -363,6 +369,51 @@ func _coin_arc(a: Vector3, b: Vector3, apex: float, count: int) -> void:
 #endregion
 
 
+#region Boss arena
+
+## King Mossback and the BossArena controller that runs the fight.
+func _build_boss_arena(player: Node3D, camera: Camera3D) -> void:
+	var arena: Node3D = Node3D.new()
+	arena.set_script(load("res://scripts/boss/boss_arena.gd"))
+	_own(arena, root, "BossArena")
+
+	var boss: Node3D = _instance("res://scenes/boss/king_mossback.tscn", arena, "KingMossback", Vector3(270, 10.1, -86))
+	boss.rotation_degrees.y = 90.0  # Faces the entrance (-X).
+
+	var trigger: Area3D = _own(Area3D.new(), arena, "Trigger") as Area3D
+	trigger.position = Vector3(259.5, 12, -80)
+	trigger.collision_layer = 0
+	trigger.collision_mask = 2
+	trigger.monitorable = false
+	var trigger_shape: CollisionShape3D = _own(CollisionShape3D.new(), trigger, "CollisionShape3D") as CollisionShape3D
+	var box: BoxShape3D = BoxShape3D.new()
+	box.size = Vector3(2, 5, 8)
+	trigger_shape.shape = box
+
+	var markers: Array[Marker3D] = []
+	for entry: Array in [["EntranceSpawn", Vector3(259.5, 10.05, -80), -90.0], ["ArenaCenterPoint", Vector3(270, 10, -80), 0.0],
+			["IntroCamera", Vector3(263.5, 13.0, -84.0), 0.0], ["IntroLook", Vector3(270, 12.8, -86), 0.0]]:
+		var marker: Marker3D = _own(Marker3D.new(), arena, entry[0]) as Marker3D
+		marker.position = entry[1]
+		marker.rotation_degrees.y = entry[2]
+		markers.append(marker)
+
+	arena.set("boss", boss)
+	arena.set("player", player)
+	arena.set("camera", camera)
+	arena.set("entrance_gate", _entrance_gate)
+	arena.set("exit_gate", _exit_gate)
+	arena.set("trigger", trigger)
+	arena.set("entrance_spawn", markers[0])
+	arena.set("arena_center", markers[1])
+	arena.set("intro_camera_point", markers[2])
+	arena.set("intro_look_point", markers[3])
+	arena.set("outer_platforms", _outer_platforms)
+	arena.set("rock_scene", load("res://scenes/boss/falling_rock.tscn"))
+
+#endregion
+
+
 #region Camera rail
 
 func _build_camera_rail(player: Node3D) -> Camera3D:
@@ -393,9 +444,9 @@ func _build_camera_rail(player: Node3D) -> Camera3D:
 
 	var points: Node3D = _group(root, "CameraPoints")
 	var arena_camera: Marker3D = _own(Marker3D.new(), points, "ArenaCamera") as Marker3D
-	arena_camera.position = Vector3(270, 30, -54)
+	arena_camera.position = Vector3(270, 21, -59)
 	var arena_center: Marker3D = _own(Marker3D.new(), points, "ArenaCenter") as Marker3D
-	arena_center.position = Vector3(270, 10.5, -80)
+	arena_center.position = Vector3(270, 10.5, -78.5)
 	_key(rail, "ThroneArena", Vector3(257, 10, -80), {"locked": true, "lock_camera_point": arena_camera,
 		"lock_look_point": arena_center, "lock_player_look_weight": 0.3, "blend_in_distance": 5.0})
 	_key(rail, "Exit", Vector3(284, 10, -80), {"offset": Vector3(12.0, 4.0, 0.0), "fov": 55.0, "look_ahead": 3.0,
@@ -563,14 +614,14 @@ func _ramp(parent: Node, node_name: String, low: Vector3, high: Vector3, width: 
 
 
 ## Stone pillar standing on `base` (bottom center).
-func _pillar(parent: Node, base: Vector3, diameter: float, height: float) -> void:
+func _pillar(parent: Node, base: Vector3, diameter: float, height: float) -> GreyboxBlock:
 	var block: GreyboxBlock = GreyboxBlock.new()
 	block.shape_type = GreyboxBlock.ShapeType.CYLINDER
 	block.size = Vector3(diameter, height, diameter)
 	block.material = _materials["stone"]
 	block.top_material = _materials["moss"]
 	block.position = base + Vector3(0, height * 0.5, 0)
-	_own(block, parent, "Pillar")
+	return _own(block, parent, "Pillar") as GreyboxBlock
 
 
 ## Tree: solid trunk plus leafy canopy spheres (canopy has no collision).

@@ -1,0 +1,231 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/boss/king_mossback.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/pickups/coin.tscn" id="2_coin"]
+[ext_resource type="PackedScene" path="res://scenes/boss/shockwave.tscn" id="3_wave"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/mossling.tscn" id="4_mossling"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/spore_projectile.tscn" id="5_spore"]
+[ext_resource type="Material" path="res://assets/materials/ruins/stone_dark.tres" id="6_stone"]
+[ext_resource type="Material" path="res://assets/materials/ruins/moss.tres" id="7_moss"]
+[ext_resource type="Material" path="res://assets/materials/ruins/gold_accent.tres" id="8_gold"]
+
+[sub_resource type="CapsuleShape3D" id="Shape_body"]
+radius = 1.9
+height = 4.4
+
+[sub_resource type="CapsuleShape3D" id="Shape_contact"]
+radius = 2.2
+height = 4.6
+
+[sub_resource type="SphereMesh" id="Mesh_body"]
+material = ExtResource("6_stone")
+radius = 1.8
+height = 3.4
+
+[sub_resource type="SphereMesh" id="Mesh_cloak"]
+material = ExtResource("7_moss")
+radius = 1.75
+height = 2.4
+
+[sub_resource type="CylinderMesh" id="Mesh_beard"]
+material = ExtResource("7_moss")
+top_radius = 0.9
+bottom_radius = 0.0
+height = 1.6
+radial_segments = 10
+rings = 1
+
+[sub_resource type="BoxMesh" id="Mesh_brow"]
+material = ExtResource("6_stone")
+size = Vector3(1.8, 0.35, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_eye"]
+albedo_color = Color(1, 0.85, 0.3, 1)
+emission_enabled = true
+emission = Color(1, 0.7, 0.15, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="SphereMesh" id="Mesh_eye"]
+material = SubResource("Mat_eye")
+radius = 0.2
+height = 0.3
+
+[sub_resource type="CylinderMesh" id="Mesh_crown"]
+material = ExtResource("8_gold")
+top_radius = 0.95
+bottom_radius = 0.85
+height = 0.45
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CylinderMesh" id="Mesh_spike"]
+material = ExtResource("8_gold")
+top_radius = 0.0
+bottom_radius = 0.16
+height = 0.55
+radial_segments = 6
+rings = 1
+
+[sub_resource type="SphereMesh" id="Mesh_fist"]
+material = ExtResource("6_stone")
+radius = 0.75
+height = 1.4
+
+[sub_resource type="SphereMesh" id="Mesh_knuckle_moss"]
+material = ExtResource("7_moss")
+radius = 0.5
+height = 0.5
+
+[sub_resource type="BoxMesh" id="Mesh_foot"]
+material = ExtResource("6_stone")
+size = Vector3(1.1, 0.6, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_star"]
+shading_mode = 0
+albedo_color = Color(1, 0.95, 0.3, 1)
+
+[sub_resource type="SphereMesh" id="Mesh_star"]
+material = SubResource("Mat_star")
+radius = 0.18
+height = 0.36
+radial_segments = 5
+rings = 2
+
+[node name="KingMossback" type="CharacterBody3D"]
+collision_layer = 132
+collision_mask = 1
+script = ExtResource("1_script")
+max_health = 12
+knockback_multiplier = 0.0
+contact_damage = 1
+gravity = 40.0
+turn_speed = 4.0
+edge_check_distance = 2.2
+coin_reward = 0
+coin_scene = ExtResource("2_coin")
+death_puff_color = Color(0.6, 0.85, 0.45, 1)
+active_distance = 120.0
+shockwave_scene = ExtResource("3_wave")
+summon_scene = ExtResource("4_mossling")
+projectile_scene = ExtResource("5_spore")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+shape = SubResource("Shape_body")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+shape = SubResource("Shape_contact")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1.05, 0, 2, 0)
+mesh = SubResource("Mesh_body")
+
+[node name="Cloak" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1.25, 0, 0, 0, 1, 0, 0, 0, 1.1, 0, 3.05, 0.35)
+mesh = SubResource("Mesh_cloak")
+
+[node name="Beard" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.55, 0, 1.55, -1.55)
+mesh = SubResource("Mesh_beard")
+
+[node name="Brow" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95, -1.55)
+mesh = SubResource("Mesh_brow")
+
+[node name="EyeLeft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.6, -1.68)
+mesh = SubResource("Mesh_eye")
+
+[node name="EyeRight" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.6, -1.68)
+mesh = SubResource("Mesh_eye")
+
+[node name="Crown" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15, 0)
+
+[node name="Band" type="MeshInstance3D" parent="Visual/Crown"]
+mesh = SubResource("Mesh_crown")
+
+[node name="Spike1" type="MeshInstance3D" parent="Visual/Crown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -0.85)
+mesh = SubResource("Mesh_spike")
+
+[node name="Spike2" type="MeshInstance3D" parent="Visual/Crown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.45, -0.3)
+mesh = SubResource("Mesh_spike")
+
+[node name="Spike3" type="MeshInstance3D" parent="Visual/Crown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.45, -0.3)
+mesh = SubResource("Mesh_spike")
+
+[node name="Spike4" type="MeshInstance3D" parent="Visual/Crown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.45, 0.7)
+mesh = SubResource("Mesh_spike")
+
+[node name="Spike5" type="MeshInstance3D" parent="Visual/Crown"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.45, 0.7)
+mesh = SubResource("Mesh_spike")
+
+[node name="ArmLeft" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3, 1.4, -0.5)
+
+[node name="Fist" type="MeshInstance3D" parent="Visual/ArmLeft"]
+mesh = SubResource("Mesh_fist")
+
+[node name="Moss" type="MeshInstance3D" parent="Visual/ArmLeft"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.15)
+mesh = SubResource("Mesh_knuckle_moss")
+
+[node name="ArmRight" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3, 1.4, -0.5)
+
+[node name="Fist" type="MeshInstance3D" parent="Visual/ArmRight"]
+mesh = SubResource("Mesh_fist")
+
+[node name="Moss" type="MeshInstance3D" parent="Visual/ArmRight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0.15)
+mesh = SubResource("Mesh_knuckle_moss")
+
+[node name="FootLeft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.3, -0.3)
+mesh = SubResource("Mesh_foot")
+
+[node name="FootRight" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.3, -0.3)
+mesh = SubResource("Mesh_foot")
+
+[node name="DizzyStars" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.3, 0)
+
+[node name="Star1" type="MeshInstance3D" parent="Visual/DizzyStars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0)
+cast_shadow = 0
+mesh = SubResource("Mesh_star")
+
+[node name="Star2" type="MeshInstance3D" parent="Visual/DizzyStars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0, 0.95)
+cast_shadow = 0
+mesh = SubResource("Mesh_star")
+
+[node name="Star3" type="MeshInstance3D" parent="Visual/DizzyStars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0, -0.95)
+cast_shadow = 0
+mesh = SubResource("Mesh_star")
+
+[node name="VulnerableLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.3, 0)
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0.9, 0.25, 1)
+outline_modulate = Color(0.25, 0.1, 0, 1)
+text = "Attack!"
+font_size = 110
+outline_size = 22
