@@ -212,6 +212,11 @@ func fall_out() -> void:
 	_invincible_timer = invincibility_time
 
 
+## Moves the player to the active checkpoint without the respawn effects (level start).
+func place_at_checkpoint() -> void:
+	_respawn_at_checkpoint()
+
+
 func respawn() -> void:
 	GameState.restore_health()
 	_respawn_at_checkpoint()

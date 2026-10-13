@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[sub_resource type="FastNoiseLite" id="Noise"]
+frequency = 0.05
+
+[sub_resource type="Gradient" id="Ramp"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0.29, 0.46, 0.21, 1, 0.38, 0.57, 0.27, 1)
+
+[sub_resource type="NoiseTexture2D" id="Tex"]
+width = 256
+height = 256
+seamless = true
+color_ramp = SubResource("Ramp")
+noise = SubResource("Noise")
+
+[resource]
+albedo_texture = SubResource("Tex")
+roughness = 0.92
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+uv1_world_triplanar = true

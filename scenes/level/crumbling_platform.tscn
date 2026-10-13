@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/crumbling_platform.gd" id="1_crumble"]
+[ext_resource type="Material" path="res://assets/materials/ruins/crumbling.tres" id="2_mat"]
+
+[node name="CrumblingPlatform" type="StaticBody3D"]
+script = ExtResource("1_crumble")
+material = ExtResource("2_mat")

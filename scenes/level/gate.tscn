@@ -1,0 +1,84 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/gate.gd" id="1_gate"]
+[ext_resource type="Script" path="res://scripts/level/greybox_block.gd" id="2_block"]
+[ext_resource type="Material" path="res://assets/materials/ruins/stone_dark.tres" id="3_dark"]
+[ext_resource type="Material" path="res://assets/materials/ruins/moss.tres" id="4_moss"]
+[ext_resource type="Material" path="res://assets/materials/ruins/gate_bars.tres" id="5_bars"]
+
+[sub_resource type="BoxShape3D" id="Shape_bars"]
+size = Vector3(4, 4.2, 0.4)
+
+[sub_resource type="CylinderMesh" id="Mesh_bar"]
+material = ExtResource("5_bars")
+top_radius = 0.09
+bottom_radius = 0.09
+height = 4.2
+radial_segments = 8
+rings = 1
+
+[sub_resource type="BoxMesh" id="Mesh_crossbar"]
+material = ExtResource("5_bars")
+size = Vector3(4, 0.18, 0.18)
+
+[node name="Gate" type="Node3D"]
+script = ExtResource("1_gate")
+
+[node name="PillarLeft" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, 2.75, 0)
+script = ExtResource("2_block")
+size = Vector3(1.5, 5.5, 1.5)
+material = ExtResource("3_dark")
+top_material = ExtResource("4_moss")
+
+[node name="PillarRight" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 2.75, 0)
+script = ExtResource("2_block")
+size = Vector3(1.5, 5.5, 1.5)
+material = ExtResource("3_dark")
+top_material = ExtResource("4_moss")
+
+[node name="Lintel" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+script = ExtResource("2_block")
+size = Vector3(7.2, 1, 1.8)
+material = ExtResource("3_dark")
+top_material = ExtResource("4_moss")
+
+[node name="Bars" type="AnimatableBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+shape = SubResource("Shape_bars")
+
+[node name="Bar1" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.65, 2.1, 0)
+mesh = SubResource("Mesh_bar")
+
+[node name="Bar2" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99, 2.1, 0)
+mesh = SubResource("Mesh_bar")
+
+[node name="Bar3" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33, 2.1, 0)
+mesh = SubResource("Mesh_bar")
+
+[node name="Bar4" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33, 2.1, 0)
+mesh = SubResource("Mesh_bar")
+
+[node name="Bar5" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99, 2.1, 0)
+mesh = SubResource("Mesh_bar")
+
+[node name="Bar6" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65, 2.1, 0)
+mesh = SubResource("Mesh_bar")
+
+[node name="CrossbarLow" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+mesh = SubResource("Mesh_crossbar")
+
+[node name="CrossbarHigh" type="MeshInstance3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4, 0)
+mesh = SubResource("Mesh_crossbar")

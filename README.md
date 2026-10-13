@@ -2,7 +2,7 @@
 
 A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby and the Forgotten Land. Built in stages from [GAME_SPEC.md](GAME_SPEC.md).
 
-**Current status: Stage 2 (rail camera).** F5 opens the greybox test scene. The main menu takes over in Stage 7.
+**Current status: Stage 3 (greybox level).** F5 opens the Overgrown Ruins level (`scenes/levels/level_ruins.tscn`). The tuning test scene is `scenes/levels/test_greybox.tscn`. The main menu takes over in Stage 7.
 
 ## Running
 
@@ -14,10 +14,11 @@ A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby a
   ```
   godot --headless --path . res://tests/stage1_smoke_test.tscn
   godot --headless --path . res://tests/stage2_rail_camera_test.tscn
+  godot --headless --path . res://tests/stage3_level_test.tscn
   ```
-- Camera tour (windowed, visits every camera segment with the debug overlay on):
+- Visual tours (windowed): `res://tests/camera_tour.tscn` visits every camera segment of the test greybox with the debug overlay on, and `res://tests/level_tour.tscn` stops at each part of the ruins level:
   ```
-  godot --path . res://tests/camera_tour.tscn
+  godot --path . res://tests/level_tour.tscn
   ```
 
 ## Controls
@@ -38,16 +39,18 @@ The stick deadzone is 0.2 on the movement actions, and analog input gives propor
 ```
 autoload/         Global singletons: GameState, SettingsManager (Audio/Scene managers come later)
 assets/
-  materials/      Greybox materials (world-triplanar prototype grid textures, 1 tile = 1 m)
+  materials/      Greybox materials (prototype grid textures, 1 tile = 1 m)
+  materials/ruins Ruins palette: stone, moss, grass, thorns, crumbling sandstone, teal runes...
   textures/       Prototype grid textures
 scenes/
   player/         player.tscn
-  level/          Reusable level pieces: breakable wall, hazard block, kill plane
-  levels/         Playable scenes (test_greybox.tscn)
+  level/          Reusable level pieces (see "Building levels")
+  levels/         level_ruins.tscn (the level), test_greybox.tscn (tuning sandbox)
   test/           Test-only objects (training dummy)
 scripts/
   player/  camera/  level/  ui/  util/
-tests/            Headless smoke tests (shared SmokeTestBase) and the camera tour
+tools/            build_ruins_level.gd: generator for level_ruins.tscn
+tests/            Headless smoke tests (shared SmokeTestBase) and visual tours
 ```
 
 ## Tuning
@@ -78,6 +81,53 @@ The camera rides a rail (`Path3D`) that follows the player's route through the l
 - **Debug overlay (F3)**: Draws the rail (cyan), the keys (orange, yellow when active, red when locked), the player's projected point (magenta) and the camera's rail position (green). It also lists progress, the active keys, the blend weight, FOV, collision and shake.
 
 **Editing the rail**: Select `CameraRail` in the level and edit its curve with the Path3D tools. To add a segment, add a `Marker3D` child, attach `scripts/camera/rail_camera_key.gd`, and place it on the rail where the segment should begin. The test greybox has six example keys: Start (behind), Angled34, PulledBack, Curve34, SideScroller, and BossArena (locked).
+
+## The level: Overgrown Ruins
+
+The route is about 390 m long. It runs north (-Z) from the start, turns east (+X) at the colonnade, and ends at the boss arena. There are five segments, each with its own camera key:
+
+| # | Segment | Camera | Contents |
+|---|---|---|---|
+| 1 | Courtyard | Behind, then angled 3/4 | Teaching steps, secret wall (Lost Sprite 1), ramp, 3 m gap, 7 m hover gap, checkpoint 1 |
+| 2 | Colonnade | Side-scroller | Thorns, 3 m gap, moving platform over a 12 m pit, pillar stumps, crumbling bridge, wall blocking the path, checkpoint 2 |
+| 3 | Stairway | Angled 3/4, climbing | Stairs with thorns, ramp, 4 m lift, secret wall (Lost Sprite 3), crumbling bridge, checkpoint 3 |
+| 4 | Sunken Garden | Pulled back | Islands, moving platform, 8 m hover gap, thorn island, crumbling platforms, shortcut corridor behind a breakable wall, secret lift to a floating platform (Lost Sprite 2), checkpoint 4 |
+| 5 | Throne Arena | Locked | Circular arena, entrance gate (open), 4 pillars, 4 outer platforms, throne, exit gate (closed until the boss is beaten), level goal |
+
+**Colour language**:
+- Crimson is a hazard.
+- Gold is a collectible.
+- Teal-topped stone moves.
+- Orange cracked sandstone crumbles.
+- Pale cracked stone breaks when attacked.
+
+**Lost Sprite spots** are `Marker3D`s under `SpriteSpots`. Stage 5 places the collectibles there.
+
+### Building levels
+
+The reusable pieces are in `scenes/level/`. Each one exposes its size and timings in the Inspector:
+
+| Scene | What it is |
+|---|---|
+| `platform.tscn` | Stone block with a moss cap (`GreyboxBlock`). It can be a box or a cylinder and builds its own mesh and collision from `size`. |
+| `moving_platform.tscn` | Travels to `travel` and back, pausing at each end. The player rides it automatically. |
+| `crumbling_platform.tscn` | Shakes when stood on, falls after `crumble_delay`, and returns after `respawn_time`. |
+| `thorn_patch.tscn` | A thorn hazard covering `size`. It damages the player on touch, with knockback. |
+| `breakable_wall.tscn` | Breaks after `hits_to_break` attacks. |
+| `checkpoint.tscn` | Crystal pedestal. Touching it sets the respawn point to its `SpawnPoint` child, facing that child's -Z. |
+| `gate.tscn` | Barred gateway with `open()` and `close()`. |
+| `level_goal.tscn` | End trigger that emits `GameState.level_completed`. |
+| `kill_plane.tscn` | Sends the player to the last checkpoint and costs 1 heart. |
+
+A playable level's root uses `scripts/level/level.gd` (`Level`). Point its exports at the `Player`, a `StartPoint` marker and the `RailCamera`. On load it sends the player to the start, or to the active checkpoint when you restart the same level.
+
+**The generator**: `level_ruins.tscn` is generated by `tools/build_ruins_level.gd`. Run it with:
+```
+godot --headless --path . res://tools/build_ruins_level.tscn
+```
+The output is an ordinary scene, so you can open it and edit it in the editor. Re-running the generator overwrites hand edits, so until the level is final, layout changes go in the generator. To add a segment there, write a `_build_*` function using the `_ground`, `_box`, `_ramp`, `_pillar` and `_instance` helpers, then add a camera key in `_build_camera_rail()`.
+
+**Route check**: The Stage 3 test walks the camera rail and raycasts down every 0.5 m. Every gap must be 8.5 m or less, and every climb 2.3 m or less, unless a moving platform spans it. Jump plus a full hover covers about 10.6 m.
 
 ## Gameplay rules and defaults
 

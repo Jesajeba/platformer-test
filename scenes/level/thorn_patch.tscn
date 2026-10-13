@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/thorn_patch.gd" id="1_thorn"]
+[ext_resource type="Material" path="res://assets/materials/ruins/thorn.tres" id="2_thorn"]
+[ext_resource type="Material" path="res://assets/materials/ruins/thorn_vine.tres" id="3_vine"]
+
+[node name="ThornPatch" type="Area3D"]
+collision_layer = 16
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_thorn")
+thorn_material = ExtResource("2_thorn")
+base_material = ExtResource("3_vine")

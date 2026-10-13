@@ -1,16 +1,33 @@
 extends Node
-## Global run state: player health and the active checkpoint.
+## Global run state: current level, player health and the active checkpoint.
 ## Coins, collectibles and the level timer are added in later stages.
 
 signal health_changed(current: int, maximum: int)
 signal player_died
 signal checkpoint_changed(checkpoint_transform: Transform3D)
+signal level_started(level_id: String)
+signal level_completed(level_id: String)
+
+## Scene path of the level being played (empty outside levels).
+var current_level: String = ""
 
 var max_health: int = 5
 var health: int = 5
 
 var has_checkpoint: bool = false
 var checkpoint_transform: Transform3D = Transform3D.IDENTITY
+
+
+## Starts a fresh run of a level: checkpoint at the start point, full health.
+func begin_level(level_id: String, start_transform: Transform3D) -> void:
+	current_level = level_id
+	set_checkpoint(start_transform)
+	restore_health()
+	level_started.emit(level_id)
+
+
+func complete_level() -> void:
+	level_completed.emit(current_level)
 
 
 func setup_health(maximum: int) -> void:

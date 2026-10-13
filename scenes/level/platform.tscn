@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/greybox_block.gd" id="1_block"]
+[ext_resource type="Material" path="res://assets/materials/ruins/stone.tres" id="2_stone"]
+[ext_resource type="Material" path="res://assets/materials/ruins/moss.tres" id="3_moss"]
+
+[node name="Platform" type="StaticBody3D"]
+script = ExtResource("1_block")
+size = Vector3(4, 1, 4)
+material = ExtResource("2_stone")
+top_material = ExtResource("3_moss")
