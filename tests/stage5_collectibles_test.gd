@@ -17,6 +17,7 @@ func _run() -> void:
 		enemy.queue_free()
 	await _frames(2)
 	_hud = _level.get_node("Hud") as Hud
+	(_level as Level).use_game_over_screen = false  # Deaths auto-respawn; Stage 7 tests the Game Over screen.
 	_test_level_contents()
 	_test_sounds()
 	_test_hud_initial()

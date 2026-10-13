@@ -4,6 +4,8 @@ extends Node
 ## Loads `level_scene`, drives it with simulated input and quits with the failure count.
 
 @export var level_scene: PackedScene = preload("res://scenes/levels/test_greybox.tscn")
+## The test fails and quits if it runs longer than this (real seconds).
+@export var timeout_seconds: float = 300.0
 
 var _failures: int = 0
 var _level: Node3D
@@ -12,10 +14,18 @@ var _camera: RailCamera
 
 
 func _ready() -> void:
-	_level = level_scene.instantiate() as Node3D
-	add_child(_level)
-	_player = _level.get_node("Player") as Player
-	_camera = _level.get_node_or_null("RailCamera") as RailCamera
+	get_tree().create_timer(timeout_seconds, true, false, true).timeout.connect(func() -> void:
+		print("[FAIL] test timed out after %d s" % int(timeout_seconds))
+		get_tree().quit(99))
+	# Never touch the player's real save/settings files.
+	GameState.save_path = "user://test_save.cfg"
+	GameState.delete_save()
+	SettingsManager.settings_path = "user://test_settings.cfg"
+	if level_scene != null:
+		_level = level_scene.instantiate() as Node3D
+		add_child(_level)
+		_player = _level.get_node("Player") as Player
+		_camera = _level.get_node_or_null("RailCamera") as RailCamera
 	await _run()
 	Engine.time_scale = 1.0
 	print("\n%s: %d failure(s)" % ["PASSED" if _failures == 0 else "FAILED", _failures])

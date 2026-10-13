@@ -79,6 +79,8 @@ enum State { IDLE, RUN, JUMP, FALL, HOVER, ATTACK, HURT, DEAD }
 ## Hearts lost when falling into a pit (then respawn at the checkpoint).
 @export var pit_damage: int = 1
 @export var respawn_delay: float = 1.2
+## Respawn automatically after espawn_delay. Levels turn this off and show a Game Over screen instead.
+@export var auto_respawn: bool = true
 
 @export_group("Visuals")
 @export var squash_return_speed: float = 12.0
@@ -322,7 +324,7 @@ func _state_hurt(delta: float) -> void:
 
 func _state_dead(_delta: float) -> void:
 	velocity = Vector3.ZERO
-	if _state_time >= respawn_delay:
+	if auto_respawn and _state_time >= respawn_delay:
 		respawn()
 
 #endregion

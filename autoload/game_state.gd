@@ -1,6 +1,7 @@
 extends Node
 ## Global run state: current level, player health, coins, Lost Sprites, collected items,
-## the active checkpoint (with a snapshot of what was collected), the level timer and boss status.
+## the active checkpoint (with a snapshot of what was collected), the level timer, boss status and the
+## save file (user://save.cfg: progress at the last checkpoint plus best records).
 
 signal health_changed(current: int, maximum: int)
 signal player_died
@@ -36,6 +37,9 @@ var checkpoint_transform: Transform3D = Transform3D.IDENTITY
 
 var _snapshot: Dictionary = {}
 
+## Where the save file lives (tests point this elsewhere).
+var save_path: String = "user://save.cfg"
+
 
 ## Starts a fresh run of a level: checkpoint at the start point, full health, nothing collected.
 func begin_level(level_id: String, start_transform: Transform3D) -> void:
@@ -54,7 +58,21 @@ func begin_level(level_id: String, start_transform: Transform3D) -> void:
 
 func complete_level() -> void:
 	level_running = false
+	record_completion()
 	level_completed.emit(current_level)
+
+
+## Forgets the current run so the next level load starts fresh (keeps saved records).
+func start_new_run() -> void:
+	current_level = ""
+	level_running = false
+	clear_checkpoint()
+
+
+## Back to the last checkpoint with items rolled back and full health (pause menu "Restart from checkpoint").
+func restart_from_checkpoint() -> void:
+	revert_to_checkpoint()
+	restore_health()
 
 
 func tick_level_time(delta: float) -> void:
@@ -149,6 +167,96 @@ func clear_checkpoint() -> void:
 	has_checkpoint = false
 	checkpoint_transform = Transform3D.IDENTITY
 	_snapshot = {}
+
+#endregion
+
+
+#region Save file
+
+func has_save() -> bool:
+	return FileAccess.file_exists(save_path)
+
+
+## True if the save holds a level in progress (a checkpoint to continue from).
+func has_progress() -> bool:
+	var config: ConfigFile = _load_config()
+	return config.get_value("progress", "in_progress", false)
+
+
+## Saves the current checkpoint and what was collected when it was reached.
+func save_progress() -> void:
+	if current_level == "" or not has_checkpoint:
+		return
+	var config: ConfigFile = _load_config()
+	config.set_value("progress", "in_progress", true)
+	config.set_value("progress", "level", current_level)
+	config.set_value("progress", "checkpoint", checkpoint_transform)
+	config.set_value("progress", "coins", _snapshot.get("coins", 0))
+	config.set_value("progress", "sprite_ids", Array(_snapshot.get("sprite_ids", [])))
+	config.set_value("progress", "collected", (_snapshot.get("collected", {}) as Dictionary).keys())
+	config.set_value("progress", "level_time", level_time)
+	config.save(save_path)
+
+
+## Restores the saved run so the level loads at its checkpoint. Returns the level path ("" if none).
+func continue_from_save() -> String:
+	var config: ConfigFile = _load_config()
+	if not config.get_value("progress", "in_progress", false):
+		return ""
+	current_level = config.get_value("progress", "level", "")
+	coins = config.get_value("progress", "coins", 0)
+	sprite_ids.assign(config.get_value("progress", "sprite_ids", []))
+	collected.clear()
+	for item_id: String in config.get_value("progress", "collected", []):
+		collected[item_id] = true
+	level_time = config.get_value("progress", "level_time", 0.0)
+	level_running = true
+	restore_health()
+	set_checkpoint(config.get_value("progress", "checkpoint", Transform3D.IDENTITY))
+	return current_level
+
+
+## Updates best time/collectibles and clears the in-progress run.
+func record_completion() -> void:
+	var config: ConfigFile = _load_config()
+	var key: String = current_level.get_file().get_basename()
+	var best_time: float = config.get_value("records", key + "_best_time", INF)
+	config.set_value("records", key + "_best_time", minf(best_time, level_time))
+	config.set_value("records", key + "_best_sprites", maxi(config.get_value("records", key + "_best_sprites", 0), sprite_count()))
+	config.set_value("records", key + "_best_coins", maxi(config.get_value("records", key + "_best_coins", 0), coins))
+	config.set_value("records", key + "_completed", true)
+	config.set_value("progress", "in_progress", false)
+	config.save(save_path)
+
+
+## Best results for a level: {best_time, best_sprites, best_coins, completed} (best_time = INF if never finished).
+func get_records(level_id: String) -> Dictionary:
+	var config: ConfigFile = _load_config()
+	var key: String = level_id.get_file().get_basename()
+	return {
+		"best_time": config.get_value("records", key + "_best_time", INF),
+		"best_sprites": config.get_value("records", key + "_best_sprites", 0),
+		"best_coins": config.get_value("records", key + "_best_coins", 0),
+		"completed": config.get_value("records", key + "_completed", false),
+	}
+
+
+func delete_save() -> void:
+	if has_save():
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(save_path))
+
+
+func _load_config() -> ConfigFile:
+	var config: ConfigFile = ConfigFile.new()
+	config.load(save_path)
+	return config
+
+
+static func format_time(seconds: float) -> String:
+	if seconds == INF:
+		return "--:--.--"
+	var minutes: int = int(seconds / 60.0)
+	return "%02d:%05.2f" % [minutes, seconds - minutes * 60.0]
 
 #endregion
 

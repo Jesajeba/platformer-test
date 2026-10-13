@@ -5,6 +5,7 @@ extends Node
 ## otherwise the placeholder recipe in SfxSynth is used. Drop real files in to replace them.
 
 const SFX_DIR: String = "res://assets/audio/sfx/"
+const MUSIC_DIR: String = "res://assets/audio/music/"
 const POOL_SIZE: int = 16
 
 ## Name of the most recently played sound (handy for tests and debugging).
@@ -14,6 +15,8 @@ var play_count: int = 0
 var _players: Array[AudioStreamPlayer] = []
 var _next_player: int = 0
 var _cache: Dictionary = {}
+var _music_player: AudioStreamPlayer
+var _current_music: StringName = &""
 
 
 func _ready() -> void:
@@ -23,6 +26,9 @@ func _ready() -> void:
 		player.bus = &"SFX"
 		add_child(player)
 		_players.append(player)
+	_music_player = AudioStreamPlayer.new()
+	_music_player.bus = &"Music"
+	add_child(_music_player)
 
 
 ## Plays a one-shot sound effect. `pitch_jitter` randomizes pitch by up to +/- that fraction.
@@ -44,6 +50,37 @@ func play_sfx(sound_name: StringName, pitch_jitter: float = 0.05, volume_db: flo
 
 func play_ui(sound_name: StringName) -> void:
 	play_sfx(sound_name, 0.0, 0.0, &"UI")
+
+
+## Plays a looping music track by name (res://assets/audio/music/<name>.ogg/.wav). Keeps playing
+## if it's already the current track; silent if the track doesn't exist.
+func play_music(track: StringName) -> void:
+	if track == _current_music and _music_player.playing:
+		return
+	_current_music = track
+	var stream: AudioStream = _find_stream(MUSIC_DIR, track)
+	if stream == null:
+		_music_player.stop()
+		return
+	_music_player.stream = stream
+	_music_player.play()
+
+
+func stop_music() -> void:
+	_current_music = &""
+	_music_player.stop()
+
+
+func get_current_music() -> StringName:
+	return _current_music
+
+
+func _find_stream(directory: String, stream_name: StringName) -> AudioStream:
+	for extension: String in [".ogg", ".wav"]:
+		var path: String = directory + String(stream_name) + extension
+		if ResourceLoader.exists(path):
+			return load(path)
+	return null
 
 
 func get_stream(sound_name: StringName) -> AudioStream:

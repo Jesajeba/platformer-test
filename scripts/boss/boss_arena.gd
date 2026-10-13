@@ -60,6 +60,13 @@ func _ready() -> void:
 		_platform_transforms[platform] = (platform as Node3D).transform
 	_name_card = BossNameCard.new()
 	add_child(_name_card)
+	_resume_if_needed.call_deferred()
+
+
+## Continuing or restarting at the arena checkpoint drops the player inside: start the fight.
+func _resume_if_needed() -> void:
+	if _state == State.WAITING and GameState.has_checkpoint and GameState.checkpoint_transform.origin.distance_to(entrance_spawn.global_position) < 0.1:
+		_start_fight(restart_intro_duration, false)
 
 
 func get_state() -> State:

@@ -18,6 +18,7 @@ func _run() -> void:
 	for enemy: Node in get_tree().get_nodes_in_group("enemies"):
 		enemy.queue_free()
 	_arena = _level.get_node("BossArena") as BossArena
+	(_level as Level).use_game_over_screen = false  # Deaths auto-respawn; Stage 7 tests the Game Over screen.
 	_boss = _arena.boss
 	_center = _arena.arena_center.global_position
 	await _frames(2)

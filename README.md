@@ -2,7 +2,7 @@
 
 A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby and the Forgotten Land. Built in stages from [GAME_SPEC.md](GAME_SPEC.md).
 
-**Current status: Stage 6 (boss fight).** F5 opens the Overgrown Ruins level (`scenes/levels/level_ruins.tscn`). The tuning test scene is `scenes/levels/test_greybox.tscn`. The main menu takes over in Stage 7.
+**Current status: Stage 7 (menus, settings, save).** F5 opens the main menu (`scenes/ui/main_menu.tscn`). The level is `scenes/levels/level_ruins.tscn`, and the tuning sandbox is `scenes/levels/test_greybox.tscn` (open it and press F6).
 
 ## Running
 
@@ -18,8 +18,9 @@ A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby a
   godot --headless --path . res://tests/stage4_enemy_test.tscn
   godot --headless --path . res://tests/stage5_collectibles_test.tscn
   godot --headless --path . res://tests/stage6_boss_test.tscn
+  godot --headless --path . res://tests/stage7_menus_test.tscn
   ```
-- Visual tours (windowed): `res://tests/camera_tour.tscn` visits every camera segment of the test greybox with the debug overlay on, `res://tests/level_tour.tscn` stops at each part of the ruins level, `res://tests/enemy_showcase.tscn` shows the three enemies idle and attacking, and `res://tests/boss_showcase.tscn` runs through the boss's attacks:
+- Visual tours (windowed): `res://tests/camera_tour.tscn` visits every camera segment of the test greybox with the debug overlay on, `res://tests/level_tour.tscn` stops at each part of the ruins level, `res://tests/enemy_showcase.tscn` shows the three enemies idle and attacking, `res://tests/boss_showcase.tscn` runs through the boss's attacks, and `res://tests/menu_tour.tscn` shows every menu:
   ```
   godot --path . res://tests/level_tour.tscn
   ```
@@ -32,7 +33,7 @@ A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby a
 | Jump (tap = short, hold = high) | Space | A / Cross |
 | Hover (press jump again in the air, hold to keep floating) | Space | A / Cross |
 | Attack | J or left mouse button | X / Square |
-| Pause (used from Stage 7) | Esc | Start / Options |
+| Pause | Esc | Start / Options |
 | Rail camera debug overlay | F3 | - |
 
 The stick deadzone is 0.2 on the movement actions, and analog input gives proportional speed. Godot maps gamepad buttons by position, so Xbox and PlayStation pads use the same bindings. Menus use Godot's built-in `ui_*` actions, which already cover keyboard, D-pad and left stick.
@@ -40,7 +41,7 @@ The stick deadzone is 0.2 on the movement actions, and analog input gives propor
 ## Project structure
 
 ```
-autoload/         Global singletons: GameState, SettingsManager, AudioManager (SceneManager comes in Stage 7)
+autoload/         Global singletons: GameState (run state + save file), SettingsManager, AudioManager, SceneManager
 assets/
   materials/      Greybox materials (prototype grid textures, 1 tile = 1 m)
   materials/ruins Ruins palette: stone, moss, grass, thorns, crumbling sandstone, teal runes...
@@ -51,7 +52,8 @@ scenes/
   enemies/        mossling, sporeling (+ spore_projectile), snapthorn
   pickups/        coin, lost_sprite, health_pickup
   boss/           king_mossback, shockwave, falling_rock
-  ui/             hud.tscn
+  ui/             hud, main_menu, settings_menu, pause_menu, game_over_screen, results_screen
+  ui/theme.tres   (in assets/) project-wide UI theme
   level/          Reusable level pieces (see "Building levels")
   levels/         level_ruins.tscn (the level), test_greybox.tscn (tuning sandbox)
   test/           Test-only objects (training dummy)
@@ -193,6 +195,23 @@ All timings, speeds, counts and thresholds are exported on the KingMossback and 
 ## Audio
 
 AudioManager.play_sfx(&"name") plays a sound on the SFX bus, and play_ui() uses the UI bus. The buses (Master, Music, SFX, UI) are defined in default_bus_layout.tres. Every sound is generated in code by scripts/audio/sfx_synth.gd (tone sweeps, note sequences, filtered noise). To use a real recording instead, put <name>.wav or <name>.ogg in es://assets/audio/sfx/ and it's picked up automatically. Sounds: coin, sprite, heal, checkpoint, wall_break, stone_hit, jump, hover, attack, hit, hurt, enemy_death, spore_fire, land, ui_move, ui_select, ui_back. Stage 8 adds music and wires up the remaining gameplay sounds.
+
+## Menus, settings and saving
+
+- **Main menu** (scenes/ui/main_menu.tscn): Start, Continue, Settings and Quit. **Start** begins a fresh run. **Continue** is only enabled when a run is in progress, and resumes at the saved checkpoint with the items you'd collected by then. Your best time, Lost Sprites and coins show below the buttons once you've finished the level.
+- **Pause menu** (Esc / Start): Resume, Settings, Restart from Checkpoint, and Main Menu. The game is paused underneath (get_tree().paused), and the menus use PROCESS_MODE_ALWAYS. Restart from Checkpoint reloads the level at the checkpoint, rolls items back and restores health.
+- **Game Over**: when you're defeated, you get **Retry** (respawn at the last checkpoint with items rolled back) or **Quit to Menu**. This follows Kirby and the Forgotten Land: there are no lives. The tuning greybox, and levels with use_game_over_screen off, respawn automatically instead.
+- **Level complete**: touching the goal shows the results screen with time, coins, Lost Sprites (x/3) and your best time ("New best time!" when you beat it). It offers **Replay** and **Main Menu**.
+- **Settings** (scenes/ui/settings_menu.tscn, shared by both menus). Every change applies immediately and is saved to user://settings.cfg.
+  - Display: resolution (16:9 and 16:10 options), window mode (Windowed, Fullscreen, Borderless), V-Sync, FPS cap.
+  - Audio: Master, Music and SFX volume (linear slider converted to dB on the buses).
+  - Gameplay: camera smoothing, screen shake on/off.
+  - Graphics: quality preset. **Low** has no MSAA, 75% render scale, 1K hard shadows, and no SSAO or glow. **Medium** has 2x MSAA, 2K soft shadows, SSAO and glow. **High** has 4x MSAA and 4K softer shadows.
+  - Controls: rebind each action's keyboard/mouse and gamepad input separately (Esc cancels a capture), plus **Reset Controls**.
+- **Save file** (user://save.cfg, handled by GameState): progress is autosaved at the level start and at every checkpoint (level, checkpoint, coins, Lost Sprites and collected pickups as of that checkpoint, and level time). Finishing the level records the best time, Lost Sprites and coins, and clears the in-progress run.
+- **Scene changes** go through SceneManager.change_scene(), which fades to black and back. It also unpauses the game and resets any hit-stop.
+- **Navigation**: every menu works with keyboard, D-pad or stick (ui_* actions). The first button is focused when a menu opens, and disabled buttons are skipped. ui_cancel (Esc / B) backs out of Settings and the pause menu. Menus play UI sounds on focus and press (MenuSounds).
+- The automated tests use user://test_save.cfg and user://test_settings.cfg, so they never touch your real save or settings.
 
 ## Gameplay rules and defaults
 
