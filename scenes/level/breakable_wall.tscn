@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/breakable_wall.gd" id="1_wall"]
+[ext_resource type="Material" path="res://assets/materials/grey_breakable.tres" id="2_mat"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall"]
+resource_local_to_scene = true
+material = ExtResource("2_mat")
+size = Vector3(4, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall"]
+resource_local_to_scene = true
+size = Vector3(4, 3, 1)
+
+[node name="BreakableWall" type="StaticBody3D"]
+collision_layer = 33
+collision_mask = 0
+script = ExtResource("1_wall")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual"]
+mesh = SubResource("BoxMesh_wall")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_wall")

@@ -1,0 +1,161 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.45
+height = 1.1
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(1, 0.66, 0.78, 1)
+roughness = 0.55
+rim_enabled = true
+rim = 0.35
+
+[sub_resource type="StandardMaterial3D" id="Mat_feet"]
+albedo_color = Color(0.86, 0.16, 0.3, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Mat_eye"]
+albedo_color = Color(0.08, 0.1, 0.25, 1)
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="Mat_blush"]
+albedo_color = Color(1, 0.42, 0.55, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_swipe"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 0.9, 0.75)
+cull_mode = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_body"]
+material = SubResource("Mat_body")
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_foot"]
+material = SubResource("Mat_feet")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_arm"]
+material = SubResource("Mat_body")
+radius = 0.14
+height = 0.28
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eye"]
+material = SubResource("Mat_eye")
+radius = 0.055
+height = 0.24
+
+[sub_resource type="SphereMesh" id="SphereMesh_blush"]
+material = SubResource("Mat_blush")
+radius = 0.07
+height = 0.14
+
+[sub_resource type="SphereMesh" id="SphereMesh_swipe"]
+material = SubResource("Mat_swipe")
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hitbox"]
+radius = 0.8
+
+[sub_resource type="Gradient" id="Gradient_shadow"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(0, 0, 0, 0.6, 0, 0, 0, 0.4, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_shadow"]
+gradient = SubResource("Gradient_shadow")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+collision_mask = 33
+floor_snap_length = 0.25
+script = ExtResource("1_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Squash" type="Node3D" parent="Visual"]
+
+[node name="Body" type="MeshInstance3D" parent="Visual/Squash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52, 0)
+layers = 2
+mesh = SubResource("SphereMesh_body")
+
+[node name="EyeLeft" type="MeshInstance3D" parent="Visual/Squash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0.62, -0.44)
+layers = 2
+mesh = SubResource("CapsuleMesh_eye")
+
+[node name="EyeRight" type="MeshInstance3D" parent="Visual/Squash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0.62, -0.44)
+layers = 2
+mesh = SubResource("CapsuleMesh_eye")
+
+[node name="BlushLeft" type="MeshInstance3D" parent="Visual/Squash"]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 0.4, -0.27, 0.47, -0.4)
+layers = 2
+mesh = SubResource("SphereMesh_blush")
+
+[node name="BlushRight" type="MeshInstance3D" parent="Visual/Squash"]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 0.4, 0.27, 0.47, -0.4)
+layers = 2
+mesh = SubResource("SphereMesh_blush")
+
+[node name="ArmLeft" type="MeshInstance3D" parent="Visual/Squash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48, 0.45, -0.05)
+layers = 2
+mesh = SubResource("SphereMesh_arm")
+
+[node name="ArmRight" type="MeshInstance3D" parent="Visual/Squash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48, 0.45, -0.05)
+layers = 2
+mesh = SubResource("SphereMesh_arm")
+
+[node name="FootLeft" type="MeshInstance3D" parent="Visual/Squash"]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1.3, -0.2, 0.1, -0.02)
+layers = 2
+mesh = SubResource("SphereMesh_foot")
+
+[node name="FootRight" type="MeshInstance3D" parent="Visual/Squash"]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1.3, 0.2, 0.1, -0.02)
+layers = 2
+mesh = SubResource("SphereMesh_foot")
+
+[node name="AttackHitbox" type="Area3D" parent="Visual"]
+collision_layer = 8
+collision_mask = 36
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Visual/AttackHitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.8)
+shape = SubResource("SphereShape3D_hitbox")
+
+[node name="SwipePivot" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+
+[node name="Swipe" type="MeshInstance3D" parent="Visual/SwipePivot"]
+transform = Transform3D(0.9, 0, 0, 0, 0.08, 0, 0, 0, 0.25, 0, 0, -0.9)
+layers = 2
+cast_shadow = 0
+mesh = SubResource("SphereMesh_swipe")
+
+[node name="BlobShadow" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.5, 0)
+size = Vector3(0.9, 20, 0.9)
+texture_albedo = SubResource("GradientTexture2D_shadow")
+upper_fade = 0.01
+lower_fade = 0.05
+cull_mask = 1

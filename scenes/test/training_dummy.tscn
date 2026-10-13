@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/level/training_dummy.gd" id="1_dummy"]
+[ext_resource type="Material" path="res://assets/materials/hit_flash.tres" id="2_flash"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_dummy"]
+albedo_color = Color(0.78, 0.6, 0.38, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_post"]
+albedo_color = Color(0.45, 0.32, 0.2, 1)
+roughness = 0.9
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+material = SubResource("Mat_dummy")
+radius = 0.4
+height = 1.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_head"]
+material = SubResource("Mat_dummy")
+radius = 0.3
+height = 0.6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_post"]
+material = SubResource("Mat_post")
+top_radius = 0.08
+bottom_radius = 0.08
+height = 0.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dummy"]
+height = 2.0
+radius = 0.45
+
+[node name="TrainingDummy" type="StaticBody3D"]
+collision_layer = 5
+collision_mask = 0
+script = ExtResource("1_dummy")
+flash_material = ExtResource("2_flash")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_dummy")
+
+[node name="Post" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("CylinderMesh_post")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="Body" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("CapsuleMesh_body")
+
+[node name="Head" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+mesh = SubResource("SphereMesh_head")
