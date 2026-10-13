@@ -16,7 +16,7 @@ var _camera: RailCamera
 func _ready() -> void:
 	get_tree().create_timer(timeout_seconds, true, false, true).timeout.connect(func() -> void:
 		print("[FAIL] test timed out after %d s" % int(timeout_seconds))
-		get_tree().quit(99))
+		AudioManager.quit_game(99))
 	# Never touch the player's real save/settings files.
 	GameState.save_path = "user://test_save.cfg"
 	GameState.delete_save()
@@ -29,7 +29,7 @@ func _ready() -> void:
 	await _run()
 	Engine.time_scale = 1.0
 	print("\n%s: %d failure(s)" % ["PASSED" if _failures == 0 else "FAILED", _failures])
-	get_tree().quit(_failures)
+	AudioManager.quit_game(_failures)
 
 
 func _run() -> void:

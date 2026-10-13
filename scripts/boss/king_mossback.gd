@@ -241,7 +241,7 @@ func _ai_process(delta: float) -> void:
 			set_telegraph(_state_time / windup)
 			if _state_time >= windup:
 				_charge_direction = _facing
-				AudioManager.play_sfx(&"attack", 0.0, 2.0)
+				AudioManager.play_sfx(&"boss_charge", 0.0, 2.0)
 				_set_state(State.CHARGE)
 		State.CHARGE:
 			_process_charge()
@@ -328,7 +328,7 @@ func _do_slam() -> void:
 		wave.global_position = Vector3(global_position.x, _arena_center.y, global_position.z)
 	Fx.puff(get_parent(), global_position + _facing * 2.0, Color(0.85, 0.78, 0.62), 18, 1.0, 4.0, 0.7)
 	Fx.chunks(get_parent(), global_position + _facing * 2.0, Color(0.55, 0.5, 0.42), 10, 0.3, 6.0)
-	AudioManager.play_sfx(&"wall_break", 0.0, 2.0)
+	AudioManager.play_sfx(&"boss_slam", 0.0, 2.0)
 	_shake_camera(0.6, 0.35)
 	_attack_finished(slam_vulnerable_time)
 
@@ -432,7 +432,7 @@ func _change_phase(new_phase: int) -> void:
 	_set_state(State.PHASE_TRANSITION)
 	_show_alert(phase_transition_time)
 	_shake_camera(0.7, phase_transition_time * 0.6)
-	AudioManager.play_sfx(&"hurt", 0.0, 3.0)
+	AudioManager.play_sfx(&"boss_roar", 0.0, 3.0)
 	phase_changed.emit(phase)
 
 

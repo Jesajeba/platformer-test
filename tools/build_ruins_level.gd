@@ -360,7 +360,7 @@ func _coin_line(a: Vector3, b: Vector3, count: int) -> void:
 		_coin(a.lerp(b, float(i) / maxf(count - 1, 1)))
 
 
-## Coins along a parabola from  to  peaking pex meters above the straight line.
+## Coins along a parabola from a to b, peaking apex meters above the straight line.
 func _coin_arc(a: Vector3, b: Vector3, apex: float, count: int) -> void:
 	for i: int in count:
 		var t: float = float(i) / maxf(count - 1, 1)

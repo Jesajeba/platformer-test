@@ -1,16 +1,15 @@
-# Platformer Test
+# Overgrown Ruins: platformer prototype
 
-A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby and the Forgotten Land. Built in stages from [GAME_SPEC.md](GAME_SPEC.md).
-
-**Current status: Stage 7 (menus, settings, save).** F5 opens the main menu (`scenes/ui/main_menu.tscn`). The level is `scenes/levels/level_ruins.tscn`, and the tuning sandbox is `scenes/levels/test_greybox.tscn` (open it and press F6).
+A 3D platformer vertical slice in Godot 4 (GDScript), inspired by the feel of Kirby and the Forgotten Land: cute, chunky, readable and forgiving. You move, jump, hover and attack through one level of overgrown ruins, then fight the boss, King Mossback. Everything uses placeholder art (primitive meshes, flat colours) and generated placeholder audio. It was built in stages from [GAME_SPEC.md](GAME_SPEC.md). Limitations and next steps are in [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
 
 ## Running
 
-- Open the folder in Godot 4.7+ and press **F5**, or from a terminal:
+- Open the folder in **Godot 4.7+** and press **F5**. The game starts at the main menu. From a terminal:
   ```
   godot --path .
   ```
-- Automated smoke tests (headless; each exits with its failure count):
+- The tuning sandbox is `scenes/levels/test_greybox.tscn`. Open it and press **F6**.
+- **Automated tests**: each one runs headless and exits with its failure count.
   ```
   godot --headless --path . res://tests/stage1_smoke_test.tscn
   godot --headless --path . res://tests/stage2_rail_camera_test.tscn
@@ -19,10 +18,19 @@ A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby a
   godot --headless --path . res://tests/stage5_collectibles_test.tscn
   godot --headless --path . res://tests/stage6_boss_test.tscn
   godot --headless --path . res://tests/stage7_menus_test.tscn
+  godot --headless --path . res://tests/stage8_full_flow_test.tscn
   ```
-- Visual tours (windowed): `res://tests/camera_tour.tscn` visits every camera segment of the test greybox with the debug overlay on, `res://tests/level_tour.tscn` stops at each part of the ruins level, `res://tests/enemy_showcase.tscn` shows the three enemies idle and attacking, `res://tests/boss_showcase.tscn` runs through the boss's attacks, and `res://tests/menu_tour.tscn` shows every menu:
+  The tests use `user://test_save.cfg` and `user://test_settings.cfg`, so they never touch your real save or settings.
+- **Visual tours**: run these windowed to watch, optionally with `--write-movie out.png` to capture frames.
+  - `tests/camera_tour.tscn`: every camera segment of the greybox, with the debug overlay on.
+  - `tests/level_tour.tscn`: each part of the ruins level.
+  - `tests/enemy_showcase.tscn`: the three enemies, idle and attacking.
+  - `tests/boss_showcase.tscn`: the boss's attacks.
+  - `tests/menu_tour.tscn`: every menu.
+- **Generators**: re-run these after changing their scripts.
   ```
-  godot --path . res://tests/level_tour.tscn
+  godot --headless --path . res://tools/build_ruins_level.tscn
+  godot --headless --path . res://tools/generate_audio.tscn
   ```
 
 ## Controls
@@ -34,211 +42,237 @@ A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby a
 | Hover (press jump again in the air, hold to keep floating) | Space | A / Cross |
 | Attack | J or left mouse button | X / Square |
 | Pause | Esc | Start / Options |
+| Menus: move, confirm, back | Arrow keys, Enter/Space, Esc | D-pad or stick, A / Cross, B / Circle |
 | Rail camera debug overlay | F3 | - |
 
-The stick deadzone is 0.2 on the movement actions, and analog input gives proportional speed. Godot maps gamepad buttons by position, so Xbox and PlayStation pads use the same bindings. Menus use Godot's built-in `ui_*` actions, which already cover keyboard, D-pad and left stick.
+- The stick deadzone is 0.2 on the movement actions, and analog input gives proportional speed.
+- Godot maps gamepad buttons by position, so Xbox and PlayStation pads use the same bindings.
+- Every binding can be changed in **Settings → Controls**, with a reset to defaults.
 
 ## Project structure
 
 ```
-autoload/         Global singletons: GameState (run state + save file), SettingsManager, AudioManager, SceneManager
+autoload/            GameState (run state + save file), SettingsManager, AudioManager, SceneManager
 assets/
-  materials/      Greybox materials (prototype grid textures, 1 tile = 1 m)
-  materials/ruins Ruins palette: stone, moss, grass, thorns, crumbling sandstone, teal runes...
-  audio/sfx/      Optional sound files that replace the generated placeholders (see Audio)
-  textures/       Prototype grid textures
+  audio/sfx/         Generated sound effects (WAV), replace with real files any time
+  audio/music/       Generated music loops: menu, level, boss
+  materials/         Greybox materials (prototype grid textures, 1 tile = 1 m)
+  materials/ruins/   Ruins palette: stone, moss, grass, thorns, crumbling sandstone, teal runes...
+  textures/          Prototype grid textures
+  ui/theme.tres      Project-wide UI theme
 scenes/
-  player/         player.tscn
-  enemies/        mossling, sporeling (+ spore_projectile), snapthorn
-  pickups/        coin, lost_sprite, health_pickup
-  boss/           king_mossback, shockwave, falling_rock
-  ui/             hud, main_menu, settings_menu, pause_menu, game_over_screen, results_screen
-  ui/theme.tres   (in assets/) project-wide UI theme
-  level/          Reusable level pieces (see "Building levels")
-  levels/         level_ruins.tscn (the level), test_greybox.tscn (tuning sandbox)
-  test/           Test-only objects (training dummy)
+  player/            player.tscn
+  enemies/           mossling, sporeling (+ spore_projectile), snapthorn
+  boss/              king_mossback, shockwave, falling_rock
+  pickups/           coin, lost_sprite, health_pickup
+  level/             Reusable level pieces (see "Building levels")
+  levels/            level_ruins.tscn (the level), test_greybox.tscn (tuning sandbox)
+  ui/                hud, main_menu, settings_menu, pause_menu, game_over_screen, results_screen
+  test/              Test-only objects (training dummy)
 scripts/
-  player/  camera/  enemies/  boss/  pickups/  level/  ui/  audio/ (SfxSynth)  util/ (HitStop, Fx particles)
-tools/            build_ruins_level.gd: generator for level_ruins.tscn
-tests/            Headless smoke tests (shared SmokeTestBase) and visual tours
+  player/  camera/  enemies/  boss/  pickups/  level/  ui/
+  audio/             SfxSynth (sound recipes), MusicSynth (music loops)
+  util/              HitStop, Fx (one-shot particles)
+tools/               build_ruins_level.gd (level generator), generate_audio.gd (WAV generator)
+tests/               Smoke tests (shared SmokeTestBase) and visual tours
 ```
 
-## Tuning
+## Where tuning values live
 
-Every tuning value is an `@export` variable grouped with `@export_group`. Select the **Player** node in a scene to edit them in the Inspector:
+Every tuning value is an `@export` variable grouped with `@export_group`. Select the node and edit it in the Inspector:
 
-- **Movement**: max speed, ground/air acceleration and deceleration, turn speed.
-- **Jump**: jump height and time to peak (gravity is derived from these two), fall gravity multiplier, jump cut, coyote time, jump buffer.
-- **Hover**: duration, fall speed, entry lift, speed multiplier.
-- **Attack**: damage, windup/active/recovery timings, cooldown, knockback, lunge, hit-stop duration and strength.
-- **Health**: max hearts, invincibility time, hurt knockback and stun, pit damage, respawn delay.
-- **Visuals**: squash and stretch amounts, hover puff, run bob, foot swing.
+| Node | Groups |
+|---|---|
+| **Player** (`scenes/player/player.tscn`) | Movement, Jump (height and time-to-peak; gravity is derived from them), Hover, Attack (timings, knockback, hit-stop), Health (hearts, invincibility, pit damage, respawn), Visuals (squash and stretch), Juice (dust, sparks, landing shake) |
+| **RailCamera** (in each level) | Rail Following (damping, max speed, max lag, backtracking), Smoothing, Collision, Shake |
+| **RailCameraKey** (children of `CameraRail`) | Framing (offset, FOV, look height, look-ahead, pitch), Follow, Blend, Lock |
+| **Enemies** (`scenes/enemies/*.tscn`) | Health, Contact, Movement, Rewards, Activation, plus per-type Detection, Patrol, Chase, Lunge Attack, Spacing, Shooting, Snap Attack |
+| **KingMossback** (`scenes/boss/king_mossback.tscn`) | Phases, Movement, Vulnerability, Ground Slam, Summon, Spore Barrage, Charge, Phase 3, Defeat |
+| **BossArena** (in the level) | Arena, Intro, Falling Rocks, Victory |
+| **Level pieces** | size, travel, cycle and pause times, crumble delay and respawn time, damage, hits to break... |
+| **SettingsManager** (`autoload/settings_manager.gd`) | Defaults for the player-facing settings |
 
-Camera tuning is on the **RailCamera** node (rail following, smoothing, collision, shake) and on each **RailCameraKey** (framing per segment).
+## Gameplay rules and defaults
+
+- **Camera-relative movement**: "forward" is the camera's forward vector flattened onto the ground, so controls follow the rail camera around curves.
+- **Jump**: holding jump gives a full jump (2.6 m). Releasing early cuts upward speed to 45%. Coyote time and the jump buffer are both 0.12 s.
+- **Hover**: pressing jump in the air uses coyote time first, otherwise it starts the hover. The hover starts with a small pop, then falls slowly (1.4 m/s) while jump is held, for up to 1.2 s. It can't be used again until you land. Once it's used, a further press is buffered and becomes a jump on landing.
+- **Attack**: the hitbox is only live during the active part of the swing. Each swing hits each target once, with hit-stop and a spark. It works on the ground (with a small lunge) and in the air (with a little hang time), and cancels a hover. **Attack priority**: while you're attacking, enemies in front of you can't hurt you by touch, so your swing wins the trade.
+- **Damage**: 5 hearts. A hit gives 1.2 s of blinking invincibility, knockback and a camera shake.
+- **Pits**: falling in costs 1 heart and returns you to the last checkpoint, keeping what you collected.
+- **Defeat**: a short spin-out, then the **Game Over** screen offers Retry (back to the last checkpoint with full health, items rolled back to it) or Quit to Menu. This follows Kirby and the Forgotten Land: there are no lives. The tuning greybox respawns you automatically instead.
+- **Physics interpolation** is on, so motion is smooth on high-refresh displays. Code that teleports a body should call `reset_physics_interpolation()`.
 
 ## Camera rail
 
 The camera rides a rail (`Path3D`) that follows the player's route through the level.
 
-- **How it moves**: Each physics frame, `RailCamera` finds the point on the rail closest to the player (`curve.get_closest_offset()` in the path's local space). It moves its own progress along the rail toward that point, damped, capped at `rail_max_speed`, and never more than `max_lag_distance` away. Turning off `allow_backward` stops the camera from moving back along the rail.
-- **Camera keys**: `RailCameraKey` markers are children of the `Path3D`. Each key holds framing for one segment: offset, FOV, look height, look-ahead, pitch, and how closely the camera follows the player sideways and vertically. A key applies from where it sits on the rail. The camera blends into the next key over that key's `blend_in_distance`.
-- **Offsets**: Offsets are relative to the rail's direction at the camera's point: `x` = right of the rail, `y` = up, `z` = back.
-- **Locked keys**: Set `locked` and give the key a `lock_camera_point` and `lock_look_point`. The camera then holds still at that point, for example in a boss arena.
-- **Look-ahead**: Look-ahead slides the camera and its aim point forward together. The camera never turns toward the player, so its angle comes only from the key. That keeps camera-relative controls steady: in a side-scrolling segment, "right" always runs along the path.
-- **Collision**: A sphere cast from the player to the camera pulls the camera in front of walls, then lets it ease back out. It uses the `world` layer by default.
-- **Shake**: `camera.shake(strength, duration)` with strength 0 to 1. It does nothing when `SettingsManager.screen_shake` is off. The camera also shakes when the player takes damage.
-- **Smoothing**: `SettingsManager.camera_smoothing` (0 = snappy, 1 = floaty) chooses between the camera's `smoothing_rate_snappy` and `smoothing_rate_floaty`.
-- **Debug overlay (F3)**: Draws the rail (cyan), the keys (orange, yellow when active, red when locked), the player's projected point (magenta) and the camera's rail position (green). It also lists progress, the active keys, the blend weight, FOV, collision and shake.
+- **Following the player**: each physics frame, `RailCamera` finds the point on the rail closest to the player (`curve.get_closest_offset()` in the path's local space). It moves its own progress toward that point, damped, capped at `rail_max_speed`, and never more than `max_lag_distance` away. With `allow_backward` off, it never moves back along the rail.
+- **Camera keys**: `RailCameraKey` markers are children of the `Path3D`. Each key sets the framing for one segment: offset, FOV, look height, look-ahead, pitch, and how much the camera follows the player sideways and vertically.
+  - A key takes effect from where it sits on the rail.
+  - The camera blends into the next key over that key's `blend_in_distance`.
+  - Offsets are relative to the rail's direction: `x` = right, `y` = up, `z` = back.
+- **Look-ahead**: slides the camera and its aim point forward together rather than turning the camera. The camera's angle therefore comes only from the key, which keeps camera-relative controls steady: in a side-scroller, "right" always runs along the path.
+- **Locked keys** (`locked`, `lock_camera_point`, `lock_look_point`): the camera holds a fixed shot, as in the boss arena.
+- **Collision**: a sphere cast from the player to the camera pulls the camera in front of walls, then lets it ease back out. It uses the `world` layer. Fixed shots (locked keys and cutscene overrides) skip collision.
+- **API**:
+  - `shake(strength, duration)`: strength 0 to 1. It respects the Screen Shake setting.
+  - `set_override(position, look, fov)` / `clear_override()`: cutscene shots.
+  - `snap_to_target()`: jump straight to the player. The camera does this automatically on respawns.
+- **Debug overlay (F3)**: draws the rail (cyan), the keys (orange; yellow when active; red when locked), the player's projected point (magenta) and the camera's rail position (green). It also lists progress, the active keys, the blend weight, FOV, collision and shake.
 
-**Editing the rail**: Select `CameraRail` in the level and edit its curve with the Path3D tools. To add a segment, add a `Marker3D` child, attach `scripts/camera/rail_camera_key.gd`, and place it on the rail where the segment should begin. The test greybox has six example keys: Start (behind), Angled34, PulledBack, Curve34, SideScroller, and BossArena (locked).
+**Editing the rail and its key points**:
+- Select `CameraRail` in the level and edit its curve with the Path3D tools.
+- To add a segment, add a `Marker3D` child, attach `scripts/camera/rail_camera_key.gd`, and place it on the rail where the segment should start. Then set its framing.
+- In the ruins level these are generated in `_build_camera_rail()` (see "The level generator" below).
+- The greybox has six example keys: behind, angled 3/4, pulled back, curve, side-scroller and locked arena.
 
 ## The level: Overgrown Ruins
 
-The route is about 390 m long. It runs north (-Z) from the start, turns east (+X) at the colonnade, and ends at the boss arena. There are five segments, each with its own camera key:
+The route is about 390 m long. It runs north from the start, turns east at the colonnade, and ends in the throne arena. There are five segments, each with its own camera key:
 
 | # | Segment | Camera | Contents |
 |---|---|---|---|
-| 1 | Courtyard | Behind, then angled 3/4 | Teaching steps, secret wall (Lost Sprite 1), ramp, 3 m gap, 7 m hover gap, checkpoint 1 |
-| 2 | Colonnade | Side-scroller | Thorns, 3 m gap, moving platform over a 12 m pit, pillar stumps, crumbling bridge, wall blocking the path, checkpoint 2 |
-| 3 | Stairway | Angled 3/4, climbing | Stairs with thorns, ramp, 4 m lift, secret wall (Lost Sprite 3), crumbling bridge, checkpoint 3 |
-| 4 | Sunken Garden | Pulled back | Islands, moving platform, 8 m hover gap, thorn island, crumbling platforms, shortcut corridor behind a breakable wall, secret lift to a floating platform (Lost Sprite 2), checkpoint 4 |
-| 5 | Throne Arena | Locked | Circular arena, entrance gate (open), 4 pillars, 4 outer platforms, throne, exit gate (closed until the boss is beaten), level goal |
+| 1 | Courtyard | Behind, then angled 3/4 | Teaching steps, cracked wall hiding Lost Sprite 1, ramp, 3 m gap, 7 m hover gap, Mosslings introduced alone, checkpoint 1 |
+| 2 | Colonnade | Side-scroller | Thorns, 3 m gap, moving platform over a 12 m pit, pillar stumps, crumbling bridge, a cracked wall blocking the path, Sporelings introduced, checkpoint 2 |
+| 3 | Stairway | Angled 3/4, climbing | Stairs with thorns, ramp, 4 m lift, cracked wall hiding Lost Sprite 3, crumbling bridge, Snapthorns introduced, checkpoint 3 |
+| 4 | Sunken Garden | Pulled back | Islands, moving platform, 8 m hover gap, thorn island, crumbling platforms, shortcut corridor behind a cracked wall, hidden lift to Lost Sprite 2, mixed enemies, checkpoint 4 |
+| 5 | Throne Arena | Locked | King Mossback: entrance gate, 4 pillars, 4 outer platforms, throne, exit gate and goal |
 
 **Colour language**:
-- Crimson is a hazard.
-- Gold is a collectible.
+- Crimson means a hazard.
+- Gold means a collectible.
 - Teal-topped stone moves.
 - Orange cracked sandstone crumbles.
 - Pale cracked stone breaks when attacked.
 
-**Lost Sprite spots** are `Marker3D`s under `SpriteSpots`. Stage 5 places the collectibles there.
-
 ### Building levels
 
-The reusable pieces are in `scenes/level/`. Each one exposes its size and timings in the Inspector:
+The reusable pieces are in `scenes/level/`:
 
 | Scene | What it is |
 |---|---|
 | `platform.tscn` | Stone block with a moss cap (`GreyboxBlock`). It can be a box or a cylinder and builds its own mesh and collision from `size`. |
 | `moving_platform.tscn` | Travels to `travel` and back, pausing at each end. The player rides it automatically. |
-| `crumbling_platform.tscn` | Shakes when stood on, falls after `crumble_delay`, and returns after `respawn_time`. |
+| `crumbling_platform.tscn` | Shakes when stood on, falls after `crumble_delay`, and comes back after `respawn_time`. |
 | `thorn_patch.tscn` | A thorn hazard covering `size`. It damages the player on touch, with knockback. |
-| `breakable_wall.tscn` | Breaks after `hits_to_break` attacks. |
-| `checkpoint.tscn` | Crystal pedestal. Touching it sets the respawn point to its `SpawnPoint` child, facing that child's -Z. |
+| `breakable_wall.tscn` | Breaks after `hits_to_break` attacks, with debris, dust, sound and a camera shake. |
+| `checkpoint.tscn` | Crystal pedestal. Touching it sets the respawn point to its `SpawnPoint` child (facing its -Z) and autosaves. |
 | `gate.tscn` | Barred gateway with `open()` and `close()`. |
-| `level_goal.tscn` | End trigger that emits `GameState.level_completed`. |
-| `kill_plane.tscn` | Sends the player to the last checkpoint and costs 1 heart. |
+| `level_goal.tscn` | End trigger. It completes the level and opens the results screen. |
+| `kill_plane.tscn` | Pit trigger: costs 1 heart and returns you to the checkpoint. |
 
-A playable level's root uses `scripts/level/level.gd` (`Level`). Point its exports at the `Player`, a `StartPoint` marker and the `RailCamera`. On load it sends the player to the start, or to the active checkpoint when you restart the same level.
+A playable level's root uses `scripts/level/level.gd` (`Level`). Point its exports at the `Player`, a `StartPoint` marker and the `RailCamera`. It handles the rest:
+- Placing the player at the start, or at the checkpoint when continuing or restarting.
+- The level timer and autosaving.
+- The music.
+- The pause menu, Game Over screen and results screen.
+- The HUD (`scenes/ui/hud.tscn`), which should be instanced in the level.
 
-**The generator**: `level_ruins.tscn` is generated by `tools/build_ruins_level.gd`. Run it with:
-```
-godot --headless --path . res://tools/build_ruins_level.tscn
-```
-The output is an ordinary scene, so you can open it and edit it in the editor. Re-running the generator overwrites hand edits, so until the level is final, layout changes go in the generator. To add a segment there, write a `_build_*` function using the `_ground`, `_box`, `_ramp`, `_pillar` and `_instance` helpers, then add a camera key in `_build_camera_rail()`.
-
-**Route check**: The Stage 3 test walks the camera rail and raycasts down every 0.5 m. Every gap must be 8.5 m or less, and every climb 2.3 m or less, unless a moving platform spans it. Jump plus a full hover covers about 10.6 m.
+**The level generator** (`tools/build_ruins_level.gd`) produces `level_ruins.tscn` from code. The output is an ordinary scene you can open and edit in the editor. Re-running the generator overwrites hand edits, so while the layout is still changing, make changes in the generator.
+- **Adding a segment**: write a `_build_*` function using the `_ground`, `_box`, `_ramp`, `_pillar` and `_instance` helpers. Add a camera key in `_build_camera_rail()` and extend the rail's curve points.
+- **Route check**: the Stage 3 test walks the camera rail and raycasts down every 0.5 m. Every gap must be 8.5 m or less, and every climb 2.3 m or less, unless a moving platform spans it. For reference, jump plus a full hover carries about 10.6 m.
 
 ## Enemies
 
 All enemies extend `EnemyBase` (`scripts/enemies/enemy_base.gd`), which handles:
-- **Health and hits**: a hit makes the enemy flash white, knocks it back (`knockback_multiplier`), stuns it briefly, then gives it a short invulnerability window.
-- **Contact damage**: touching an enemy hurts the player.
-- **Death**: the enemy pops in a puff and awards `coin_reward` coins. Stage 5 turns these into coin pickups through `coin_scene`.
-- **Movement**: gravity, and ledge avoidance so enemies don't walk off drops deeper than `edge_check_depth`.
-- **Sleeping**: an enemy does nothing while the player is more than `active_distance` away.
+- **Hits**: health, a white hit flash, knockback, a short stun and brief invulnerability.
+- **Contact damage**.
+- **Death**: a puff, a sound, and dropped coin pickups.
+- **Movement**: gravity, and ledge avoidance (enemies won't walk off drops deeper than `edge_check_depth`).
+- **Sleeping** while the player is further than `active_distance`.
 
-Every attack has a wind-up: the enemy glows orange (`set_telegraph()`) before it strikes, and shows a yellow "!" when it first spots you.
+Every attack is telegraphed: the enemy glows orange (`set_telegraph()`) before it strikes, and a yellow "!" pops up when it first spots you.
 
-| Enemy | Scene | Behaviour |
-|---|---|---|
-| **Mossling** (chaser) | `scenes/enemies/mossling.tscn` | Wanders near its spawn point. When you come within `detect_range` it shows "!" and chases you. In lunge range it crouches and glows for `windup_time`, then lunges. It gives up beyond `lose_range`. 2 HP. |
-| **Sporeling** (shooter) | `scenes/enemies/sporeling.tscn` | Keeps between `retreat_distance` and `approach_distance` from you. It strafes, and backs off (sliding sideways at ledges) when you crowd it. Every `fire_interval` it swells and glows, then fires a slow spore at where you're standing. Spores pop on hit or after `projectile_lifetime`. 2 HP. |
-| **Snapthorn** (stationary plant) | `scenes/enemies/snapthorn.tscn` | Rooted in place. When you come within `trigger_range` it rears back and glows, snaps forward (hitting anything in front of it), then rests. 2 HP. |
+| Enemy | Behaviour |
+|---|---|
+| **Mossling** (chaser) | Wanders near its spawn point. Within `detect_range` it shows "!" and chases. In lunge range it crouches and glows for `windup_time`, then lunges. It gives up beyond `lose_range`. 2 HP. |
+| **Sporeling** (shooter) | Keeps between `retreat_distance` and `approach_distance` from you, strafing. When crowded it backs off, sliding sideways at ledges. Every `fire_interval` it swells and glows, then fires a slow spore at where you're standing. Spores pop on a hit or after `projectile_lifetime`. 2 HP. |
+| **Snapthorn** (rooted plant) | Within `trigger_range` it rears back and glows, snaps forward (hitting anything in front of it), then rests. Knockback doesn't move it. 2 HP. |
 
-**Attack priority**: While you're attacking, enemies in front of you can't hurt you by touch, so your swing wins a trade. Their actual attacks (lunge, spores, snap) still hit.
-
-**Placement**: Enemies are listed in `_build_enemies()` in `tools/build_ruins_level.gd`. The courtyard introduces the Mossling, the colonnade the Sporeling, and the stairway landing the Snapthorn, each on its own first. The garden and arena approach mix all three. To add an enemy by hand, instance its scene under `Enemies`. Its -Z is the direction it faces at start.
-
-**Adding a new enemy type**: Extend `EnemyBase` and implement `_ai_process(delta)`, plus optionally `_on_hurt()` and `_update_visual(delta)`. The scene needs a `Visual` node holding the meshes and a `ContactArea` (an `Area3D` with mask = player). Put the body on the `enemy` layer with mask = `world`.
+- **Adding enemies to the level**: instance the scene under `Enemies` (its -Z is the direction it faces at start), or list it in `_build_enemies()` in the generator. Each type is introduced alone before being mixed with others.
+- **New enemy types**: extend `EnemyBase` and implement `_ai_process(delta)`, plus optionally `_on_hurt()` and `_update_visual(delta)`. The scene needs a `Visual` node holding the meshes and a `ContactArea` (an `Area3D` with mask = player). Put the body on the `enemy` layer with mask = `world`.
 
 ## Collectibles, checkpoints and HUD
 
-- **Coins** (scenes/pickups/coin.tscn): there are about 120 in the level. They trace the route, and arcs of coins show where to jump over a gap. The shortcut corridor is lined with them as a reward. Enemies drop their coin_reward as coins that pop out, land, and blink away after 10 s.
-- **Lost Sprites** (lost_sprite.tscn, sprite_id 1-3): three per level. Sprite 1 is behind the courtyard's cracked wall. Sprite 3 is behind the cracked wall on the stairway's upper ledge. Sprite 2 is on the floating platform reached by the hidden lift beside garden island B.
-- **Hearts** (health_pickup.tscn): restore heal_amount (2). A heart is only picked up when you're hurt, otherwise it stays put. There are three: after the colonnade's crumbling bridge, on the stairway's upper ledge, and before the boss gate.
-- **Checkpoints** save the respawn point and a snapshot of what you've collected:
-  - **Dying** puts you back at the checkpoint with coins, Lost Sprites and pickups rolled back to that snapshot. Anything you collected since then reappears.
-  - **Pits** cost a heart and return you to the checkpoint, but keep everything you collected.
-  - Placed pickups are tracked by node path (Pickup.persistent). Dropped coins aren't tracked.
-- **Breakable walls** throw debris chunks and dust, play a stone sound and shake the camera when they break. A hit that doesn't break the wall gives a small chip.
-- **HUD** (scenes/ui/hud.tscn): hearts, coin count and Lost Sprites (x/3) in the top-left, plus a boss health bar at the bottom. The boss bar appears on GameState.start_boss(). The icons are drawn in code (HudIcon), so no textures are needed. The HUD runs entirely on GameState signals.
-- **Level timer**: GameState.level_time counts while the level is running. Stage 7's results screen will show it.
-
-To add a pickup, instance its scene anywhere in the level. Placed pickups are persistent by default. For a new kind of pickup, extend Pickup and override _on_collected(player) (and can_collect(player) if it needs a condition).
+- **Coins**: about 120. They trace the route, and arcs of coins show where to jump over gaps. The hidden shortcut corridor is lined with them. Enemies drop coins that pop out, land, and blink away after 10 s.
+- **Lost Sprites** (3, gold and glowing):
+  - Sprite 1 is behind the courtyard's cracked wall.
+  - Sprite 2 is on the floating platform reached by the hidden lift beside garden island B.
+  - Sprite 3 is behind the cracked wall on the stairway's upper ledge.
+- **Hearts**: restore 2 hearts. A heart is only picked up when you're hurt. There are three: after the colonnade's crumbling bridge, on the stairway's upper ledge, and before the boss gate.
+- **Checkpoints** (4, plus the arena entrance during the boss fight) save the respawn point and a snapshot of what you've collected. Dying rolls coins, Lost Sprites and pickups back to that snapshot. Pits don't roll anything back.
+- **HUD**: hearts, coin count and Lost Sprites (x/3) in the top-left, plus the boss health bar at the bottom during the fight. The icons are drawn in code (`HudIcon`), and everything runs on `GameState` signals.
+- **Adding a pickup**: instance its scene anywhere in the level. Placed pickups are tracked by node path, so they persist through checkpoints. For a new kind of pickup, extend `Pickup` and override `_on_collected(player)` (and `can_collect(player)` if it needs a condition).
 
 ## Boss: King Mossback
 
-The fight is run by the BossArena node in the level (scripts/boss/boss_arena.gd), and the boss is scenes/boss/king_mossback.tscn (KingMossback, which extends EnemyBase).
+The `BossArena` node in the level (`scripts/boss/boss_arena.gd`) runs the fight. The boss itself is `scenes/boss/king_mossback.tscn` (`KingMossback`, which extends `EnemyBase`).
 
-- **Intro**: Walking through the entrance trigger closes the gate behind you. The arena entrance becomes the respawn point, your controls lock, the camera cuts to a close shot of the king, and a name card plays ("King Mossback, King of the Ruins"). The boss bar appears and the fight starts after intro_duration.
-- **Hitting him**: He only takes damage in the **vulnerable window** after each attack. You can tell it's open by the dizzy stars over his head, the pulsing gold glow and the floating "Attack!" label ("Dizzy! Attack!" after a pillar crash). Each window allows up to max_hits_per_window (3) hits. Hits outside a window clank off with a stone sound and sparks. A hit that lands flashes him and shakes the camera.
-- **12 HP**, with phases at 8 and 4 HP. Each phase change starts with a roar (phase_transition_time). Every attack has an orange wind-up glow first.
-  - **Phase 1**: The **ground slam** raises his fists, then slams, sending out a shockwave ring. Jump over it, since it only hurts you on the ground. The **summon** calls Mosslings at the far side of the arena (at most 3 alive). The pattern is slam, summon, slam.
-  - **Phase 2**: The **spore barrage** fires 3 rings of slow spores, each with a 3-spore gap to slip through or jump over. The **charge** lowers his head, locks aim just before going, and rushes you. If he hits a pillar or the throne he's **stunned** for a long window. If he misses, he stops at the arena edge with only a short opening. The pattern is barrage, charge, slam, charge.
-  - **Phase 3**: Wind-ups are 35% faster, and attacks come in **combos** (slam+charge, barrage+slam, charge+barrage) with the window after the last one. The **arena changes**: the four outer platforms shake and fall away, and **rocks fall** with red ground markers. About half of them target your position.
-- **Defeat**: slow motion, debris bursts, and he topples and sinks. 10 coins burst out, the boss bar fades, and after exit_open_delay the exit gate opens to the level goal.
-- **Dying in the fight** resets him (full health, phase 1, back by the throne), restores the arena, and clears summons and hazards. You respawn at the arena entrance and the fight restarts after a short intro. Falling into a pit just costs a heart and returns you to the entrance.
-
-All timings, speeds, counts and thresholds are exported on the KingMossback and BossArena nodes. start_attack() and orce_vulnerable() are there for testing and tuning. The pillars and throne are in the oss_pillar group (things his charge crashes into). He's on his own physics layer (oss), so he's solid to the player but doesn't pull the camera in. Locked camera keys and the intro shot skip camera collision entirely.
-
-## Audio
-
-AudioManager.play_sfx(&"name") plays a sound on the SFX bus, and play_ui() uses the UI bus. The buses (Master, Music, SFX, UI) are defined in default_bus_layout.tres. Every sound is generated in code by scripts/audio/sfx_synth.gd (tone sweeps, note sequences, filtered noise). To use a real recording instead, put <name>.wav or <name>.ogg in es://assets/audio/sfx/ and it's picked up automatically. Sounds: coin, sprite, heal, checkpoint, wall_break, stone_hit, jump, hover, attack, hit, hurt, enemy_death, spore_fire, land, ui_move, ui_select, ui_back. Stage 8 adds music and wires up the remaining gameplay sounds.
+- **Intro**: walking in closes the gate behind you, and the arena entrance becomes the respawn point. Your controls lock, the camera cuts to a close shot of the king, a name card plays, the boss bar appears and the boss music starts.
+- **Hitting him**: he only takes damage in the **vulnerable window** after each attack. You can tell it's open by the dizzy stars, the pulsing gold glow and the floating "Attack!" label ("Dizzy! Attack!" after a pillar crash). Each window allows up to 3 hits. Hits outside a window clank off. A hit that lands flashes him, shakes the camera and adds hit-stop.
+- **12 HP, three phases** (changing at 8 and 4 HP, each with a roar):
+  1. **Ground slam**: a shockwave ring you jump over. **Summon**: Mosslings on the far side of the arena (at most 3 alive).
+  2. **Spore barrage**: 3 rings of slow spores, each with a gap. **Charge**: if he hits a pillar or the throne he's stunned for a long window. If he misses, he stops at the edge with only a short opening.
+  3. **Faster combos** (slam+charge, barrage+slam, charge+barrage). The outer platforms crumble away, and **rocks fall** onto red ground markers, about half of them aimed at you.
+- **Defeat**: slow motion, debris, he topples and sinks, coins burst out and a victory jingle plays. The exit gate then opens to the goal.
+- **Dying in the fight** resets him and the arena, and you respawn at the arena entrance for a quick restart. Continuing or restarting from that checkpoint also restarts the fight.
+- **Tuning and testing**: `start_attack()` and `force_vulnerable()` are available for testing and tuning. The pillars and throne are in the `boss_pillar` group (the things his charge crashes into). He's on his own `boss` physics layer, so he's solid to the player but doesn't pull the camera in.
 
 ## Menus, settings and saving
 
-- **Main menu** (scenes/ui/main_menu.tscn): Start, Continue, Settings and Quit. **Start** begins a fresh run. **Continue** is only enabled when a run is in progress, and resumes at the saved checkpoint with the items you'd collected by then. Your best time, Lost Sprites and coins show below the buttons once you've finished the level.
-- **Pause menu** (Esc / Start): Resume, Settings, Restart from Checkpoint, and Main Menu. The game is paused underneath (get_tree().paused), and the menus use PROCESS_MODE_ALWAYS. Restart from Checkpoint reloads the level at the checkpoint, rolls items back and restores health.
-- **Game Over**: when you're defeated, you get **Retry** (respawn at the last checkpoint with items rolled back) or **Quit to Menu**. This follows Kirby and the Forgotten Land: there are no lives. The tuning greybox, and levels with use_game_over_screen off, respawn automatically instead.
-- **Level complete**: touching the goal shows the results screen with time, coins, Lost Sprites (x/3) and your best time ("New best time!" when you beat it). It offers **Replay** and **Main Menu**.
-- **Settings** (scenes/ui/settings_menu.tscn, shared by both menus). Every change applies immediately and is saved to user://settings.cfg.
-  - Display: resolution (16:9 and 16:10 options), window mode (Windowed, Fullscreen, Borderless), V-Sync, FPS cap.
+- **Main menu**:
+  - **Start** begins a new run.
+  - **Continue** is enabled only when a run is in progress. It resumes at the saved checkpoint with the items you'd collected by then.
+  - **Settings** and **Quit**.
+  - Your best time, Lost Sprites and coins show below the buttons once you've finished the level.
+- **Pause menu** (Esc / Start): Resume, Settings, Restart from Checkpoint and Main Menu. The game is paused underneath (`get_tree().paused`), and the menus use `PROCESS_MODE_ALWAYS`.
+- **Results screen**: time, coins, Lost Sprites (x/3) and best time ("New best time!" when you beat it). It offers Replay and Main Menu.
+- **Settings** (shared by both menus): every change is applied immediately and saved to `user://settings.cfg`.
+  - Display: resolution (common 16:9 and 16:10 sizes), window mode (Windowed, Fullscreen, Borderless), V-Sync, FPS cap.
   - Audio: Master, Music and SFX volume (linear slider converted to dB on the buses).
-  - Gameplay: camera smoothing, screen shake on/off.
-  - Graphics: quality preset. **Low** has no MSAA, 75% render scale, 1K hard shadows, and no SSAO or glow. **Medium** has 2x MSAA, 2K soft shadows, SSAO and glow. **High** has 4x MSAA and 4K softer shadows.
-  - Controls: rebind each action's keyboard/mouse and gamepad input separately (Esc cancels a capture), plus **Reset Controls**.
-- **Save file** (user://save.cfg, handled by GameState): progress is autosaved at the level start and at every checkpoint (level, checkpoint, coins, Lost Sprites and collected pickups as of that checkpoint, and level time). Finishing the level records the best time, Lost Sprites and coins, and clears the in-progress run.
-- **Scene changes** go through SceneManager.change_scene(), which fades to black and back. It also unpauses the game and resets any hit-stop.
-- **Navigation**: every menu works with keyboard, D-pad or stick (ui_* actions). The first button is focused when a menu opens, and disabled buttons are skipped. ui_cancel (Esc / B) backs out of Settings and the pause menu. Menus play UI sounds on focus and press (MenuSounds).
-- The automated tests use user://test_save.cfg and user://test_settings.cfg, so they never touch your real save or settings.
+  - Gameplay: camera smoothing, screen shake.
+  - Graphics quality:
 
-## Gameplay rules and defaults
+    | Preset | MSAA | Render scale | Shadows | SSAO and glow |
+    |---|---|---|---|---|
+    | Low | None | 75% | 1K, hard | Off |
+    | Medium | 2x | 100% | 2K, soft | On |
+    | High | 4x | 100% | 4K, softer | On |
 
-- **Camera-relative movement**: "forward" is the active camera's forward vector flattened onto the ground, so controls follow the rail camera around curves.
-- **Jump**: Holding jump gives a full jump (2.6 m by default). Releasing early cuts upward speed to 45%. Coyote time and the jump buffer are both 0.12 s.
-- **Jump vs. hover**: A jump press in the air uses coyote time first, otherwise it starts the hover. Once the hover is used up, further presses are buffered and fire as a jump on landing.
-- **Hover**: The hover starts with a small upward pop and then falls slowly (1.4 m/s). It lasts while jump is held, up to 1.2 s. Releasing jump or running out of time ends it, and it can't be used again until you land.
-- **Attack**: The hitbox is only active during the swing's active window. Each swing hits each target once, with hit-stop on contact. You can attack on the ground (with a small forward lunge) or in the air (with a little hang time). Attacking cancels a hover.
-- **Damage**: You have 5 hearts. Taking damage gives 1.2 s of blinking invincibility and knockback.
-- **Pits**: Falling into a pit costs 1 heart and puts you back at the checkpoint. Losing the last heart counts as death.
-- **Death**: After a short spin-out you respawn at the last checkpoint with full health. Before any checkpoint is reached, the checkpoint is the spawn point.
-- **Physics interpolation** is enabled, so motion is smooth on high-refresh displays. Code that teleports a body should call `reset_physics_interpolation()`. The player emits `teleported` on respawns so the camera snaps instead of sweeping across the level.
+  - Controls: keyboard/mouse and gamepad rebinding for every action, plus Reset Controls.
+- **Save file** (`user://save.cfg`): progress is autosaved at the level start and at each checkpoint (level, checkpoint, the items you had at that checkpoint, and time). Finishing the level records best time, Lost Sprites and coins.
+- **Fades**: scene changes fade through `SceneManager.change_scene()`.
+- **Navigation**: every menu works with keyboard or gamepad. The first button is focused when a menu opens, disabled buttons are skipped, and `ui_cancel` backs out. Menus play UI sounds.
+
+## Audio
+
+- **Buses**: Master, Music, SFX and UI (`default_bus_layout.tres`).
+- **Sound effects**: `AudioManager.play_sfx(&"name")` plays a sound, and `play_ui()` uses the UI bus.
+- **Music**: `play_music(&"menu" | &"level" | &"boss")` loops a track, and `stop_music()` stops it.
+- **Placeholder audio**: all audio is generated:
+  - `scripts/audio/sfx_synth.gd` holds the sound recipes (tone sweeps, note sequences, filtered noise).
+  - `scripts/audio/music_synth.gd` holds the music: chiptune loops with lead, bass and drums, written as note lists. The menu track is calm (C major, 92 BPM), the level track bouncy (F major, 128 BPM), and the boss track driving (D minor, 150 BPM).
+  - `tools/generate_audio.gd` writes everything to `assets/audio/sfx/*.wav` and `assets/audio/music/*.wav`.
+- **Swapping in real audio**: replace a WAV, or add an `.ogg` with the same name. AudioManager prefers files, falls back to the recipes, and loops music automatically.
+- **Sounds**: coin, sprite, heal, checkpoint, wall_break, stone_hit, jump, hover, attack, hit, hurt, land, enemy_death, spore_fire, boss_roar, boss_slam, boss_charge, victory, ui_move, ui_select, ui_back.
 
 ## Physics layers
 
 | # | Name | Used by |
 |---|---|---|
-| 1 | world | Level geometry, breakable walls, dummies |
+| 1 | world | Level geometry, breakable walls, dummies (also the camera's collision layer) |
 | 2 | player | Player body |
-| 3 | enemy | Enemies and dummies |
-| 4 | player_attack | Player attack hitbox (detects enemy and breakable) |
-| 5 | hazard | Damage areas (detect player) |
+| 3 | enemy | Enemies and the boss (hit by the player's attack) |
+| 4 | player_attack | Player attack hitbox |
+| 5 | hazard | Damage areas, thorns, spores |
 | 6 | breakable | Breakable walls |
-| 7 | pickup | Collectibles (Stage 5) |
+| 7 | pickup | Collectibles |
+| 8 | boss | King Mossback (solid to the player, ignored by the camera) |
 
 ## Extending
 
-- **Hittable objects**: implement `take_hit(damage: int, source_position: Vector3, knockback: float)` and put the body on the `enemy` or `breakable` layer.
-- **Things that hurt the player**: call `player.take_damage(amount, source_position)`. The `DamageArea` script does this for any overlapping body.
-- **Greybox geometry**: add a `StaticBody3D`, attach `scripts/level/greybox_block.gd`, and set `size` and `material`. It builds its own mesh and collision, including in the editor.
+- **Hittable things**: implement `take_hit(damage: int, source_position: Vector3, knockback: float)` and put the body on the `enemy` or `breakable` layer.
+- **Things that hurt the player**: call `player.take_damage(amount, source_position)`. `DamageArea` (and `ThornPatch`) do this for any overlapping body.
+- **Greybox geometry**: add a `StaticBody3D`, attach `scripts/level/greybox_block.gd`, and set `size`, `material` and optionally a `top_material` cap.
+- **Effects**: `Fx.puff()` and `Fx.chunks()` spawn one-shot particles. `HitStop.apply()` briefly slows time.

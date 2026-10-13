@@ -4,6 +4,10 @@ extends RefCounted
 ## from tone sweeps, note sequences and filtered noise. Recipes live in `build()`.
 
 const MIX_RATE: int = 22050
+## Every sound with a recipe (tools/generate_audio.gd writes these to assets/audio/sfx/).
+const SOUND_NAMES: Array[StringName] = [&"coin", &"sprite", &"heal", &"checkpoint", &"wall_break", &"stone_hit",
+	&"jump", &"hover", &"attack", &"hit", &"hurt", &"enemy_death", &"spore_fire", &"land", &"boss_roar",
+	&"boss_slam", &"boss_charge", &"victory", &"ui_move", &"ui_select", &"ui_back"]
 
 enum Wave { SINE, SQUARE, TRIANGLE, SAW, NOISE }
 
@@ -41,6 +45,14 @@ static func build(sound_name: StringName) -> AudioStreamWAV:
 			samples = tone(330.0, 180.0, 0.18, Wave.SINE, 0.5, 0.005, 0.1, 20.0)
 		&"land":
 			samples = noise(0.08, 0.25, 0.15, 0.001, 0.07)
+		&"boss_roar":
+			samples = mix(tone(120.0, 70.0, 0.9, Wave.SAW, 0.4, 0.05, 0.4, 7.0), noise(0.9, 0.25, 0.15, 0.05, 0.5))
+		&"boss_slam":
+			samples = mix(noise(0.6, 0.7, 0.18, 0.001, 0.5), tone(95.0, 32.0, 0.5, Wave.SQUARE, 0.45, 0.001, 0.3))
+		&"boss_charge":
+			samples = mix(tone(180.0, 460.0, 0.4, Wave.SAW, 0.3, 0.01, 0.15), noise(0.4, 0.2, 0.5, 0.05, 0.2))
+		&"victory":
+			samples = sequence([[523.0, 0.1], [659.0, 0.1], [784.0, 0.1], [1047.0, 0.22], [784.0, 0.1], [1047.0, 0.5]], Wave.TRIANGLE, 0.45)
 		&"ui_move":
 			samples = tone(1200.0, 1200.0, 0.035, Wave.SQUARE, 0.15, 0.001, 0.02)
 		&"ui_select":

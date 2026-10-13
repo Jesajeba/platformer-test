@@ -128,6 +128,7 @@ func _fire() -> void:
 	var aim: Vector3 = _player.global_position + Vector3.UP * 0.6
 	projectile.launch(muzzle, (aim - muzzle).normalized() * projectile_speed, projectile_damage, projectile_lifetime)
 	_shots_fired += 1
+	AudioManager.play_sfx(&"spore_fire")
 	_cap.scale = Vector3(0.8, 1.3, 0.8)
 
 

@@ -105,7 +105,8 @@ func _start_fight(duration: float, first_time: bool) -> void:
 	if first_time and camera != null:
 		camera.set_override(intro_camera_point.global_position, intro_look_point.global_position, 45.0)
 	_name_card.show_card(boss.display_name, boss.subtitle, maxf(duration - 0.6, 0.4))
-	AudioManager.play_sfx(&"hurt", 0.0, 2.0)
+	AudioManager.play_sfx(&"boss_roar", 0.0, 2.0)
+	AudioManager.play_music(&"boss")
 	if _intro_tween != null:
 		_intro_tween.kill()
 	_intro_tween = create_tween()
@@ -142,6 +143,7 @@ func _on_player_died() -> void:
 	_restore_platforms()
 	GameState.set_boss_health(boss.max_health, boss.max_health)
 	_state = State.WAITING
+	AudioManager.play_music(&"level")
 	fight_reset.emit()
 
 
@@ -156,6 +158,8 @@ func _on_boss_defeated() -> void:
 	for node: Node in get_tree().get_nodes_in_group("boss_hazards"):
 		node.queue_free()
 	GameState.end_boss(true)
+	AudioManager.stop_music()
+	AudioManager.play_sfx(&"victory", 0.0, 2.0)
 	var tween: Tween = create_tween()
 	tween.tween_interval(exit_open_delay)
 	tween.tween_callback(func() -> void:

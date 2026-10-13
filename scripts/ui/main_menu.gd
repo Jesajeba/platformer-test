@@ -79,7 +79,7 @@ func _on_settings() -> void:
 
 
 func _on_quit() -> void:
-	get_tree().quit()
+	AudioManager.quit_game()
 
 
 func is_settings_open() -> bool:

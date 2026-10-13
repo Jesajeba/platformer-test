@@ -79,7 +79,7 @@ enum State { IDLE, RUN, JUMP, FALL, HOVER, ATTACK, HURT, DEAD }
 ## Hearts lost when falling into a pit (then respawn at the checkpoint).
 @export var pit_damage: int = 1
 @export var respawn_delay: float = 1.2
-## Respawn automatically after espawn_delay. Levels turn this off and show a Game Over screen instead.
+## Respawn automatically after respawn_delay. Levels turn this off and show a Game Over screen instead.
 @export var auto_respawn: bool = true
 
 @export_group("Visuals")
@@ -94,6 +94,14 @@ enum State { IDLE, RUN, JUMP, FALL, HOVER, ATTACK, HURT, DEAD }
 @export var run_bob_amount: float = 0.08
 @export var run_cycle_speed: float = 2.2
 @export var foot_swing: float = 0.18
+
+@export_group("Juice")
+## Fall speed above which landing kicks up dust (and plays the landing sound).
+@export var land_dust_speed: float = 7.0
+## Fall speed above which landing also shakes the camera.
+@export var land_shake_speed: float = 16.0
+@export var dust_color: Color = Color(0.85, 0.8, 0.7)
+@export var hit_spark_color: Color = Color(1.0, 0.95, 0.6)
 
 ## When false the player ignores input (cutscenes, boss intro).
 var controls_enabled: bool = true
@@ -198,6 +206,7 @@ func take_damage(amount: int, source_position: Vector3) -> void:
 	if is_invincible():
 		return
 	damaged.emit(amount)
+	AudioManager.play_sfx(&"hurt")
 	if GameState.damage(amount) <= 0:
 		_die()
 		return
@@ -352,6 +361,7 @@ func _set_state(new_state: State) -> void:
 			velocity.y = maxf(velocity.y, hover_entry_lift)
 			_jump_buffer_timer = 0.0
 			hover_started.emit()
+			AudioManager.play_sfx(&"hover")
 		State.ATTACK:
 			_hit_targets.clear()
 			_jump_rising = false
@@ -359,6 +369,7 @@ func _set_state(new_state: State) -> void:
 				velocity.x = _facing.x * attack_lunge_speed
 				velocity.z = _facing.z * attack_lunge_speed
 			attack_started.emit()
+			AudioManager.play_sfx(&"attack")
 		State.HURT:
 			_jump_rising = false
 		State.DEAD:
@@ -384,8 +395,11 @@ func _do_jump() -> void:
 	_coyote_timer = 0.0
 	_jump_buffer_timer = 0.0
 	_squash.scale = jump_stretch
+	if is_on_floor() or _coyote_timer > 0.0:
+		Fx.puff(get_parent(), global_position + Vector3.UP * 0.1, dust_color, 6, 0.25, 1.5, 0.35)
 	_set_state(State.JUMP)
 	jumped.emit()
+	AudioManager.play_sfx(&"jump")
 
 
 func _start_hover() -> void:
@@ -411,9 +425,13 @@ func _process_attack_hits() -> void:
 			_hit_targets.append(target)
 			target.take_hit(attack_damage, global_position, attack_knockback)
 			hit_landed.emit(target)
+			if target is Node3D:
+				var spark_at: Vector3 = (target as Node3D).global_position.lerp(global_position, 0.4) + Vector3.UP * 0.7
+				Fx.puff(get_parent(), spark_at, hit_spark_color, 8, 0.18, 4.5, 0.25)
 			landed = true
 	if landed:
 		HitStop.apply(get_tree(), hit_stop_duration, hit_stop_time_scale)
+		AudioManager.play_sfx(&"hit")
 
 
 func _die() -> void:
@@ -455,6 +473,13 @@ func _on_landed() -> void:
 	_coyote_timer = 0.0
 	var impact: float = clampf(-_pre_move_velocity_y / maxf(land_squash_full_speed, 0.01), 0.2, 1.0)
 	_squash.scale = Vector3.ONE.lerp(land_squash, impact)
+	if -_pre_move_velocity_y > land_dust_speed:
+		Fx.puff(get_parent(), global_position + Vector3.UP * 0.1, dust_color, 8, 0.3, 2.0, 0.4)
+		AudioManager.play_sfx(&"land")
+	if -_pre_move_velocity_y > land_shake_speed:
+		var camera: Camera3D = get_viewport().get_camera_3d()
+		if camera != null and camera.has_method("shake"):
+			camera.call("shake", 0.25, 0.15)
 	if _state == State.JUMP or _state == State.FALL or _state == State.HOVER:
 		_set_state(State.IDLE)
 

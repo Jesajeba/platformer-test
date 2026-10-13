@@ -86,7 +86,8 @@ func _on_retry() -> void:
 func _on_level_completed(_level_id: String) -> void:
 	if player != null:
 		player.controls_enabled = false
-	AudioManager.play_sfx(&"sprite", 0.0)
+	AudioManager.stop_music()
+	AudioManager.play_sfx(&"victory", 0.0)
 	await get_tree().create_timer(results_delay, false).timeout
 	if is_inside_tree():
 		results_screen.open()
