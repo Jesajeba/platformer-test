@@ -17,6 +17,11 @@ func _run() -> void:
 	_test_level_start()
 	_test_route()
 	_test_contents()
+	_test_encounters()
+	# The remaining checks exercise level mechanics; enemies are covered by the Stage 4 test.
+	for enemy: Node in get_tree().get_nodes_in_group("enemies"):
+		enemy.queue_free()
+	await _frames(2)
 	_test_camera_segments_static()
 	await _test_camera_segments()
 	await _test_thorns()
@@ -115,6 +120,43 @@ func _test_contents() -> void:
 	_check("level has 3 Lost Sprite spots", _level.get_node("SpriteSpots").get_child_count() == 3)
 	_check("level has a kill plane", _level.get_node_or_null("KillPlane") is KillPlane)
 	_check("level has entrance and exit gates", _level.find_children("*", "Gate", true, false).size() == 2)
+
+
+## Enemy placement (Stage 4): counts, introduction order, and every enemy standing on ground.
+func _test_encounters() -> void:
+	var rail: Path3D = _level.get_node("CameraRail") as Path3D
+	var enemies: Array[EnemyBase] = []
+	for node: Node in _level.find_children("*", "EnemyBase", true, false):
+		enemies.append(node as EnemyBase)
+	var counts: Dictionary = {"Mossling": 0, "Sporeling": 0, "Snapthorn": 0}
+	var by_offset: Array = []
+	var floating: PackedStringArray = PackedStringArray()
+	var space: PhysicsDirectSpaceState3D = _level.get_world_3d().direct_space_state
+	for enemy: EnemyBase in enemies:
+		var type_name: String = enemy.get_script().get_global_name()
+		counts[type_name] = counts.get(type_name, 0) + 1
+		by_offset.append([rail.curve.get_closest_offset(rail.to_local(enemy.global_position)), type_name])
+		var from: Vector3 = enemy.global_position + Vector3.UP * 0.3
+		var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, from + Vector3.DOWN * 1.0, 1, [enemy.get_rid()])
+		if space.intersect_ray(query).is_empty():
+			floating.append(str(enemy.get_path()))
+	print("  enemies: %s" % counts)
+	_check("several of each enemy type", counts["Mossling"] >= 4 and counts["Sporeling"] >= 3 and counts["Snapthorn"] >= 3, str(counts))
+	_check("every enemy stands on ground", floating.is_empty(), ", ".join(floating))
+
+	by_offset.sort_custom(func(a: Array, b: Array) -> bool: return a[0] < b[0])
+	var first_seen: Dictionary = {}
+	for entry: Array in by_offset:
+		if not first_seen.has(entry[1]):
+			first_seen[entry[1]] = entry[0]
+	_check("enemy types are introduced in order: Mossling, Sporeling, Snapthorn",
+		first_seen["Mossling"] < first_seen["Sporeling"] and first_seen["Sporeling"] < first_seen["Snapthorn"], str(first_seen))
+	var alone: bool = true
+	for type_name: String in first_seen:
+		for entry: Array in by_offset:
+			if entry[1] != type_name and absf(entry[0] - first_seen[type_name]) < 12.0:
+				alone = false
+	_check("each enemy type's first appearance is alone (no other type within 12 m)", alone)
 
 
 func _test_camera_segments_static() -> void:

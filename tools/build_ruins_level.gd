@@ -10,6 +10,9 @@ extends Node
 const OUTPUT: String = "res://scenes/levels/level_ruins.tscn"
 const MATERIALS: String = "res://assets/materials/ruins/"
 const SCENES: String = "res://scenes/level/"
+const MOSSLING: String = "res://scenes/enemies/mossling.tscn"
+const SPORELING: String = "res://scenes/enemies/sporeling.tscn"
+const SNAPTHORN: String = "res://scenes/enemies/snapthorn.tscn"
 
 var root: Node3D
 var _materials: Dictionary = {}
@@ -48,6 +51,7 @@ func _build() -> void:
 	_build_stairway(_group(geometry, "S3_Stairway"))
 	_build_garden(_group(geometry, "S4_SunkenGarden"))
 	_build_arena(_group(geometry, "S5_ThroneArena"))
+	_build_enemies(_group(root, "Enemies"))
 	_build_backdrop(_group(root, "Backdrop"))
 
 	var camera: Camera3D = _build_camera_rail(player)
@@ -233,6 +237,47 @@ func _build_arena(parent: Node3D) -> void:
 	_box(parent, "ThroneSeat", Vector3(268, 10.6, -92), Vector3(272, 12, -94), "stone_dark", "")
 	_box(parent, "ThroneBack", Vector3(267.5, 10.6, -93.5), Vector3(272.5, 16, -94.5), "stone_dark", "moss")
 	_box(parent, "ThroneGemSocket", Vector3(269.4, 14.4, -93.4), Vector3(270.6, 15.6, -93.6), "gold_accent", "")
+
+#endregion
+
+
+#region Enemies
+
+## Encounter design: each type is introduced alone (Mossling in the courtyard, Sporeling in the
+## colonnade, Snapthorn on the stairway landing) before they are mixed later on.
+## Yaw: 0 faces -Z, 180 faces +Z (toward the start), 90 faces -X (toward an approaching player on +X paths).
+func _build_enemies(parent: Node3D) -> void:
+	var s1: Node3D = _group(parent, "S1_Courtyard")
+	_enemy(MOSSLING, s1, "Mossling1", Vector3(0, 0.1, -14), 180.0)
+	_enemy(MOSSLING, s1, "Mossling2", Vector3(2, 2.1, -40), 180.0)
+	_enemy(MOSSLING, s1, "Mossling3", Vector3(2, 2.1, -54), 180.0)
+
+	var s2: Node3D = _group(parent, "S2_Colonnade")
+	_enemy(MOSSLING, s2, "Mossling1", Vector3(30, 2.1, -80), 90.0)
+	_enemy(SPORELING, s2, "Sporeling1", Vector3(52, 2.1, -80), 90.0)
+	_enemy(MOSSLING, s2, "Mossling2", Vector3(79, 2.1, -80), 90.0)
+	_enemy(SPORELING, s2, "Sporeling2", Vector3(90, 2.1, -80), 90.0)
+
+	var s3: Node3D = _group(parent, "S3_Stairway")
+	_enemy(SNAPTHORN, s3, "Snapthorn1", Vector3(119, 7.1, -76.8), 90.0)
+	_enemy(SPORELING, s3, "Sporeling1", Vector3(136, 10.1, -82), 90.0)
+	_enemy(MOSSLING, s3, "Mossling1", Vector3(145, 14.1, -79), 90.0)
+	_enemy(MOSSLING, s3, "Mossling2", Vector3(152, 14.1, -81), 90.0)
+	_enemy(SNAPTHORN, s3, "Snapthorn2", Vector3(155, 14.1, -83), 90.0)
+
+	var s4: Node3D = _group(parent, "S4_SunkenGarden")
+	_enemy(MOSSLING, s4, "Mossling1", Vector3(182, 10.1, -80), 90.0)
+	_enemy(SPORELING, s4, "Sporeling1", Vector3(199, 10.1, -81), 90.0)
+	_enemy(MOSSLING, s4, "Mossling2", Vector3(213, 10.1, -79), 90.0)
+	_enemy(SNAPTHORN, s4, "Snapthorn1", Vector3(224.5, 10.1, -83), 90.0)
+	_enemy(MOSSLING, s4, "Mossling3", Vector3(242, 10.1, -79), 90.0)
+	_enemy(SNAPTHORN, s4, "Snapthorn2", Vector3(246, 10.1, -77.5), 90.0)
+	_enemy(SPORELING, s4, "Sporeling2", Vector3(250, 10.1, -81), 90.0)
+
+
+func _enemy(path: String, parent: Node, node_name: String, pos: Vector3, yaw_degrees: float) -> void:
+	var enemy: Node3D = _instance(path, parent, node_name, pos)
+	enemy.rotation_degrees.y = yaw_degrees
 
 #endregion
 

@@ -179,6 +179,11 @@ func is_invincible() -> bool:
 	return _invincible_timer > 0.0 or _state == State.DEAD
 
 
+## Horizontal direction the player is facing (and attacking toward).
+func get_facing() -> Vector3:
+	return _facing
+
+
 func get_hover_time_left() -> float:
 	return _hover_timer if _state == State.HOVER else 0.0
 

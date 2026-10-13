@@ -1,0 +1,103 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/sporeling.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/spore_projectile.tscn" id="2_spore"]
+
+[sub_resource type="CapsuleShape3D" id="Shape_body"]
+radius = 0.45
+height = 1.5
+
+[sub_resource type="SphereShape3D" id="Shape_contact"]
+radius = 0.7
+
+[sub_resource type="StandardMaterial3D" id="Mat_stem"]
+albedo_color = Color(0.93, 0.88, 0.76, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_cap"]
+albedo_color = Color(0.55, 0.25, 0.72, 1)
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_spot"]
+albedo_color = Color(0.98, 0.95, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_eye"]
+albedo_color = Color(0.1, 0.06, 0.15, 1)
+
+[sub_resource type="CapsuleMesh" id="Mesh_stem"]
+material = SubResource("Mat_stem")
+radius = 0.32
+height = 1.1
+
+[sub_resource type="SphereMesh" id="Mesh_cap"]
+material = SubResource("Mat_cap")
+radius = 0.72
+height = 0.8
+
+[sub_resource type="SphereMesh" id="Mesh_spot"]
+material = SubResource("Mat_spot")
+radius = 0.12
+height = 0.1
+
+[sub_resource type="CapsuleMesh" id="Mesh_eye"]
+material = SubResource("Mat_eye")
+radius = 0.05
+height = 0.2
+
+[node name="Sporeling" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+max_health = 2
+coin_reward = 3
+death_puff_color = Color(0.8, 0.6, 0.95, 1)
+projectile_scene = ExtResource("2_spore")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("Shape_body")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("Shape_contact")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Stem" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+mesh = SubResource("Mesh_stem")
+
+[node name="EyeLeft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0.65, -0.3)
+mesh = SubResource("Mesh_eye")
+
+[node name="EyeRight" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0.65, -0.3)
+mesh = SubResource("Mesh_eye")
+
+[node name="Cap" type="Node3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+
+[node name="CapMesh" type="MeshInstance3D" parent="Visual/Cap"]
+mesh = SubResource("Mesh_cap")
+
+[node name="Spot1" type="MeshInstance3D" parent="Visual/Cap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, -0.1)
+mesh = SubResource("Mesh_spot")
+
+[node name="Spot2" type="MeshInstance3D" parent="Visual/Cap"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0.38, 0.22, 0.1)
+mesh = SubResource("Mesh_spot")
+
+[node name="Spot3" type="MeshInstance3D" parent="Visual/Cap"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.36, 0.2, -0.22)
+mesh = SubResource("Mesh_spot")
+
+[node name="Spot4" type="MeshInstance3D" parent="Visual/Cap"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -0.1, 0.24, 0.42)
+mesh = SubResource("Mesh_spot")

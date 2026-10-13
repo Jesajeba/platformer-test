@@ -2,7 +2,7 @@
 
 A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby and the Forgotten Land. Built in stages from [GAME_SPEC.md](GAME_SPEC.md).
 
-**Current status: Stage 3 (greybox level).** F5 opens the Overgrown Ruins level (`scenes/levels/level_ruins.tscn`). The tuning test scene is `scenes/levels/test_greybox.tscn`. The main menu takes over in Stage 7.
+**Current status: Stage 4 (enemies).** F5 opens the Overgrown Ruins level (`scenes/levels/level_ruins.tscn`). The tuning test scene is `scenes/levels/test_greybox.tscn`. The main menu takes over in Stage 7.
 
 ## Running
 
@@ -15,8 +15,9 @@ A 3D platformer prototype in Godot 4 (GDScript), inspired by the feel of Kirby a
   godot --headless --path . res://tests/stage1_smoke_test.tscn
   godot --headless --path . res://tests/stage2_rail_camera_test.tscn
   godot --headless --path . res://tests/stage3_level_test.tscn
+  godot --headless --path . res://tests/stage4_enemy_test.tscn
   ```
-- Visual tours (windowed): `res://tests/camera_tour.tscn` visits every camera segment of the test greybox with the debug overlay on, and `res://tests/level_tour.tscn` stops at each part of the ruins level:
+- Visual tours (windowed): `res://tests/camera_tour.tscn` visits every camera segment of the test greybox with the debug overlay on, `res://tests/level_tour.tscn` stops at each part of the ruins level, and `res://tests/enemy_showcase.tscn` shows the three enemies idle and attacking:
   ```
   godot --path . res://tests/level_tour.tscn
   ```
@@ -44,11 +45,12 @@ assets/
   textures/       Prototype grid textures
 scenes/
   player/         player.tscn
+  enemies/        mossling, sporeling (+ spore_projectile), snapthorn
   level/          Reusable level pieces (see "Building levels")
   levels/         level_ruins.tscn (the level), test_greybox.tscn (tuning sandbox)
   test/           Test-only objects (training dummy)
 scripts/
-  player/  camera/  level/  ui/  util/
+  player/  camera/  enemies/  level/  ui/  util/ (HitStop, Fx particles)
 tools/            build_ruins_level.gd: generator for level_ruins.tscn
 tests/            Headless smoke tests (shared SmokeTestBase) and visual tours
 ```
@@ -128,6 +130,29 @@ godot --headless --path . res://tools/build_ruins_level.tscn
 The output is an ordinary scene, so you can open it and edit it in the editor. Re-running the generator overwrites hand edits, so until the level is final, layout changes go in the generator. To add a segment there, write a `_build_*` function using the `_ground`, `_box`, `_ramp`, `_pillar` and `_instance` helpers, then add a camera key in `_build_camera_rail()`.
 
 **Route check**: The Stage 3 test walks the camera rail and raycasts down every 0.5 m. Every gap must be 8.5 m or less, and every climb 2.3 m or less, unless a moving platform spans it. Jump plus a full hover covers about 10.6 m.
+
+## Enemies
+
+All enemies extend `EnemyBase` (`scripts/enemies/enemy_base.gd`), which handles:
+- **Health and hits**: a hit makes the enemy flash white, knocks it back (`knockback_multiplier`), stuns it briefly, then gives it a short invulnerability window.
+- **Contact damage**: touching an enemy hurts the player.
+- **Death**: the enemy pops in a puff and awards `coin_reward` coins. Stage 5 turns these into coin pickups through `coin_scene`.
+- **Movement**: gravity, and ledge avoidance so enemies don't walk off drops deeper than `edge_check_depth`.
+- **Sleeping**: an enemy does nothing while the player is more than `active_distance` away.
+
+Every attack has a wind-up: the enemy glows orange (`set_telegraph()`) before it strikes, and shows a yellow "!" when it first spots you.
+
+| Enemy | Scene | Behaviour |
+|---|---|---|
+| **Mossling** (chaser) | `scenes/enemies/mossling.tscn` | Wanders near its spawn point. When you come within `detect_range` it shows "!" and chases you. In lunge range it crouches and glows for `windup_time`, then lunges. It gives up beyond `lose_range`. 2 HP. |
+| **Sporeling** (shooter) | `scenes/enemies/sporeling.tscn` | Keeps between `retreat_distance` and `approach_distance` from you. It strafes, and backs off (sliding sideways at ledges) when you crowd it. Every `fire_interval` it swells and glows, then fires a slow spore at where you're standing. Spores pop on hit or after `projectile_lifetime`. 2 HP. |
+| **Snapthorn** (stationary plant) | `scenes/enemies/snapthorn.tscn` | Rooted in place. When you come within `trigger_range` it rears back and glows, snaps forward (hitting anything in front of it), then rests. 2 HP. |
+
+**Attack priority**: While you're attacking, enemies in front of you can't hurt you by touch, so your swing wins a trade. Their actual attacks (lunge, spores, snap) still hit.
+
+**Placement**: Enemies are listed in `_build_enemies()` in `tools/build_ruins_level.gd`. The courtyard introduces the Mossling, the colonnade the Sporeling, and the stairway landing the Snapthorn, each on its own first. The garden and arena approach mix all three. To add an enemy by hand, instance its scene under `Enemies`. Its -Z is the direction it faces at start.
+
+**Adding a new enemy type**: Extend `EnemyBase` and implement `_ai_process(delta)`, plus optionally `_on_hurt()` and `_update_visual(delta)`. The scene needs a `Visual` node holding the meshes and a `ContactArea` (an `Area3D` with mask = player). Put the body on the `enemy` layer with mask = `world`.
 
 ## Gameplay rules and defaults
 

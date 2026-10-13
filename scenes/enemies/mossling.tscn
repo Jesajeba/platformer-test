@@ -1,0 +1,116 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/mossling.gd" id="1_script"]
+
+[sub_resource type="SphereShape3D" id="Shape_body"]
+radius = 0.5
+
+[sub_resource type="SphereShape3D" id="Shape_contact"]
+radius = 0.62
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(0.56, 0.43, 0.31, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_moss"]
+albedo_color = Color(0.45, 0.72, 0.28, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_eye"]
+albedo_color = Color(1, 0.86, 0.25, 1)
+emission_enabled = true
+emission = Color(1, 0.75, 0.1, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="StandardMaterial3D" id="Mat_pupil"]
+albedo_color = Color(0.08, 0.06, 0.05, 1)
+
+[sub_resource type="SphereMesh" id="Mesh_body"]
+material = SubResource("Mat_body")
+radius = 0.55
+height = 1.0
+
+[sub_resource type="SphereMesh" id="Mesh_moss"]
+material = SubResource("Mat_moss")
+radius = 0.45
+height = 0.4
+
+[sub_resource type="SphereMesh" id="Mesh_eye"]
+material = SubResource("Mat_eye")
+radius = 0.11
+height = 0.22
+
+[sub_resource type="SphereMesh" id="Mesh_pupil"]
+material = SubResource("Mat_pupil")
+radius = 0.055
+height = 0.11
+
+[sub_resource type="SphereMesh" id="Mesh_leaf"]
+material = SubResource("Mat_moss")
+radius = 0.12
+height = 0.24
+
+[sub_resource type="SphereMesh" id="Mesh_foot"]
+material = SubResource("Mat_body")
+radius = 0.15
+height = 0.2
+
+[node name="Mossling" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("Shape_body")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("Shape_contact")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("Mesh_body")
+
+[node name="Moss" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92, 0.05)
+mesh = SubResource("Mesh_moss")
+
+[node name="Leaf1" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1.6, 0, 0, 0, 0.6, 0.08, 1.18, 0.02)
+mesh = SubResource("Mesh_leaf")
+
+[node name="Leaf2" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1.3, 0, 0, 0, 0.6, -0.1, 1.12, 0.08)
+mesh = SubResource("Mesh_leaf")
+
+[node name="EyeLeft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.6, -0.46)
+mesh = SubResource("Mesh_eye")
+
+[node name="EyeRight" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.6, -0.46)
+mesh = SubResource("Mesh_eye")
+
+[node name="PupilLeft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.6, -0.56)
+mesh = SubResource("Mesh_pupil")
+
+[node name="PupilRight" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.6, -0.56)
+mesh = SubResource("Mesh_pupil")
+
+[node name="FootLeft" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.07, -0.1)
+mesh = SubResource("Mesh_foot")
+
+[node name="FootRight" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.07, -0.1)
+mesh = SubResource("Mesh_foot")

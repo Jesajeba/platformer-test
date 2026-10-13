@@ -7,12 +7,15 @@ signal player_died
 signal checkpoint_changed(checkpoint_transform: Transform3D)
 signal level_started(level_id: String)
 signal level_completed(level_id: String)
+signal coins_changed(total: int)
 
 ## Scene path of the level being played (empty outside levels).
 var current_level: String = ""
 
 var max_health: int = 5
 var health: int = 5
+
+var coins: int = 0
 
 var has_checkpoint: bool = false
 var checkpoint_transform: Transform3D = Transform3D.IDENTITY
@@ -23,11 +26,18 @@ func begin_level(level_id: String, start_transform: Transform3D) -> void:
 	current_level = level_id
 	set_checkpoint(start_transform)
 	restore_health()
+	coins = 0
+	coins_changed.emit(coins)
 	level_started.emit(level_id)
 
 
 func complete_level() -> void:
 	level_completed.emit(current_level)
+
+
+func add_coins(amount: int) -> void:
+	coins += amount
+	coins_changed.emit(coins)
 
 
 func setup_health(maximum: int) -> void:

@@ -1,42 +1,45 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/level/level.gd" id="1_irpi2"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_ydmep"]
-[ext_resource type="Script" path="res://scripts/level/greybox_block.gd" id="3_lfnnf"]
-[ext_resource type="Material" path="res://assets/materials/ruins/stone.tres" id="4_a6myy"]
-[ext_resource type="Material" path="res://assets/materials/ruins/grass.tres" id="5_qpf73"]
-[ext_resource type="Material" path="res://assets/materials/ruins/moss.tres" id="6_ypt8q"]
-[ext_resource type="Material" path="res://assets/materials/ruins/stone_dark.tres" id="7_mrl6s"]
-[ext_resource type="PackedScene" path="res://scenes/level/breakable_wall.tscn" id="8_y8u2i"]
-[ext_resource type="PackedScene" path="res://scenes/level/thorn_patch.tscn" id="9_dhag7"]
-[ext_resource type="PackedScene" path="res://scenes/level/checkpoint.tscn" id="10_ru7w4"]
-[ext_resource type="PackedScene" path="res://scenes/level/moving_platform.tscn" id="11_qubas"]
-[ext_resource type="PackedScene" path="res://scenes/level/crumbling_platform.tscn" id="12_ikxui"]
-[ext_resource type="Material" path="res://assets/materials/ruins/vine.tres" id="13_js8n3"]
-[ext_resource type="Material" path="res://assets/materials/ruins/bark.tres" id="14_0qwp3"]
-[ext_resource type="Material" path="res://assets/materials/ruins/leaves.tres" id="15_68ox3"]
-[ext_resource type="Material" path="res://assets/materials/ruins/leaves_light.tres" id="16_wvmhy"]
-[ext_resource type="PackedScene" path="res://scenes/level/gate.tscn" id="17_k642o"]
-[ext_resource type="PackedScene" path="res://scenes/level/level_goal.tscn" id="18_n2thx"]
-[ext_resource type="Material" path="res://assets/materials/ruins/gold_accent.tres" id="19_8a0ra"]
-[ext_resource type="Script" path="res://scripts/camera/rail_camera_key.gd" id="20_52qpp"]
-[ext_resource type="Script" path="res://scripts/camera/rail_camera.gd" id="21_5vcr1"]
-[ext_resource type="Script" path="res://scripts/camera/rail_debug_overlay.gd" id="22_2dgrs"]
-[ext_resource type="PackedScene" path="res://scenes/level/kill_plane.tscn" id="23_e56qm"]
+[ext_resource type="Script" path="res://scripts/level/level.gd" id="1_a6myy"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_qpf73"]
+[ext_resource type="Script" path="res://scripts/level/greybox_block.gd" id="3_ypt8q"]
+[ext_resource type="Material" path="res://assets/materials/ruins/stone.tres" id="4_mrl6s"]
+[ext_resource type="Material" path="res://assets/materials/ruins/grass.tres" id="5_y8u2i"]
+[ext_resource type="Material" path="res://assets/materials/ruins/moss.tres" id="6_dhag7"]
+[ext_resource type="Material" path="res://assets/materials/ruins/stone_dark.tres" id="7_ru7w4"]
+[ext_resource type="PackedScene" path="res://scenes/level/breakable_wall.tscn" id="8_qubas"]
+[ext_resource type="PackedScene" path="res://scenes/level/thorn_patch.tscn" id="9_ikxui"]
+[ext_resource type="PackedScene" path="res://scenes/level/checkpoint.tscn" id="10_js8n3"]
+[ext_resource type="PackedScene" path="res://scenes/level/moving_platform.tscn" id="11_0qwp3"]
+[ext_resource type="PackedScene" path="res://scenes/level/crumbling_platform.tscn" id="12_68ox3"]
+[ext_resource type="Material" path="res://assets/materials/ruins/vine.tres" id="13_wvmhy"]
+[ext_resource type="Material" path="res://assets/materials/ruins/bark.tres" id="14_k642o"]
+[ext_resource type="Material" path="res://assets/materials/ruins/leaves.tres" id="15_n2thx"]
+[ext_resource type="Material" path="res://assets/materials/ruins/leaves_light.tres" id="16_8a0ra"]
+[ext_resource type="PackedScene" path="res://scenes/level/gate.tscn" id="17_52qpp"]
+[ext_resource type="PackedScene" path="res://scenes/level/level_goal.tscn" id="18_5vcr1"]
+[ext_resource type="Material" path="res://assets/materials/ruins/gold_accent.tres" id="19_2dgrs"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/mossling.tscn" id="20_e56qm"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/sporeling.tscn" id="21_ew113"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/snapthorn.tscn" id="22_lgtwg"]
+[ext_resource type="Script" path="res://scripts/camera/rail_camera_key.gd" id="23_va8d4"]
+[ext_resource type="Script" path="res://scripts/camera/rail_camera.gd" id="24_t8ggo"]
+[ext_resource type="Script" path="res://scripts/camera/rail_debug_overlay.gd" id="25_xm6ab"]
+[ext_resource type="PackedScene" path="res://scenes/level/kill_plane.tscn" id="26_mju3a"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ew113"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fr2tk"]
 sky_top_color = Color(0.42, 0.62, 0.86, 1)
 sky_horizon_color = Color(0.86, 0.85, 0.72, 1)
 ground_bottom_color = Color(0.2, 0.28, 0.16, 1)
 ground_horizon_color = Color(0.62, 0.68, 0.5, 1)
 sun_angle_max = 20.0
 
-[sub_resource type="Sky" id="Sky_lgtwg"]
-sky_material = SubResource("ProceduralSkyMaterial_ew113")
+[sub_resource type="Sky" id="Sky_68vc8"]
+sky_material = SubResource("ProceduralSkyMaterial_fr2tk")
 
-[sub_resource type="Environment" id="Environment_va8d4"]
+[sub_resource type="Environment" id="Environment_uoyqn"]
 background_mode = 2
-sky = SubResource("Sky_lgtwg")
+sky = SubResource("Sky_68vc8")
 ambient_light_source = 3
 ambient_light_energy = 0.7
 tonemap_mode = 2
@@ -48,849 +51,849 @@ fog_light_color = Color(0.8, 0.85, 0.76, 1)
 fog_density = 0.0012
 fog_sky_affect = 0.15
 
-[sub_resource type="BoxMesh" id="BoxMesh_t8ggo"]
-material = ExtResource("13_js8n3")
-size = Vector3(0.14, 2.5, 0.14)
-
-[sub_resource type="BoxMesh" id="BoxMesh_xm6ab"]
-material = ExtResource("13_js8n3")
-size = Vector3(0.14, 1.6, 0.14)
-
-[sub_resource type="BoxMesh" id="BoxMesh_mju3a"]
-material = ExtResource("13_js8n3")
-size = Vector3(0.14, 2.5, 0.14)
-
-[sub_resource type="BoxMesh" id="BoxMesh_fr2tk"]
-material = ExtResource("13_js8n3")
-size = Vector3(0.14, 1.6, 0.14)
-
-[sub_resource type="BoxMesh" id="BoxMesh_68vc8"]
-material = ExtResource("13_js8n3")
-size = Vector3(0.14, 2.5, 0.14)
-
-[sub_resource type="BoxMesh" id="BoxMesh_uoyqn"]
-material = ExtResource("13_js8n3")
-size = Vector3(0.14, 1.6, 0.14)
-
 [sub_resource type="BoxMesh" id="BoxMesh_t8y6f"]
-material = ExtResource("13_js8n3")
+material = ExtResource("13_wvmhy")
 size = Vector3(0.14, 2.5, 0.14)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cb7to"]
-material = ExtResource("13_js8n3")
+material = ExtResource("13_wvmhy")
 size = Vector3(0.14, 1.6, 0.14)
 
 [sub_resource type="BoxMesh" id="BoxMesh_uxedc"]
-material = ExtResource("13_js8n3")
-size = Vector3(0.14, 3.5, 0.14)
-
-[sub_resource type="BoxMesh" id="BoxMesh_gcpkl"]
-material = ExtResource("13_js8n3")
+material = ExtResource("13_wvmhy")
 size = Vector3(0.14, 2.5, 0.14)
 
-[sub_resource type="SphereMesh" id="SphereMesh_3loaq"]
-material = ExtResource("15_68ox3")
+[sub_resource type="BoxMesh" id="BoxMesh_gcpkl"]
+material = ExtResource("13_wvmhy")
+size = Vector3(0.14, 1.6, 0.14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3loaq"]
+material = ExtResource("13_wvmhy")
+size = Vector3(0.14, 2.5, 0.14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_26wfk"]
+material = ExtResource("13_wvmhy")
+size = Vector3(0.14, 1.6, 0.14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i282t"]
+material = ExtResource("13_wvmhy")
+size = Vector3(0.14, 2.5, 0.14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oia0i"]
+material = ExtResource("13_wvmhy")
+size = Vector3(0.14, 1.6, 0.14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nfrl2"]
+material = ExtResource("13_wvmhy")
+size = Vector3(0.14, 3.5, 0.14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sxa8w"]
+material = ExtResource("13_wvmhy")
+size = Vector3(0.14, 2.5, 0.14)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ldyob"]
+material = ExtResource("15_n2thx")
 radius = 2.2
 height = 3.74
 
-[sub_resource type="SphereMesh" id="SphereMesh_26wfk"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_diows"]
+material = ExtResource("16_8a0ra")
 radius = 1.54
 height = 2.618
 
-[sub_resource type="SphereMesh" id="SphereMesh_i282t"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_g6tp6"]
+material = ExtResource("15_n2thx")
 radius = 1.54
 height = 2.618
 
-[sub_resource type="SphereMesh" id="SphereMesh_oia0i"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_1gnhs"]
+material = ExtResource("15_n2thx")
 radius = 2.6
 height = 4.42
 
-[sub_resource type="SphereMesh" id="SphereMesh_nfrl2"]
-material = ExtResource("16_wvmhy")
-radius = 1.82
-height = 3.094
-
-[sub_resource type="SphereMesh" id="SphereMesh_sxa8w"]
-material = ExtResource("15_68ox3")
-radius = 1.82
-height = 3.094
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldyob"]
-albedo_color = Color(0.12, 0.2, 0.1, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_diows"]
-material = SubResource("StandardMaterial3D_ldyob")
-size = Vector2(700, 400)
-
-[sub_resource type="SphereMesh" id="SphereMesh_g6tp6"]
-material = ExtResource("15_68ox3")
-radius = 3.0
-height = 5.1
-
-[sub_resource type="SphereMesh" id="SphereMesh_1gnhs"]
-material = ExtResource("16_wvmhy")
-radius = 2.1
-height = 3.57
-
 [sub_resource type="SphereMesh" id="SphereMesh_y47s5"]
-material = ExtResource("15_68ox3")
-radius = 2.1
-height = 3.57
+material = ExtResource("16_8a0ra")
+radius = 1.82
+height = 3.094
 
 [sub_resource type="SphereMesh" id="SphereMesh_r0x0p"]
-material = ExtResource("15_68ox3")
-radius = 3.0
-height = 5.1
+material = ExtResource("15_n2thx")
+radius = 1.82
+height = 3.094
 
-[sub_resource type="SphereMesh" id="SphereMesh_sdmd8"]
-material = ExtResource("16_wvmhy")
-radius = 2.1
-height = 3.57
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdmd8"]
+albedo_color = Color(0.12, 0.2, 0.1, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_0ct28"]
-material = ExtResource("15_68ox3")
-radius = 2.1
-height = 3.57
+[sub_resource type="PlaneMesh" id="PlaneMesh_0ct28"]
+material = SubResource("StandardMaterial3D_sdmd8")
+size = Vector2(700, 400)
 
 [sub_resource type="SphereMesh" id="SphereMesh_lrodh"]
-material = ExtResource("15_68ox3")
+material = ExtResource("15_n2thx")
 radius = 3.0
 height = 5.1
 
 [sub_resource type="SphereMesh" id="SphereMesh_l72xb"]
-material = ExtResource("16_wvmhy")
+material = ExtResource("16_8a0ra")
 radius = 2.1
 height = 3.57
 
 [sub_resource type="SphereMesh" id="SphereMesh_4qqh7"]
-material = ExtResource("15_68ox3")
+material = ExtResource("15_n2thx")
 radius = 2.1
 height = 3.57
 
 [sub_resource type="SphereMesh" id="SphereMesh_c4s8a"]
-material = ExtResource("15_68ox3")
+material = ExtResource("15_n2thx")
 radius = 3.0
 height = 5.1
 
 [sub_resource type="SphereMesh" id="SphereMesh_vc151"]
-material = ExtResource("16_wvmhy")
+material = ExtResource("16_8a0ra")
 radius = 2.1
 height = 3.57
 
 [sub_resource type="SphereMesh" id="SphereMesh_le1e5"]
-material = ExtResource("15_68ox3")
+material = ExtResource("15_n2thx")
 radius = 2.1
 height = 3.57
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_7g2aa"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="SphereMesh" id="SphereMesh_7g2aa"]
+material = ExtResource("15_n2thx")
+radius = 3.0
+height = 5.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_jkuu0"]
+material = ExtResource("16_8a0ra")
+radius = 2.1
+height = 3.57
+
+[sub_resource type="SphereMesh" id="SphereMesh_4ixsb"]
+material = ExtResource("15_n2thx")
+radius = 2.1
+height = 3.57
+
+[sub_resource type="SphereMesh" id="SphereMesh_t6f17"]
+material = ExtResource("15_n2thx")
+radius = 3.0
+height = 5.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_yhali"]
+material = ExtResource("16_8a0ra")
+radius = 2.1
+height = 3.57
+
+[sub_resource type="SphereMesh" id="SphereMesh_gg2vq"]
+material = ExtResource("15_n2thx")
+radius = 2.1
+height = 3.57
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vevnc"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.589042
 
-[sub_resource type="SphereMesh" id="SphereMesh_jkuu0"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_5jj75"]
+material = ExtResource("15_n2thx")
 radius = 4.850604
 height = 8.246027
 
-[sub_resource type="SphereMesh" id="SphereMesh_4ixsb"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_287rq"]
+material = ExtResource("16_8a0ra")
 radius = 3.395423
 height = 5.772219
 
-[sub_resource type="SphereMesh" id="SphereMesh_t6f17"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_cgn3l"]
+material = ExtResource("15_n2thx")
 radius = 3.395423
 height = 5.772219
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_yhali"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_e7j17"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 14.801917
 
-[sub_resource type="SphereMesh" id="SphereMesh_gg2vq"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_38n3b"]
+material = ExtResource("15_n2thx")
 radius = 3.5720508
 height = 6.0724864
 
-[sub_resource type="SphereMesh" id="SphereMesh_vevnc"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_du1li"]
+material = ExtResource("16_8a0ra")
 radius = 2.5004356
 height = 4.2507405
 
-[sub_resource type="SphereMesh" id="SphereMesh_5jj75"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_sdppo"]
+material = ExtResource("15_n2thx")
 radius = 2.5004356
 height = 4.2507405
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_287rq"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_42oru"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 15.177433
 
-[sub_resource type="SphereMesh" id="SphereMesh_cgn3l"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_gt3c7"]
+material = ExtResource("15_n2thx")
 radius = 3.5611465
 height = 6.053949
 
-[sub_resource type="SphereMesh" id="SphereMesh_e7j17"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_lsx17"]
+material = ExtResource("16_8a0ra")
 radius = 2.4928026
 height = 4.2377644
 
-[sub_resource type="SphereMesh" id="SphereMesh_38n3b"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_mnvh2"]
+material = ExtResource("15_n2thx")
 radius = 2.4928026
 height = 4.2377644
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_du1li"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_pcrvt"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.62746
 
-[sub_resource type="SphereMesh" id="SphereMesh_sdppo"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_qpcdg"]
+material = ExtResource("15_n2thx")
 radius = 4.2904997
 height = 7.2938495
 
-[sub_resource type="SphereMesh" id="SphereMesh_42oru"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_33vqa"]
+material = ExtResource("16_8a0ra")
 radius = 3.0033498
 height = 5.105695
 
-[sub_resource type="SphereMesh" id="SphereMesh_gt3c7"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_jkbbc"]
+material = ExtResource("15_n2thx")
 radius = 3.0033498
 height = 5.105695
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_lsx17"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_8ty4q"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 13.02508
 
-[sub_resource type="SphereMesh" id="SphereMesh_mnvh2"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_sybiq"]
+material = ExtResource("15_n2thx")
 radius = 4.4260855
 height = 7.5243454
 
-[sub_resource type="SphereMesh" id="SphereMesh_pcrvt"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_nr0ti"]
+material = ExtResource("16_8a0ra")
 radius = 3.09826
 height = 5.2670417
 
-[sub_resource type="SphereMesh" id="SphereMesh_qpcdg"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_titlb"]
+material = ExtResource("15_n2thx")
 radius = 3.09826
 height = 5.2670417
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_33vqa"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_h1gvm"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.400611
 
-[sub_resource type="SphereMesh" id="SphereMesh_jkbbc"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_qafvw"]
+material = ExtResource("15_n2thx")
 radius = 4.5146856
 height = 7.6749654
 
-[sub_resource type="SphereMesh" id="SphereMesh_8ty4q"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_ur2o0"]
+material = ExtResource("16_8a0ra")
 radius = 3.16028
 height = 5.372476
 
-[sub_resource type="SphereMesh" id="SphereMesh_sybiq"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_e2mh6"]
+material = ExtResource("15_n2thx")
 radius = 3.16028
 height = 5.372476
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_nr0ti"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_o4jld"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 15.680532
 
-[sub_resource type="SphereMesh" id="SphereMesh_titlb"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_ahdvg"]
+material = ExtResource("15_n2thx")
 radius = 3.5374825
 height = 6.01372
 
-[sub_resource type="SphereMesh" id="SphereMesh_h1gvm"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_gwh3y"]
+material = ExtResource("16_8a0ra")
 radius = 2.4762378
 height = 4.2096043
 
-[sub_resource type="SphereMesh" id="SphereMesh_qafvw"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_88xj8"]
+material = ExtResource("15_n2thx")
 radius = 2.4762378
 height = 4.2096043
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_ur2o0"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_kf42b"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 15.534044
 
-[sub_resource type="SphereMesh" id="SphereMesh_e2mh6"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_fvv8x"]
+material = ExtResource("15_n2thx")
 radius = 3.9854655
 height = 6.7752914
 
-[sub_resource type="SphereMesh" id="SphereMesh_o4jld"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_ommk2"]
+material = ExtResource("16_8a0ra")
 radius = 2.789826
 height = 4.742704
 
-[sub_resource type="SphereMesh" id="SphereMesh_ahdvg"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_xotmr"]
+material = ExtResource("15_n2thx")
 radius = 2.789826
 height = 4.742704
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_gwh3y"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_rv51q"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 10.519145
 
-[sub_resource type="SphereMesh" id="SphereMesh_88xj8"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_i1lb1"]
+material = ExtResource("15_n2thx")
 radius = 4.215813
 height = 7.1668825
 
-[sub_resource type="SphereMesh" id="SphereMesh_kf42b"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_27t5a"]
+material = ExtResource("16_8a0ra")
 radius = 2.951069
 height = 5.0168176
 
-[sub_resource type="SphereMesh" id="SphereMesh_fvv8x"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_xpy01"]
+material = ExtResource("15_n2thx")
 radius = 2.951069
 height = 5.0168176
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_ommk2"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_011gs"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 14.854828
 
-[sub_resource type="SphereMesh" id="SphereMesh_xotmr"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_qygex"]
+material = ExtResource("15_n2thx")
 radius = 3.9608989
 height = 6.733528
 
-[sub_resource type="SphereMesh" id="SphereMesh_rv51q"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_v7ne6"]
+material = ExtResource("16_8a0ra")
 radius = 2.7726293
 height = 4.7134695
 
-[sub_resource type="SphereMesh" id="SphereMesh_i1lb1"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_jfbui"]
+material = ExtResource("15_n2thx")
 radius = 2.7726293
 height = 4.7134695
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_27t5a"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_abyhg"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 11.288763
 
-[sub_resource type="SphereMesh" id="SphereMesh_xpy01"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_t3viw"]
+material = ExtResource("15_n2thx")
 radius = 4.9480944
 height = 8.41176
 
-[sub_resource type="SphereMesh" id="SphereMesh_011gs"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_8yb8r"]
+material = ExtResource("16_8a0ra")
 radius = 3.463666
 height = 5.888232
 
-[sub_resource type="SphereMesh" id="SphereMesh_qygex"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_kokcn"]
+material = ExtResource("15_n2thx")
 radius = 3.463666
 height = 5.888232
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_v7ne6"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_gnfjt"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 11.334321
 
-[sub_resource type="SphereMesh" id="SphereMesh_jfbui"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_h37ps"]
+material = ExtResource("15_n2thx")
 radius = 4.936464
 height = 8.391989
 
-[sub_resource type="SphereMesh" id="SphereMesh_abyhg"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_yi3kx"]
+material = ExtResource("16_8a0ra")
 radius = 3.4555247
 height = 5.874392
 
-[sub_resource type="SphereMesh" id="SphereMesh_t3viw"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_lglgx"]
+material = ExtResource("15_n2thx")
 radius = 3.4555247
 height = 5.874392
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_8yb8r"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_p7tbi"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 10.583062
 
-[sub_resource type="SphereMesh" id="SphereMesh_kokcn"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_13xrw"]
+material = ExtResource("15_n2thx")
 radius = 3.579449
 height = 6.085063
 
-[sub_resource type="SphereMesh" id="SphereMesh_gnfjt"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_bgpjc"]
+material = ExtResource("16_8a0ra")
 radius = 2.5056143
 height = 4.2595444
 
-[sub_resource type="SphereMesh" id="SphereMesh_h37ps"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_81q2h"]
+material = ExtResource("15_n2thx")
 radius = 2.5056143
 height = 4.2595444
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_yi3kx"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_m1xev"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 10.75137
 
-[sub_resource type="SphereMesh" id="SphereMesh_lglgx"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_fg5h7"]
+material = ExtResource("15_n2thx")
 radius = 3.681598
 height = 6.2587166
 
-[sub_resource type="SphereMesh" id="SphereMesh_p7tbi"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_f3fp2"]
+material = ExtResource("16_8a0ra")
 radius = 2.5771186
 height = 4.3811016
 
-[sub_resource type="SphereMesh" id="SphereMesh_13xrw"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_pl2fp"]
+material = ExtResource("15_n2thx")
 radius = 2.5771186
 height = 4.3811016
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_bgpjc"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_jibli"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 15.377215
 
-[sub_resource type="SphereMesh" id="SphereMesh_81q2h"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_n8sx0"]
+material = ExtResource("15_n2thx")
 radius = 3.607149
 height = 6.132153
 
-[sub_resource type="SphereMesh" id="SphereMesh_m1xev"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_hdjq7"]
+material = ExtResource("16_8a0ra")
 radius = 2.5250041
 height = 4.292507
 
-[sub_resource type="SphereMesh" id="SphereMesh_fg5h7"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_uiu0m"]
+material = ExtResource("15_n2thx")
 radius = 2.5250041
 height = 4.292507
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_f3fp2"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_uhs0x"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.395204
 
-[sub_resource type="SphereMesh" id="SphereMesh_pl2fp"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_h34vo"]
+material = ExtResource("15_n2thx")
 radius = 4.0499563
 height = 6.884926
 
-[sub_resource type="SphereMesh" id="SphereMesh_jibli"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_2721t"]
+material = ExtResource("16_8a0ra")
 radius = 2.8349695
 height = 4.819448
 
-[sub_resource type="SphereMesh" id="SphereMesh_n8sx0"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_73u1g"]
+material = ExtResource("15_n2thx")
 radius = 2.8349695
 height = 4.819448
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_hdjq7"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_qtjp2"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 14.937506
 
-[sub_resource type="SphereMesh" id="SphereMesh_uiu0m"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_upexs"]
+material = ExtResource("15_n2thx")
 radius = 3.767815
 height = 6.405286
 
-[sub_resource type="SphereMesh" id="SphereMesh_uhs0x"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_w4pw6"]
+material = ExtResource("16_8a0ra")
 radius = 2.6374705
 height = 4.4837
 
-[sub_resource type="SphereMesh" id="SphereMesh_h34vo"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_csbi7"]
+material = ExtResource("15_n2thx")
 radius = 2.6374705
 height = 4.4837
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_2721t"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_v1dh5"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.019152
 
-[sub_resource type="SphereMesh" id="SphereMesh_73u1g"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_xp4oe"]
+material = ExtResource("15_n2thx")
 radius = 4.6243677
 height = 7.861425
 
-[sub_resource type="SphereMesh" id="SphereMesh_qtjp2"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_ro1eg"]
+material = ExtResource("16_8a0ra")
 radius = 3.2370574
 height = 5.502998
 
-[sub_resource type="SphereMesh" id="SphereMesh_upexs"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_jgucs"]
+material = ExtResource("15_n2thx")
 radius = 3.2370574
 height = 5.502998
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_w4pw6"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_pllu2"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.568897
 
-[sub_resource type="SphereMesh" id="SphereMesh_csbi7"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_wchff"]
+material = ExtResource("15_n2thx")
 radius = 4.684819
 height = 7.964193
 
-[sub_resource type="SphereMesh" id="SphereMesh_v1dh5"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_in6np"]
+material = ExtResource("16_8a0ra")
 radius = 3.2793734
 height = 5.574935
 
-[sub_resource type="SphereMesh" id="SphereMesh_xp4oe"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_3v0ns"]
+material = ExtResource("15_n2thx")
 radius = 3.2793734
 height = 5.574935
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_ro1eg"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_ltu1l"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 10.357552
 
-[sub_resource type="SphereMesh" id="SphereMesh_jgucs"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_ckexb"]
+material = ExtResource("15_n2thx")
 radius = 3.6509678
 height = 6.2066455
 
-[sub_resource type="SphereMesh" id="SphereMesh_pllu2"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_1pr63"]
+material = ExtResource("16_8a0ra")
 radius = 2.5556774
 height = 4.3446517
 
-[sub_resource type="SphereMesh" id="SphereMesh_wchff"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_f3x2g"]
+material = ExtResource("15_n2thx")
 radius = 2.5556774
 height = 4.3446517
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_in6np"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_micvg"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 15.627159
 
-[sub_resource type="SphereMesh" id="SphereMesh_3v0ns"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_uu8wu"]
+material = ExtResource("15_n2thx")
 radius = 4.6956234
 height = 7.9825597
 
-[sub_resource type="SphereMesh" id="SphereMesh_ltu1l"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_s1xvi"]
+material = ExtResource("16_8a0ra")
 radius = 3.2869363
 height = 5.5877914
 
-[sub_resource type="SphereMesh" id="SphereMesh_ckexb"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_t51yf"]
+material = ExtResource("15_n2thx")
 radius = 3.2869363
 height = 5.5877914
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_1pr63"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_0lgug"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 15.3836565
 
-[sub_resource type="SphereMesh" id="SphereMesh_f3x2g"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_7lbiy"]
+material = ExtResource("15_n2thx")
 radius = 4.1429114
 height = 7.0429497
 
-[sub_resource type="SphereMesh" id="SphereMesh_micvg"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_k20d8"]
+material = ExtResource("16_8a0ra")
 radius = 2.900038
 height = 4.9300647
 
-[sub_resource type="SphereMesh" id="SphereMesh_uu8wu"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_gw6v0"]
+material = ExtResource("15_n2thx")
 radius = 2.900038
 height = 4.9300647
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_s1xvi"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_uns8s"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.676502
 
-[sub_resource type="SphereMesh" id="SphereMesh_t51yf"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_wike4"]
+material = ExtResource("15_n2thx")
 radius = 4.873686
 height = 8.285266
 
-[sub_resource type="SphereMesh" id="SphereMesh_0lgug"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_egjyb"]
+material = ExtResource("16_8a0ra")
 radius = 3.41158
 height = 5.799686
 
-[sub_resource type="SphereMesh" id="SphereMesh_7lbiy"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_d7sn5"]
+material = ExtResource("15_n2thx")
 radius = 3.41158
 height = 5.799686
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_k20d8"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_1yo3r"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.089218
 
-[sub_resource type="SphereMesh" id="SphereMesh_gw6v0"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_7ic52"]
+material = ExtResource("15_n2thx")
 radius = 4.009435
 height = 6.81604
 
-[sub_resource type="SphereMesh" id="SphereMesh_uns8s"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_33fv3"]
+material = ExtResource("16_8a0ra")
 radius = 2.8066046
 height = 4.771228
 
-[sub_resource type="SphereMesh" id="SphereMesh_wike4"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_2yh2v"]
+material = ExtResource("15_n2thx")
 radius = 2.8066046
 height = 4.771228
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_egjyb"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_n8yv1"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 10.220203
 
-[sub_resource type="SphereMesh" id="SphereMesh_d7sn5"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_bep0s"]
+material = ExtResource("15_n2thx")
 radius = 4.362783
 height = 7.416731
 
-[sub_resource type="SphereMesh" id="SphereMesh_1yo3r"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_16o0i"]
+material = ExtResource("16_8a0ra")
 radius = 3.0539482
 height = 5.191712
 
-[sub_resource type="SphereMesh" id="SphereMesh_7ic52"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_rta38"]
+material = ExtResource("15_n2thx")
 radius = 3.0539482
 height = 5.191712
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_33fv3"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_hanfi"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 13.62456
 
-[sub_resource type="SphereMesh" id="SphereMesh_2yh2v"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_d33y8"]
+material = ExtResource("15_n2thx")
 radius = 4.6862173
 height = 7.9665694
 
-[sub_resource type="SphereMesh" id="SphereMesh_n8yv1"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_2h5j8"]
+material = ExtResource("16_8a0ra")
 radius = 3.280352
 height = 5.5765986
 
-[sub_resource type="SphereMesh" id="SphereMesh_bep0s"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_awk51"]
+material = ExtResource("15_n2thx")
 radius = 3.280352
 height = 5.5765986
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_16o0i"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_w53pp"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 10.426226
 
-[sub_resource type="SphereMesh" id="SphereMesh_rta38"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_8y42p"]
+material = ExtResource("15_n2thx")
 radius = 4.380007
 height = 7.4460115
 
-[sub_resource type="SphereMesh" id="SphereMesh_hanfi"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_rpbme"]
+material = ExtResource("16_8a0ra")
 radius = 3.0660048
 height = 5.2122083
 
-[sub_resource type="SphereMesh" id="SphereMesh_d33y8"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_abacy"]
+material = ExtResource("15_n2thx")
 radius = 3.0660048
 height = 5.2122083
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_2h5j8"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_78s2h"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.31806
 
-[sub_resource type="SphereMesh" id="SphereMesh_awk51"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_1a67g"]
+material = ExtResource("15_n2thx")
 radius = 3.797173
 height = 6.455194
 
-[sub_resource type="SphereMesh" id="SphereMesh_w53pp"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_jl3uw"]
+material = ExtResource("16_8a0ra")
 radius = 2.6580212
 height = 4.518636
 
-[sub_resource type="SphereMesh" id="SphereMesh_8y42p"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_3id3f"]
+material = ExtResource("15_n2thx")
 radius = 2.6580212
 height = 4.518636
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_rpbme"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_0kt5q"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 11.347808
 
-[sub_resource type="SphereMesh" id="SphereMesh_abacy"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_u2kbc"]
+material = ExtResource("15_n2thx")
 radius = 4.0888233
 height = 6.9509997
 
-[sub_resource type="SphereMesh" id="SphereMesh_78s2h"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_efefy"]
+material = ExtResource("16_8a0ra")
 radius = 2.8621764
 height = 4.8657
 
-[sub_resource type="SphereMesh" id="SphereMesh_1a67g"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_jlp3g"]
+material = ExtResource("15_n2thx")
 radius = 2.8621764
 height = 4.8657
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_jl3uw"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_1slf7"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 11.032246
 
-[sub_resource type="SphereMesh" id="SphereMesh_3id3f"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_i52b7"]
+material = ExtResource("15_n2thx")
 radius = 4.1939335
 height = 7.129687
 
-[sub_resource type="SphereMesh" id="SphereMesh_0kt5q"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_rb4g6"]
+material = ExtResource("16_8a0ra")
 radius = 2.9357533
 height = 4.990781
 
-[sub_resource type="SphereMesh" id="SphereMesh_u2kbc"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_k1lyu"]
+material = ExtResource("15_n2thx")
 radius = 2.9357533
 height = 4.990781
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_efefy"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_cpcrs"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 13.145031
 
-[sub_resource type="SphereMesh" id="SphereMesh_jlp3g"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_garsi"]
+material = ExtResource("15_n2thx")
 radius = 3.7348173
 height = 6.3491893
 
-[sub_resource type="SphereMesh" id="SphereMesh_1slf7"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_s2c6e"]
+material = ExtResource("16_8a0ra")
 radius = 2.614372
 height = 4.4444323
 
-[sub_resource type="SphereMesh" id="SphereMesh_i52b7"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_i45us"]
+material = ExtResource("15_n2thx")
 radius = 2.614372
 height = 4.4444323
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_rb4g6"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_iqr0t"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 12.364279
 
-[sub_resource type="SphereMesh" id="SphereMesh_k1lyu"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_4t1o4"]
+material = ExtResource("15_n2thx")
 radius = 4.6054215
 height = 7.8292165
 
-[sub_resource type="SphereMesh" id="SphereMesh_cpcrs"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_h1650"]
+material = ExtResource("16_8a0ra")
 radius = 3.2237952
 height = 5.4804516
 
-[sub_resource type="SphereMesh" id="SphereMesh_garsi"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_y1k8n"]
+material = ExtResource("15_n2thx")
 radius = 3.2237952
 height = 5.4804516
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_s2c6e"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_jmi7l"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 11.243989
 
-[sub_resource type="SphereMesh" id="SphereMesh_i45us"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_sln5u"]
+material = ExtResource("15_n2thx")
 radius = 3.5082219
 height = 5.9639773
 
-[sub_resource type="SphereMesh" id="SphereMesh_iqr0t"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_v8pbk"]
+material = ExtResource("16_8a0ra")
 radius = 2.4557552
 height = 4.1747837
 
-[sub_resource type="SphereMesh" id="SphereMesh_4t1o4"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_gqgk6"]
+material = ExtResource("15_n2thx")
 radius = 2.4557552
 height = 4.1747837
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_h1650"]
-material = ExtResource("14_0qwp3")
+[sub_resource type="CylinderMesh" id="CylinderMesh_3dujs"]
+material = ExtResource("14_k642o")
 top_radius = 0.4
 height = 10.137318
 
-[sub_resource type="SphereMesh" id="SphereMesh_y1k8n"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_03uwr"]
+material = ExtResource("15_n2thx")
 radius = 3.85217
 height = 6.548689
 
-[sub_resource type="SphereMesh" id="SphereMesh_jmi7l"]
-material = ExtResource("16_wvmhy")
+[sub_resource type="SphereMesh" id="SphereMesh_5w1o3"]
+material = ExtResource("16_8a0ra")
 radius = 2.696519
 height = 4.584082
 
-[sub_resource type="SphereMesh" id="SphereMesh_sln5u"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_vs16l"]
+material = ExtResource("15_n2thx")
 radius = 2.696519
 height = 4.584082
 
-[sub_resource type="SphereMesh" id="SphereMesh_v8pbk"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_1w8ur"]
+material = ExtResource("15_n2thx")
 radius = 30.0
 height = 36.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_gqgk6"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_gjioy"]
+material = ExtResource("15_n2thx")
 radius = 40.0
 height = 48.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_3dujs"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_dstny"]
+material = ExtResource("15_n2thx")
 radius = 45.0
 height = 54.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_03uwr"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_2otap"]
+material = ExtResource("15_n2thx")
 radius = 40.0
 height = 48.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_5w1o3"]
-material = ExtResource("15_68ox3")
+[sub_resource type="SphereMesh" id="SphereMesh_muari"]
+material = ExtResource("15_n2thx")
 radius = 35.0
 height = 42.0
 
-[sub_resource type="Curve3D" id="Curve3D_vs16l"]
+[sub_resource type="Curve3D" id="Curve3D_h783c"]
 bake_interval = 0.5
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, -24, 0, 0, 0, 0, 0, 0, 0, 2, -32, 0, 0, 0, 0, 0, -5.523, 0, 2, -70, -5.523, 0, 0, 0, 0, 0, 10, 2, -80, 0, 0, 0, 0, 0, 0, 104, 2, -80, 0, 0, 0, 0, 0, 0, 116.5, 7, -80, 0, 0, 0, 0, 0, 0, 122, 7, -80, 0, 0, 0, 0, 0, 0, 132, 10, -80, 0, 0, 0, 0, 0, 0, 139.5, 10, -80, 0, 0, 0, 0, 0, 0, 141, 14, -80, 0, 0, 0, 0, 0, 0, 170, 14, -80, 0, 0, 0, 0, 0, 0, 178, 10, -80, 0, 0, 0, 0, 0, 0, 300, 10, -80),
@@ -898,1687 +901,1754 @@ _data = {
 }
 point_count = 14
 
-[node name="LevelRuins" type="Node3D" unique_id=424964321 node_paths=PackedStringArray("player", "start_point", "camera")]
-script = ExtResource("1_irpi2")
+[node name="LevelRuins" type="Node3D" unique_id=1274494851 node_paths=PackedStringArray("player", "start_point", "camera")]
+script = ExtResource("1_a6myy")
 player = NodePath("Player")
 start_point = NodePath("StartPoint")
 camera = NodePath("RailCamera")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2034806558]
-environment = SubResource("Environment_va8d4")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=629292924]
+environment = SubResource("Environment_uoyqn")
 
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=689655822]
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1212863213]
 transform = Transform3D(0.81915206, -0.45198438, 0.35312894, 0, 0.6156615, 0.7880107, -0.57357645, -0.6455006, 0.5043204, 0, 0, 0)
 light_color = Color(1, 0.93, 0.78, 1)
 light_energy = 1.25
 shadow_enabled = true
 directional_shadow_max_distance = 90.0
 
-[node name="Player" parent="." unique_id=722551011 instance=ExtResource("2_ydmep")]
+[node name="Player" parent="." unique_id=1079960312 instance=ExtResource("2_qpf73")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 2)
 
-[node name="StartPoint" type="Marker3D" parent="." unique_id=1170873538]
+[node name="StartPoint" type="Marker3D" parent="." unique_id=1901443568]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 2)
 
-[node name="Geometry" type="Node3D" parent="." unique_id=234803063]
+[node name="Geometry" type="Node3D" parent="." unique_id=1188242400]
 
-[node name="S1_Courtyard" type="Node3D" parent="Geometry" unique_id=59436952]
+[node name="S1_Courtyard" type="Node3D" parent="Geometry" unique_id=386554263]
 
-[node name="Plaza" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1948647563]
+[node name="Plaza" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1101550772]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -8)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(20, 6, 32)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="StepLow" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1903000051]
+[node name="StepLow" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=314490603]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.5, -9.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(3, 1, 3)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="StepHigh" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1326407659]
+[node name="StepHigh" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=280791134]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, -13.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(3, 2, 3)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="AlcoveFloor" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=912332795]
+[node name="AlcoveFloor" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1740459130]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -12.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(6, 6, 7)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="AlcoveWallBack" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1146487709]
+[node name="AlcoveWallBack" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1410156581]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.25, 2, -12.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(0.5, 4, 8)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="AlcoveWallNear" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1803718734]
+[node name="AlcoveWallNear" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1038085824]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 2, -9)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(6, 4, 1)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="AlcoveWallFar" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1826588785]
+[node name="AlcoveWallFar" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1447776784]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 2, -16)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(6, 4, 1)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="AlcoveRoof" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=753592937]
+[node name="AlcoveRoof" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1134729987]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.75, 4.3, -12.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(7.5, 0.5999999, 8)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="SecretWall1" parent="Geometry/S1_Courtyard" unique_id=1177864953 instance=ExtResource("8_y8u2i")]
+[node name="SecretWall1" parent="Geometry/S1_Courtyard" unique_id=563032043 instance=ExtResource("8_qubas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 1.75, -12.5)
 size = Vector3(1, 3.5, 6)
 
-[node name="Ramp" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1791967421]
+[node name="Ramp" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=273490899]
 transform = Transform3D(1, 0, 0, 0, 0.9701425, -0.24253562, 0, 0.24253562, 0.9701425, 0, -0.4552138, -28.363804)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(8, 3, 8.246211)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Terrace" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=821672105]
+[node name="Terrace" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=135306563]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -39)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(12, 8, 14)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="LedgeB" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1651452859]
+[node name="LedgeB" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1460149601]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -53)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(8, 8, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="ThornsB" parent="Geometry/S1_Courtyard" unique_id=572095479 instance=ExtResource("9_dhag7")]
+[node name="ThornsB" parent="Geometry/S1_Courtyard" unique_id=584572168 instance=ExtResource("9_ikxui")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 2, -53)
 size = Vector3(3, 0.8, 2)
 
-[node name="LedgeC" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1033226398]
+[node name="LedgeC" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=656519730]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -69.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(10, 8, 11)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="Checkpoint1" parent="Geometry/S1_Courtyard" unique_id=69354201 instance=ExtResource("10_ru7w4")]
+[node name="Checkpoint1" parent="Geometry/S1_Courtyard" unique_id=1209233602 instance=ExtResource("10_js8n3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, -69)
 checkpoint_id = 1
 
-[node name="Pillar" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=211745713]
+[node name="Pillar" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1835615541]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.25, 5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 2.5, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar2" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1645011779]
+[node name="Pillar2" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=2098066979]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 2.25, 4)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 4.5, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar3" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1684679123]
+[node name="Pillar3" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=949737613]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 2.25, -20)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 4.5, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar4" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1002267787]
+[node name="Pillar4" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=1398836107]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 1.25, -21)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 2.5, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar5" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=941833124]
+[node name="Pillar5" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=2087736321]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3.5, -44)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1, 3, 1)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar6" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=259167355]
+[node name="Pillar6" type="StaticBody3D" parent="Geometry/S1_Courtyard" unique_id=765674029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.9, -44)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1, 1.8, 1)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="S2_Colonnade" type="Node3D" parent="Geometry" unique_id=417113918]
+[node name="S2_Colonnade" type="Node3D" parent="Geometry" unique_id=932855116]
 
-[node name="Corner" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=257100911]
+[node name="Corner" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1535026965]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -2, -79.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(19, 8, 9)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="WalkA" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1484931164]
+[node name="WalkA" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1998045511]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, -2, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(10, 8, 4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="ThornsA" parent="Geometry/S2_Colonnade" unique_id=1272668068 instance=ExtResource("9_dhag7")]
+[node name="ThornsA" parent="Geometry/S2_Colonnade" unique_id=2051813658 instance=ExtResource("9_ikxui")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.75, 2, -80)
 size = Vector3(1.5, 0.9, 4)
 
-[node name="WalkB" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1127047490]
+[node name="WalkB" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1154090140]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -2, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(6, 8, 4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="MovingPlatformA" parent="Geometry/S2_Colonnade" unique_id=1979179478 instance=ExtResource("11_qubas")]
+[node name="MovingPlatformA" parent="Geometry/S2_Colonnade" unique_id=890965020 instance=ExtResource("11_0qwp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5, 1.7, -80)
 size = Vector3(3, 0.6, 4)
 travel = Vector3(7, 0, 0)
 cycle_time = 4.5
 pause_time = 0.7
 
-[node name="WalkC" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=703258522]
+[node name="WalkC" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1763732052]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.5, -2, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(13, 8, 4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="Pillar" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=478631191]
+[node name="Pillar" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=100464932]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 2.7, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.4, 1.4, 1.4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar2" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=245849523]
+[node name="Pillar2" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1619511359]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 2.9, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.4, 1.8, 1.4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Crumbling1" parent="Geometry/S2_Colonnade" unique_id=1265199074 instance=ExtResource("12_ikxui")]
+[node name="Crumbling1" parent="Geometry/S2_Colonnade" unique_id=277060322 instance=ExtResource("12_68ox3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.5, 1.7, -80)
 size = Vector3(2.5, 0.6, 3)
 
-[node name="Crumbling2" parent="Geometry/S2_Colonnade" unique_id=1393841938 instance=ExtResource("12_ikxui")]
+[node name="Crumbling2" parent="Geometry/S2_Colonnade" unique_id=1881625873 instance=ExtResource("12_68ox3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.5, 1.7, -80)
 size = Vector3(2.5, 0.6, 3)
 
-[node name="Crumbling3" parent="Geometry/S2_Colonnade" unique_id=1274690052 instance=ExtResource("12_ikxui")]
+[node name="Crumbling3" parent="Geometry/S2_Colonnade" unique_id=1666465161 instance=ExtResource("12_68ox3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.5, 1.7, -80)
 size = Vector3(2.5, 0.6, 3)
 
-[node name="Crumbling4" parent="Geometry/S2_Colonnade" unique_id=1775524340 instance=ExtResource("12_ikxui")]
+[node name="Crumbling4" parent="Geometry/S2_Colonnade" unique_id=229013699 instance=ExtResource("12_68ox3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.5, 1.7, -80)
 size = Vector3(2.5, 0.6, 3)
 
-[node name="WalkD" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1964021106]
+[node name="WalkD" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=49647280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88, -2, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(24, 8, 4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="BlockingWall" parent="Geometry/S2_Colonnade" unique_id=1528692899 instance=ExtResource("8_y8u2i")]
+[node name="BlockingWall" parent="Geometry/S2_Colonnade" unique_id=1384087814 instance=ExtResource("8_qubas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84, 3.75, -80)
 size = Vector3(1, 3.5, 4)
 
-[node name="Checkpoint2" parent="Geometry/S2_Colonnade" unique_id=411090230 instance=ExtResource("10_ru7w4")]
+[node name="Checkpoint2" parent="Geometry/S2_Colonnade" unique_id=1919815222 instance=ExtResource("10_js8n3")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 94, 2, -81.6)
 checkpoint_id = 2
 
-[node name="BackWall" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1097913178]
+[node name="BackWall" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=326528608]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, -1, -88.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(90, 10, 1)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar3" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=630122536]
+[node name="Pillar3" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1917898048]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, -85)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 14, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Lintel0" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1125049111]
+[node name="Lintel0" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=580995578]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 8.45, -85)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(8.599999, 0.8999996, 1.3999939)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Vine" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=1393769306]
+[node name="Vine" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=963526010]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 6.75, -85)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_t8ggo")
-
-[node name="Vine2" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=784506194]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4, 7.2, -85.2)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_xm6ab")
-
-[node name="Pillar4" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1067374073]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, -85)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(1.2, 14, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Pillar5" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=616228569]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -0.5999999, -85)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(1.2, 10.8, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Pillar6" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1033035500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 1, -85)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(1.2, 14, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Lintel3" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=205701803]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 8.45, -85)
-script = ExtResource("3_lfnnf")
-size = Vector3(8.599998, 0.8999996, 1.3999939)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Vine3" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=764809423]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 6.75, -85)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_mju3a")
-
-[node name="Vine4" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=2117913299]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.4, 7.2, -85.2)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_fr2tk")
-
-[node name="Pillar7" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=656586744]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 1, -85)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(1.2, 14, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Pillar8" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1325333084]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, -0.5999999, -85)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(1.2, 10.8, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Pillar9" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=452320169]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 1, -85)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(1.2, 14, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Lintel6" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=226393028]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5, 8.45, -85)
-script = ExtResource("3_lfnnf")
-size = Vector3(8.600002, 0.8999996, 1.3999939)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Vine5" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=505772763]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5, 6.75, -85)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_68vc8")
-
-[node name="Vine6" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=995258736]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.4, 7.2, -85.2)
-cast_shadow = 0
-mesh = SubResource("BoxMesh_uoyqn")
-
-[node name="Pillar10" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1412854407]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 1, -85)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(1.2, 14, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Pillar11" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=365437607]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, -0.5999999, -85)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(1.2, 10.8, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Pillar12" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=138821490]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79, 1, -85)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(1.2, 14, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Lintel9" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1297099724]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 8.45, -85)
-script = ExtResource("3_lfnnf")
-size = Vector3(8.600006, 0.8999996, 1.3999939)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
-
-[node name="Vine7" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=502985679]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 6.75, -85)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_t8y6f")
 
-[node name="Vine8" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=740978670]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.4, 7.2, -85.2)
+[node name="Vine2" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=1287122999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4, 7.2, -85.2)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_cb7to")
 
-[node name="Pillar13" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1569263381]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 1, -85)
-script = ExtResource("3_lfnnf")
+[node name="Pillar4" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1818556407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, -85)
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 14, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar14" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=614208903]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 93, -0.5999999, -85)
-script = ExtResource("3_lfnnf")
+[node name="Pillar5" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=2106458369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -0.5999999, -85)
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 10.8, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="S3_Stairway" type="Node3D" parent="Geometry" unique_id=1382953830]
+[node name="Pillar6" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1364598202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 1, -85)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(1.2, 14, 1.2)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Base" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=770837245]
+[node name="Lintel3" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1165689351]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 8.45, -85)
+script = ExtResource("3_ypt8q")
+size = Vector3(8.599998, 0.8999996, 1.3999939)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Vine3" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=931234143]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.5, 6.75, -85)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_uxedc")
+
+[node name="Vine4" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=1408834054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.4, 7.2, -85.2)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_gcpkl")
+
+[node name="Pillar7" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=693500126]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 1, -85)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(1.2, 14, 1.2)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Pillar8" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=98369773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51, -0.5999999, -85)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(1.2, 10.8, 1.2)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Pillar9" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1243928023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 1, -85)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(1.2, 14, 1.2)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Lintel6" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1473979190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5, 8.45, -85)
+script = ExtResource("3_ypt8q")
+size = Vector3(8.600002, 0.8999996, 1.3999939)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Vine5" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=1159832009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.5, 6.75, -85)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_3loaq")
+
+[node name="Vine6" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=1083346964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.4, 7.2, -85.2)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_26wfk")
+
+[node name="Pillar10" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1544246544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, 1, -85)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(1.2, 14, 1.2)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Pillar11" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1358204329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, -0.5999999, -85)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(1.2, 10.8, 1.2)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Pillar12" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=1018819696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79, 1, -85)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(1.2, 14, 1.2)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Lintel9" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=271091031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 8.45, -85)
+script = ExtResource("3_ypt8q")
+size = Vector3(8.600006, 0.8999996, 1.3999939)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Vine7" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=667465215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.5, 6.75, -85)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_i282t")
+
+[node name="Vine8" type="MeshInstance3D" parent="Geometry/S2_Colonnade" unique_id=236232804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.4, 7.2, -85.2)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_oia0i")
+
+[node name="Pillar13" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=303428278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 1, -85)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(1.2, 14, 1.2)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="Pillar14" type="StaticBody3D" parent="Geometry/S2_Colonnade" unique_id=732106649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 93, -0.5999999, -85)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(1.2, 10.8, 1.2)
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
+
+[node name="S3_Stairway" type="Node3D" parent="Geometry" unique_id=1904389007]
+
+[node name="Base" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=782292021]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102, -2, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(4, 8, 12)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="Stair1" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=187573202]
+[node name="Stair1" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1881478928]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105.25, -1.5, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(2.5, 9, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Stair2" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1346988631]
+[node name="Stair2" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1137079109]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.75, -1, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(2.5, 10, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Stair3" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1655751827]
+[node name="Stair3" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=604209672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.25, -0.5, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(2.5, 11, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Stair4" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1934379197]
+[node name="Stair4" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=2064108792]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112.75, 0, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(2.5, 12, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Stair5" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1328469984]
+[node name="Stair5" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1580282165]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 115.25, 0.5, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(2.5, 13, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="ThornsStair2" parent="Geometry/S3_Stairway" unique_id=96645449 instance=ExtResource("9_dhag7")]
+[node name="ThornsStair2" parent="Geometry/S3_Stairway" unique_id=563829164 instance=ExtResource("9_ikxui")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107.75, 4, -83)
 size = Vector3(2.5, 0.8, 2)
 
-[node name="ThornsStair4" parent="Geometry/S3_Stairway" unique_id=1944187190 instance=ExtResource("9_dhag7")]
+[node name="ThornsStair4" parent="Geometry/S3_Stairway" unique_id=116133495 instance=ExtResource("9_ikxui")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 112.75, 6, -77)
 size = Vector3(2.5, 0.8, 2)
 
-[node name="Landing" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1500549200]
+[node name="Landing" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=584238313]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 119.25, 0.5, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(5.5, 13, 12)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="Ramp" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1595514860]
+[node name="Ramp" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=431522980]
 transform = Transform3D(-4.371139e-08, -0.28734788, -0.9578263, 0, 0.9578263, -0.28734788, 1, -1.2560375e-08, -4.1867917e-08, 127.43102, 7.0632606, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(8, 3, 10.440307)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Ledge1" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1071909502]
+[node name="Ledge1" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1135809809]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135, 2, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(6, 16, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="Lift" parent="Geometry/S3_Stairway" unique_id=641376791 instance=ExtResource("11_qubas")]
+[node name="Lift" parent="Geometry/S3_Stairway" unique_id=2039273662 instance=ExtResource("11_0qwp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139.5, 9.7, -80)
 travel = Vector3(0, 4, 0)
 pause_time = 1.0
 
-[node name="Ledge2" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1091838406]
+[node name="Ledge2" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=774472139]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.5, 4, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(15, 20, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="AlcoveFloor" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=933091534]
+[node name="AlcoveFloor" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=360927556]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148, 4, -87)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(4, 20, 6)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="AlcoveWallL" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=46579383]
+[node name="AlcoveWallL" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=696547836]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.75, 16, -87.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(0.5, 4, 6)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="AlcoveWallR" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1162873263]
+[node name="AlcoveWallR" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=22748248]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150.25, 16, -87.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(0.5, 4, 6)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="AlcoveWallBack" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=2140269999]
+[node name="AlcoveWallBack" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=701602097]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148, 16, -90.25)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(5, 4, 0.5)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="SecretWall3" parent="Geometry/S3_Stairway" unique_id=1799887422 instance=ExtResource("8_y8u2i")]
+[node name="SecretWall3" parent="Geometry/S3_Stairway" unique_id=1780472173 instance=ExtResource("8_qubas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148, 15.75, -84.5)
 size = Vector3(4, 3.5, 1)
 
-[node name="Crumbling1" parent="Geometry/S3_Stairway" unique_id=2043377371 instance=ExtResource("12_ikxui")]
+[node name="Crumbling1" parent="Geometry/S3_Stairway" unique_id=60407884 instance=ExtResource("12_68ox3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 157.9, 13.7, -80)
 size = Vector3(2.5, 0.6, 3)
 
-[node name="Crumbling2" parent="Geometry/S3_Stairway" unique_id=1493663592 instance=ExtResource("12_ikxui")]
+[node name="Crumbling2" parent="Geometry/S3_Stairway" unique_id=1475273133 instance=ExtResource("12_68ox3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161.2, 13.7, -80)
 size = Vector3(2.5, 0.6, 3)
 
-[node name="Crumbling3" parent="Geometry/S3_Stairway" unique_id=1200235433 instance=ExtResource("12_ikxui")]
+[node name="Crumbling3" parent="Geometry/S3_Stairway" unique_id=1211122578 instance=ExtResource("12_68ox3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 164.5, 13.7, -80)
 size = Vector3(2.5, 0.6, 3)
 
-[node name="Ledge3" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1921606818]
+[node name="Ledge3" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1893705116]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 168, 4, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(4, 20, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="Checkpoint3" parent="Geometry/S3_Stairway" unique_id=271322259 instance=ExtResource("10_ru7w4")]
+[node name="Checkpoint3" parent="Geometry/S3_Stairway" unique_id=1959639362 instance=ExtResource("10_js8n3")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 167.5, 14, -81.6)
 checkpoint_id = 3
 
-[node name="Pillar" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=289010851]
+[node name="Pillar" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=530889167]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 118, 9.5, -85)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 5, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar2" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=488946634]
+[node name="Pillar2" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1602313654]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135, 11.5, -83)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1, 3, 1)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar3" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1223271529]
+[node name="Pillar3" type="StaticBody3D" parent="Geometry/S3_Stairway" unique_id=1217936420]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 153, 16.25, -83)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 4.5, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Vine" type="MeshInstance3D" parent="Geometry/S3_Stairway" unique_id=1508808683]
+[node name="Vine" type="MeshInstance3D" parent="Geometry/S3_Stairway" unique_id=1218887762]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141.2, 12.25, -82)
 cast_shadow = 0
-mesh = SubResource("BoxMesh_uxedc")
+mesh = SubResource("BoxMesh_nfrl2")
 
-[node name="Vine2" type="MeshInstance3D" parent="Geometry/S3_Stairway" unique_id=1646107471]
+[node name="Vine2" type="MeshInstance3D" parent="Geometry/S3_Stairway" unique_id=121137112]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141.2, 12.75, -78.5)
 cast_shadow = 0
-mesh = SubResource("BoxMesh_gcpkl")
+mesh = SubResource("BoxMesh_sxa8w")
 
-[node name="S4_SunkenGarden" type="Node3D" parent="Geometry" unique_id=1850810555]
+[node name="S4_SunkenGarden" type="Node3D" parent="Geometry" unique_id=679726123]
 
-[node name="DropRamp" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1821767553]
+[node name="DropRamp" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=2143252859]
 transform = Transform3D(-4.371139e-08, 0.4472136, 0.8944272, 0, 0.8944272, -0.4472136, -1, -1.9548327e-08, -3.9096655e-08, 173.32918, 10.65836, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(8, 3, 8.944272)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="IslandA" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1290448988]
+[node name="IslandA" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=292143090]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 182, 4, -83)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(8, 12, 14)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="MovingPlatformB" parent="Geometry/S4_SunkenGarden" unique_id=109636589 instance=ExtResource("11_qubas")]
+[node name="MovingPlatformB" parent="Geometry/S4_SunkenGarden" unique_id=415288147 instance=ExtResource("11_0qwp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 187.5, 9.7, -80)
 travel = Vector3(7, 0, 0)
 cycle_time = 4.0
 pause_time = 0.8
 
-[node name="IslandB" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1347935631]
+[node name="IslandB" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1084651847]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 199, 4, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(6, 12, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="IslandC" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1531031123]
+[node name="IslandC" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=109569668]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 213, 4, -83)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(6, 12, 14)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="IslandD" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=332457493]
+[node name="IslandD" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1195459887]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 223, 4, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(6, 12, 8)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="ThornsD" parent="Geometry/S4_SunkenGarden" unique_id=31029322 instance=ExtResource("9_dhag7")]
+[node name="ThornsD" parent="Geometry/S4_SunkenGarden" unique_id=913694633 instance=ExtResource("9_ikxui")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 223, 10, -80)
 size = Vector3(2, 0.9, 3.2)
 
-[node name="Crumbling1" parent="Geometry/S4_SunkenGarden" unique_id=456017886 instance=ExtResource("12_ikxui")]
+[node name="Crumbling1" parent="Geometry/S4_SunkenGarden" unique_id=1553964950 instance=ExtResource("12_68ox3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 228.5, 9.7, -80)
 size = Vector3(2.5, 0.6, 3)
 
-[node name="Crumbling2" parent="Geometry/S4_SunkenGarden" unique_id=321625510 instance=ExtResource("12_ikxui")]
+[node name="Crumbling2" parent="Geometry/S4_SunkenGarden" unique_id=583181208 instance=ExtResource("12_68ox3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 232, 9.7, -80)
 size = Vector3(2.5, 0.6, 3)
 
-[node name="ApproachE" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=2042107759]
+[node name="ApproachE" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1248178401]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 245.25, 4, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(23.5, 12, 6)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="Checkpoint4" parent="Geometry/S4_SunkenGarden" unique_id=1051906091 instance=ExtResource("10_ru7w4")]
+[node name="Checkpoint4" parent="Geometry/S4_SunkenGarden" unique_id=852369612 instance=ExtResource("10_js8n3")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 240, 10, -82.2)
 checkpoint_id = 4
 
-[node name="Corridor" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1617944714]
+[node name="Corridor" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=44160102]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 198, 8.5, -88)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(24, 3, 2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="CorridorWallNear" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1833192423]
+[node name="CorridorWallNear" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1457143957]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 198, 11.75, -86.75)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(22, 3.5, 0.5)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="CorridorWallFar" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1500191001]
+[node name="CorridorWallFar" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=863620812]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 198, 11.75, -89.25)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(24, 3.5, 0.5)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="ShortcutWall" parent="Geometry/S4_SunkenGarden" unique_id=285907511 instance=ExtResource("8_y8u2i")]
+[node name="ShortcutWall" parent="Geometry/S4_SunkenGarden" unique_id=270688575 instance=ExtResource("8_qubas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 186.5, 11.5, -87.75)
 size = Vector3(1, 3, 2.5)
 
-[node name="SecretLift" parent="Geometry/S4_SunkenGarden" unique_id=1670666833 instance=ExtResource("11_qubas")]
+[node name="SecretLift" parent="Geometry/S4_SunkenGarden" unique_id=497573283 instance=ExtResource("11_0qwp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 199, 9.7, -73.5)
 travel = Vector3(0, 4.5, 0)
 cycle_time = 4.0
 pause_time = 1.2
 
-[node name="SecretPlatform" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=929440171]
+[node name="SecretPlatform" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1181775407]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205.75, 14.25, -73.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(2.5, 1.5, 3)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Tree" type="Node3D" parent="Geometry/S4_SunkenGarden" unique_id=1054702666]
+[node name="Tree" type="Node3D" parent="Geometry/S4_SunkenGarden" unique_id=192644060]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180, 10, -88)
 
-[node name="Trunk" type="StaticBody3D" parent="Geometry/S4_SunkenGarden/Tree" unique_id=843966920]
+[node name="Trunk" type="StaticBody3D" parent="Geometry/S4_SunkenGarden/Tree" unique_id=1169116588]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(0.8, 5, 0.8)
-material = ExtResource("14_0qwp3")
+material = ExtResource("14_k642o")
 
-[node name="Canopy" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree" unique_id=827538124]
+[node name="Canopy" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree" unique_id=435279439]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-mesh = SubResource("SphereMesh_3loaq")
+mesh = SubResource("SphereMesh_ldyob")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree" unique_id=1113480051]
+[node name="Canopy2" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree" unique_id=808894169]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32, 4.34, 0.3)
-mesh = SubResource("SphereMesh_26wfk")
+mesh = SubResource("SphereMesh_diows")
 
-[node name="Canopy3" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree" unique_id=374352617]
+[node name="Canopy3" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree" unique_id=1312524447]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 4.56, -0.4)
-mesh = SubResource("SphereMesh_i282t")
+mesh = SubResource("SphereMesh_g6tp6")
 
-[node name="Tree2" type="Node3D" parent="Geometry/S4_SunkenGarden" unique_id=413895389]
+[node name="Tree2" type="Node3D" parent="Geometry/S4_SunkenGarden" unique_id=1137466678]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 215, 10, -89.3)
 
-[node name="Trunk" type="StaticBody3D" parent="Geometry/S4_SunkenGarden/Tree2" unique_id=1198253656]
+[node name="Trunk" type="StaticBody3D" parent="Geometry/S4_SunkenGarden/Tree2" unique_id=1668289395]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(0.8, 6, 0.8)
-material = ExtResource("14_0qwp3")
+material = ExtResource("14_k642o")
 
-[node name="Canopy" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree2" unique_id=709524283]
+[node name="Canopy" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree2" unique_id=878486753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
-mesh = SubResource("SphereMesh_oia0i")
+mesh = SubResource("SphereMesh_1gnhs")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree2" unique_id=44126261]
+[node name="Canopy2" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree2" unique_id=622902460]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.56, 5.2200003, 0.3)
-mesh = SubResource("SphereMesh_nfrl2")
+mesh = SubResource("SphereMesh_y47s5")
 
-[node name="Canopy3" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree2" unique_id=899675098]
+[node name="Canopy3" type="MeshInstance3D" parent="Geometry/S4_SunkenGarden/Tree2" unique_id=1993895178]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 5.48, -0.4)
-mesh = SubResource("SphereMesh_sxa8w")
+mesh = SubResource("SphereMesh_r0x0p")
 
-[node name="Pillar" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=1242346335]
+[node name="Pillar" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=678495413]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200.5, 11.25, -83)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1, 2.5, 1)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar2" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=104800275]
+[node name="Pillar2" type="StaticBody3D" parent="Geometry/S4_SunkenGarden" unique_id=937436316]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, 12.5, -82.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.2, 5, 1.2)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="S5_ThroneArena" type="Node3D" parent="Geometry" unique_id=872410270]
+[node name="S5_ThroneArena" type="Node3D" parent="Geometry" unique_id=1928453795]
 
-[node name="ArenaFloor" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=1704266042]
+[node name="ArenaFloor" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=1390801512]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 270, 7, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(26, 6, 26)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="EntranceGate" parent="Geometry/S5_ThroneArena" unique_id=2065204024 instance=ExtResource("17_k642o")]
+[node name="EntranceGate" parent="Geometry/S5_ThroneArena" unique_id=419179457 instance=ExtResource("17_52qpp")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 254, 10, -80)
 start_open = true
 
-[node name="ExitWalk" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=1313003014]
+[node name="ExitWalk" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=349003990]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 287.5, 7, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(9, 6, 6)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="ExitGate" parent="Geometry/S5_ThroneArena" unique_id=111229130 instance=ExtResource("17_k642o")]
+[node name="ExitGate" parent="Geometry/S5_ThroneArena" unique_id=854567158 instance=ExtResource("17_52qpp")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 287, 10, -80)
 
-[node name="GoalPlatform" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=136327073]
+[node name="GoalPlatform" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=1765611805]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 297, 7, -80)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(10, 6, 12)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("5_qpf73")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("5_y8u2i")
 
-[node name="LevelGoal" parent="Geometry/S5_ThroneArena" unique_id=22858467 instance=ExtResource("18_n2thx")]
+[node name="LevelGoal" parent="Geometry/S5_ThroneArena" unique_id=59244247 instance=ExtResource("18_5vcr1")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 297, 10, -80)
 
-[node name="ArenaPillars" type="Node3D" parent="Geometry/S5_ThroneArena" unique_id=622175506]
+[node name="ArenaPillars" type="Node3D" parent="Geometry/S5_ThroneArena" unique_id=1804485755]
 
-[node name="Pillar" type="StaticBody3D" parent="Geometry/S5_ThroneArena/ArenaPillars" unique_id=305280873]
+[node name="Pillar" type="StaticBody3D" parent="Geometry/S5_ThroneArena/ArenaPillars" unique_id=1517770277]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 275.65686, 12.5, -74.34315)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.6, 5, 1.6)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar2" type="StaticBody3D" parent="Geometry/S5_ThroneArena/ArenaPillars" unique_id=816927937]
+[node name="Pillar2" type="StaticBody3D" parent="Geometry/S5_ThroneArena/ArenaPillars" unique_id=274539527]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 264.34314, 12.5, -74.34315)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.6, 5, 1.6)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar3" type="StaticBody3D" parent="Geometry/S5_ThroneArena/ArenaPillars" unique_id=137654648]
+[node name="Pillar3" type="StaticBody3D" parent="Geometry/S5_ThroneArena/ArenaPillars" unique_id=208547693]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 264.34314, 12.5, -85.65685)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.6, 5, 1.6)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Pillar4" type="StaticBody3D" parent="Geometry/S5_ThroneArena/ArenaPillars" unique_id=2123748028]
+[node name="Pillar4" type="StaticBody3D" parent="Geometry/S5_ThroneArena/ArenaPillars" unique_id=233060557]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 275.65686, 12.5, -85.65685)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(1.6, 5, 1.6)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="OuterPlatforms" type="Node3D" parent="Geometry/S5_ThroneArena" unique_id=212648554]
+[node name="OuterPlatforms" type="Node3D" parent="Geometry/S5_ThroneArena" unique_id=643565625]
 
-[node name="Outer1" type="StaticBody3D" parent="Geometry/S5_ThroneArena/OuterPlatforms" unique_id=1169848116]
+[node name="Outer1" type="StaticBody3D" parent="Geometry/S5_ThroneArena/OuterPlatforms" unique_id=572563170]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 281.31372, 8, -68.686295)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(4, 4, 4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Outer2" type="StaticBody3D" parent="Geometry/S5_ThroneArena/OuterPlatforms" unique_id=58513031]
+[node name="Outer2" type="StaticBody3D" parent="Geometry/S5_ThroneArena/OuterPlatforms" unique_id=441067589]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 258.68628, 8, -68.686295)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(4, 4, 4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Outer3" type="StaticBody3D" parent="Geometry/S5_ThroneArena/OuterPlatforms" unique_id=1165326597]
+[node name="Outer3" type="StaticBody3D" parent="Geometry/S5_ThroneArena/OuterPlatforms" unique_id=1193517546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 258.68628, 8, -91.313705)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(4, 4, 4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="Outer4" type="StaticBody3D" parent="Geometry/S5_ThroneArena/OuterPlatforms" unique_id=924008558]
+[node name="Outer4" type="StaticBody3D" parent="Geometry/S5_ThroneArena/OuterPlatforms" unique_id=1812504914]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 281.31372, 8, -91.313705)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(4, 4, 4)
-material = ExtResource("4_a6myy")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("4_mrl6s")
+top_material = ExtResource("6_dhag7")
 
-[node name="ThroneDais" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=628827272]
+[node name="ThroneDais" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=1640215035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 270, 10.3, -92.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(8, 0.6000004, 3)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="ThroneSeat" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=1000641041]
+[node name="ThroneSeat" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=493957943]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 270, 11.3, -93)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(4, 1.3999996, 2)
-material = ExtResource("7_mrl6s")
+material = ExtResource("7_ru7w4")
 
-[node name="ThroneBack" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=1787732340]
+[node name="ThroneBack" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=1573007770]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 270, 13.3, -94)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(5, 5.3999996, 1)
-material = ExtResource("7_mrl6s")
-top_material = ExtResource("6_ypt8q")
+material = ExtResource("7_ru7w4")
+top_material = ExtResource("6_dhag7")
 
-[node name="ThroneGemSocket" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=919779808]
+[node name="ThroneGemSocket" type="StaticBody3D" parent="Geometry/S5_ThroneArena" unique_id=468924085]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 270, 15, -93.5)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 size = Vector3(1.2000122, 1.2000008, 0.19999695)
-material = ExtResource("19_8a0ra")
+material = ExtResource("19_2dgrs")
 
-[node name="SpriteSpots" type="Node3D" parent="." unique_id=587037589]
+[node name="SpriteSpots" type="Node3D" parent="." unique_id=1464759440]
 
-[node name="SpriteSpot1" type="Marker3D" parent="SpriteSpots" unique_id=1960950791]
+[node name="SpriteSpot1" type="Marker3D" parent="SpriteSpots" unique_id=641451402]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 1, -12.5)
 
-[node name="SpriteSpot3" type="Marker3D" parent="SpriteSpots" unique_id=327472814]
+[node name="SpriteSpot3" type="Marker3D" parent="SpriteSpots" unique_id=1863233516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148, 15, -87.5)
 
-[node name="SpriteSpot2" type="Marker3D" parent="SpriteSpots" unique_id=1667962678]
+[node name="SpriteSpot2" type="Marker3D" parent="SpriteSpots" unique_id=772361276]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 205.75, 16, -73.5)
 
-[node name="Backdrop" type="Node3D" parent="." unique_id=2062425879]
+[node name="Enemies" type="Node3D" parent="." unique_id=2032056504]
 
-[node name="AbyssFloor" type="MeshInstance3D" parent="Backdrop" unique_id=844329595]
+[node name="S1_Courtyard" type="Node3D" parent="Enemies" unique_id=407425973]
+
+[node name="Mossling1" parent="Enemies/S1_Courtyard" unique_id=1639955534 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.1, -14)
+
+[node name="Mossling2" parent="Enemies/S1_Courtyard" unique_id=314806510 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2, 2.1, -40)
+
+[node name="Mossling3" parent="Enemies/S1_Courtyard" unique_id=475064879 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2, 2.1, -54)
+
+[node name="S2_Colonnade" type="Node3D" parent="Enemies" unique_id=590652638]
+
+[node name="Mossling1" parent="Enemies/S2_Colonnade" unique_id=598514790 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 30, 2.1, -80)
+
+[node name="Sporeling1" parent="Enemies/S2_Colonnade" unique_id=639435736 instance=ExtResource("21_ew113")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 52, 2.1, -80)
+
+[node name="Mossling2" parent="Enemies/S2_Colonnade" unique_id=1410912067 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 79, 2.1, -80)
+
+[node name="Sporeling2" parent="Enemies/S2_Colonnade" unique_id=635723893 instance=ExtResource("21_ew113")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 90, 2.1, -80)
+
+[node name="S3_Stairway" type="Node3D" parent="Enemies" unique_id=1420887286]
+
+[node name="Snapthorn1" parent="Enemies/S3_Stairway" unique_id=496422436 instance=ExtResource("22_lgtwg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 119, 7.1, -76.8)
+
+[node name="Sporeling1" parent="Enemies/S3_Stairway" unique_id=1948622799 instance=ExtResource("21_ew113")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 136, 10.1, -82)
+
+[node name="Mossling1" parent="Enemies/S3_Stairway" unique_id=332989493 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 145, 14.1, -79)
+
+[node name="Mossling2" parent="Enemies/S3_Stairway" unique_id=562447853 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 152, 14.1, -81)
+
+[node name="Snapthorn2" parent="Enemies/S3_Stairway" unique_id=1618336992 instance=ExtResource("22_lgtwg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 155, 14.1, -83)
+
+[node name="S4_SunkenGarden" type="Node3D" parent="Enemies" unique_id=1249071154]
+
+[node name="Mossling1" parent="Enemies/S4_SunkenGarden" unique_id=1805589656 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 182, 10.1, -80)
+
+[node name="Sporeling1" parent="Enemies/S4_SunkenGarden" unique_id=2083707569 instance=ExtResource("21_ew113")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 199, 10.1, -81)
+
+[node name="Mossling2" parent="Enemies/S4_SunkenGarden" unique_id=924088402 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 213, 10.1, -79)
+
+[node name="Snapthorn1" parent="Enemies/S4_SunkenGarden" unique_id=513348295 instance=ExtResource("22_lgtwg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 224.5, 10.1, -83)
+
+[node name="Mossling3" parent="Enemies/S4_SunkenGarden" unique_id=763803145 instance=ExtResource("20_e56qm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 242, 10.1, -79)
+
+[node name="Snapthorn2" parent="Enemies/S4_SunkenGarden" unique_id=121322861 instance=ExtResource("22_lgtwg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 246, 10.1, -77.5)
+
+[node name="Sporeling2" parent="Enemies/S4_SunkenGarden" unique_id=1798466516 instance=ExtResource("21_ew113")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 250, 10.1, -81)
+
+[node name="Backdrop" type="Node3D" parent="." unique_id=1281651109]
+
+[node name="AbyssFloor" type="MeshInstance3D" parent="Backdrop" unique_id=606324426]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140, -18, -60)
-mesh = SubResource("PlaneMesh_diows")
+mesh = SubResource("PlaneMesh_0ct28")
 
-[node name="Tree" type="Node3D" parent="Backdrop" unique_id=1291706358]
+[node name="Tree" type="Node3D" parent="Backdrop" unique_id=508890841]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 2)
 
-[node name="Trunk" type="StaticBody3D" parent="Backdrop/Tree" unique_id=739632242]
+[node name="Trunk" type="StaticBody3D" parent="Backdrop/Tree" unique_id=419374497]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(0.8, 7, 0.8)
-material = ExtResource("14_0qwp3")
+material = ExtResource("14_k642o")
 
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree" unique_id=944675762]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
-mesh = SubResource("SphereMesh_g6tp6")
-
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree" unique_id=853591871]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 6.1, 0.3)
-mesh = SubResource("SphereMesh_1gnhs")
-
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree" unique_id=800410883]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 6.4, -0.4)
-mesh = SubResource("SphereMesh_y47s5")
-
-[node name="Tree2" type="Node3D" parent="Backdrop" unique_id=1617427728]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -2)
-
-[node name="Trunk" type="StaticBody3D" parent="Backdrop/Tree2" unique_id=1267927046]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(0.8, 7, 0.8)
-material = ExtResource("14_0qwp3")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree2" unique_id=387991329]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
-mesh = SubResource("SphereMesh_r0x0p")
-
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree2" unique_id=697547611]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 6.1, 0.3)
-mesh = SubResource("SphereMesh_sdmd8")
-
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree2" unique_id=253384259]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 6.4, -0.4)
-mesh = SubResource("SphereMesh_0ct28")
-
-[node name="Tree3" type="Node3D" parent="Backdrop" unique_id=1212043811]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -18)
-
-[node name="Trunk" type="StaticBody3D" parent="Backdrop/Tree3" unique_id=87335104]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
-script = ExtResource("3_lfnnf")
-shape_type = 1
-size = Vector3(0.8, 7, 0.8)
-material = ExtResource("14_0qwp3")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree3" unique_id=1954146555]
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree" unique_id=1412091679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
 mesh = SubResource("SphereMesh_lrodh")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree3" unique_id=382492314]
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree" unique_id=131237362]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 6.1, 0.3)
 mesh = SubResource("SphereMesh_l72xb")
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree3" unique_id=122479122]
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree" unique_id=45553681]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 6.4, -0.4)
 mesh = SubResource("SphereMesh_4qqh7")
 
-[node name="Tree4" type="Node3D" parent="Backdrop" unique_id=843565308]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -21)
+[node name="Tree2" type="Node3D" parent="Backdrop" unique_id=1377258844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -2)
 
-[node name="Trunk" type="StaticBody3D" parent="Backdrop/Tree4" unique_id=1580584546]
+[node name="Trunk" type="StaticBody3D" parent="Backdrop/Tree2" unique_id=1406296223]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
-script = ExtResource("3_lfnnf")
+script = ExtResource("3_ypt8q")
 shape_type = 1
 size = Vector3(0.8, 7, 0.8)
-material = ExtResource("14_0qwp3")
+material = ExtResource("14_k642o")
 
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree4" unique_id=2038497635]
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree2" unique_id=457649749]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
 mesh = SubResource("SphereMesh_c4s8a")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree4" unique_id=276873096]
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree2" unique_id=1630256638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 6.1, 0.3)
 mesh = SubResource("SphereMesh_vc151")
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree4" unique_id=1359029746]
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree2" unique_id=463920326]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 6.4, -0.4)
 mesh = SubResource("SphereMesh_le1e5")
 
-[node name="Tree5" type="Node3D" parent="Backdrop" unique_id=774510512]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1472604, -97.75758)
+[node name="Tree3" type="Node3D" parent="Backdrop" unique_id=1678288428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -18)
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree5" unique_id=237344651]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.294521, 0)
-mesh = SubResource("CylinderMesh_7g2aa")
+[node name="Trunk" type="StaticBody3D" parent="Backdrop/Tree3" unique_id=1344130370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(0.8, 7, 0.8)
+material = ExtResource("14_k642o")
 
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree5" unique_id=1345335267]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.589042, 0)
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree3" unique_id=1321195240]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+mesh = SubResource("SphereMesh_7g2aa")
+
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree3" unique_id=18619633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 6.1, 0.3)
 mesh = SubResource("SphereMesh_jkuu0")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree5" unique_id=1625064235]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9103625, 11.133861, 0.3)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree3" unique_id=1971607198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 6.4, -0.4)
 mesh = SubResource("SphereMesh_4ixsb")
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree5" unique_id=400326306]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.425302, 11.618921, -0.4)
+[node name="Tree4" type="Node3D" parent="Backdrop" unique_id=1666604565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -21)
+
+[node name="Trunk" type="StaticBody3D" parent="Backdrop/Tree4" unique_id=1307665602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+script = ExtResource("3_ypt8q")
+shape_type = 1
+size = Vector3(0.8, 7, 0.8)
+material = ExtResource("14_k642o")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree4" unique_id=1967456518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
 mesh = SubResource("SphereMesh_t6f17")
 
-[node name="Tree6" type="Node3D" parent="Backdrop" unique_id=911935633]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.682297, -1.7004793, -97.4659)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree4" unique_id=692816728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 6.1, 0.3)
+mesh = SubResource("SphereMesh_yhali")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree6" unique_id=179842033]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.4009585, 0)
-mesh = SubResource("CylinderMesh_yhali")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree6" unique_id=1777087365]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.801917, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree4" unique_id=2118058359]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 6.4, -0.4)
 mesh = SubResource("SphereMesh_gg2vq")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree6" unique_id=595989897]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1432304, 13.730302, 0.3)
-mesh = SubResource("SphereMesh_vevnc")
+[node name="Tree5" type="Node3D" parent="Backdrop" unique_id=2119528383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1472604, -97.75758)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree6" unique_id=1078976439]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7860254, 14.087507, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree5" unique_id=622863359]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.294521, 0)
+mesh = SubResource("CylinderMesh_vevnc")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree5" unique_id=1896042766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.589042, 0)
 mesh = SubResource("SphereMesh_5jj75")
 
-[node name="Tree7" type="Node3D" parent="Backdrop" unique_id=1219364645]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.468174, -1.7943583, -99.707825)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree5" unique_id=119739310]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9103625, 11.133861, 0.3)
+mesh = SubResource("SphereMesh_287rq")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree7" unique_id=496145706]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5887165, 0)
-mesh = SubResource("CylinderMesh_287rq")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree7" unique_id=612252443]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.177433, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree5" unique_id=1052700400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.425302, 11.618921, -0.4)
 mesh = SubResource("SphereMesh_cgn3l")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree7" unique_id=1520708092]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.136688, 14.109089, 0.3)
-mesh = SubResource("SphereMesh_e7j17")
+[node name="Tree6" type="Node3D" parent="Backdrop" unique_id=220122245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.682297, -1.7004793, -97.4659)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree7" unique_id=1710579913]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7805732, 14.465203, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree6" unique_id=1988115011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.4009585, 0)
+mesh = SubResource("CylinderMesh_e7j17")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree6" unique_id=1983716035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.801917, 0)
 mesh = SubResource("SphereMesh_38n3b")
 
-[node name="Tree8" type="Node3D" parent="Backdrop" unique_id=714404223]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.941492, -1.1568649, -98.524734)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree6" unique_id=1325007720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1432304, 13.730302, 0.3)
+mesh = SubResource("SphereMesh_du1li")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree8" unique_id=2064191914]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.31373, 0)
-mesh = SubResource("CylinderMesh_du1li")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree8" unique_id=1091877559]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.62746, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree6" unique_id=657229610]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7860254, 14.087507, -0.4)
 mesh = SubResource("SphereMesh_sdppo")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree8" unique_id=262050787]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5742998, 11.340309, 0.3)
-mesh = SubResource("SphereMesh_42oru")
+[node name="Tree7" type="Node3D" parent="Backdrop" unique_id=1827393342]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.468174, -1.7943583, -99.707825)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree8" unique_id=78776159]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1452498, 11.76936, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree7" unique_id=1083160650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5887165, 0)
+mesh = SubResource("CylinderMesh_42oru")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree7" unique_id=1250673378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.177433, 0)
 mesh = SubResource("SphereMesh_gt3c7")
 
-[node name="Tree9" type="Node3D" parent="Backdrop" unique_id=138506365]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.2676, -1.2562699, -96.25269)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree7" unique_id=1728409098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.136688, 14.109089, 0.3)
+mesh = SubResource("SphereMesh_lsx17")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree9" unique_id=706731099]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.51254, 0)
-mesh = SubResource("CylinderMesh_lsx17")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree9" unique_id=470433936]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.02508, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree7" unique_id=1472234781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7805732, 14.465203, -0.4)
 mesh = SubResource("SphereMesh_mnvh2")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree9" unique_id=935712619]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6556513, 11.697254, 0.3)
-mesh = SubResource("SphereMesh_pcrvt")
+[node name="Tree8" type="Node3D" parent="Backdrop" unique_id=118596872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.941492, -1.1568649, -98.524734)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree9" unique_id=1917133735]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2130427, 12.139863, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree8" unique_id=365619023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.31373, 0)
+mesh = SubResource("CylinderMesh_pcrvt")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree8" unique_id=1771185932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.62746, 0)
 mesh = SubResource("SphereMesh_qpcdg")
 
-[node name="Tree10" type="Node3D" parent="Backdrop" unique_id=356089534]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.436573, -1.1001527, -99.7039)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree8" unique_id=471808183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5742998, 11.340309, 0.3)
+mesh = SubResource("SphereMesh_33vqa")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree10" unique_id=408602496]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2003055, 0)
-mesh = SubResource("CylinderMesh_33vqa")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree10" unique_id=901401828]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.400611, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree8" unique_id=1486763473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1452498, 11.76936, -0.4)
 mesh = SubResource("SphereMesh_jkbbc")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree10" unique_id=2113093707]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7088113, 11.0462055, 0.3)
-mesh = SubResource("SphereMesh_8ty4q")
+[node name="Tree9" type="Node3D" parent="Backdrop" unique_id=966483272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.2676, -1.2562699, -96.25269)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree10" unique_id=627432752]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2573428, 11.497674, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree9" unique_id=1239047234]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.51254, 0)
+mesh = SubResource("CylinderMesh_8ty4q")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree9" unique_id=387593218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.02508, 0)
 mesh = SubResource("SphereMesh_sybiq")
 
-[node name="Tree11" type="Node3D" parent="Backdrop" unique_id=621805030]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.734234, -1.9201331, -97.12627)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree9" unique_id=2047458560]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6556513, 11.697254, 0.3)
+mesh = SubResource("SphereMesh_nr0ti")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree11" unique_id=1148939720]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.840266, 0)
-mesh = SubResource("CylinderMesh_nr0ti")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree11" unique_id=823712345]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.680532, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree9" unique_id=336569925]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2130427, 12.139863, -0.4)
 mesh = SubResource("SphereMesh_titlb")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree11" unique_id=1731783129]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1224895, 14.6192875, 0.3)
-mesh = SubResource("SphereMesh_h1gvm")
+[node name="Tree10" type="Node3D" parent="Backdrop" unique_id=733159744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.436573, -1.1001527, -99.7039)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree11" unique_id=101164904]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7687413, 14.973036, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree10" unique_id=287267134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2003055, 0)
+mesh = SubResource("CylinderMesh_h1gvm")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree10" unique_id=1959110421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.400611, 0)
 mesh = SubResource("SphereMesh_qafvw")
 
-[node name="Tree12" type="Node3D" parent="Backdrop" unique_id=443290563]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.195633, -1.8835111, -101.38797)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree10" unique_id=1582195565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7088113, 11.0462055, 0.3)
+mesh = SubResource("SphereMesh_ur2o0")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree12" unique_id=210040453]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.767022, 0)
-mesh = SubResource("CylinderMesh_ur2o0")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree12" unique_id=499668360]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.534044, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree10" unique_id=610711600]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2573428, 11.497674, -0.4)
 mesh = SubResource("SphereMesh_e2mh6")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree12" unique_id=400441286]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3912792, 14.338405, 0.3)
-mesh = SubResource("SphereMesh_o4jld")
+[node name="Tree11" type="Node3D" parent="Backdrop" unique_id=1829876786]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.734234, -1.9201331, -97.12627)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree12" unique_id=423890811]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9927328, 14.736951, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree11" unique_id=1482438104]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.840266, 0)
+mesh = SubResource("CylinderMesh_o4jld")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree11" unique_id=678504592]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.680532, 0)
 mesh = SubResource("SphereMesh_ahdvg")
 
-[node name="Tree13" type="Node3D" parent="Backdrop" unique_id=194231379]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.550285, -0.62978625, -101.90416)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree11" unique_id=1353391655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1224895, 14.6192875, 0.3)
+mesh = SubResource("SphereMesh_gwh3y")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree13" unique_id=1954934062]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.2595725, 0)
-mesh = SubResource("CylinderMesh_gwh3y")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree13" unique_id=1486241776]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.519145, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree11" unique_id=1955285518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7687413, 14.973036, -0.4)
 mesh = SubResource("SphereMesh_88xj8")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree13" unique_id=945758844]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5294878, 9.254401, 0.3)
-mesh = SubResource("SphereMesh_kf42b")
+[node name="Tree12" type="Node3D" parent="Backdrop" unique_id=117980098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.195633, -1.8835111, -101.38797)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree13" unique_id=2051197139]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1079066, 9.675982, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree12" unique_id=216529160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.767022, 0)
+mesh = SubResource("CylinderMesh_kf42b")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree12" unique_id=995295511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.534044, 0)
 mesh = SubResource("SphereMesh_fvv8x")
 
-[node name="Tree14" type="Node3D" parent="Backdrop" unique_id=558759147]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.93808, -1.713707, -101.73168)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree12" unique_id=1033262144]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3912792, 14.338405, 0.3)
+mesh = SubResource("SphereMesh_ommk2")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree14" unique_id=1391955626]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.427414, 0)
-mesh = SubResource("CylinderMesh_ommk2")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree14" unique_id=504136070]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.854828, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree12" unique_id=1595618382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9927328, 14.736951, -0.4)
 mesh = SubResource("SphereMesh_xotmr")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree14" unique_id=408185726]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3765392, 13.666558, 0.3)
-mesh = SubResource("SphereMesh_rv51q")
+[node name="Tree13" type="Node3D" parent="Backdrop" unique_id=1448989704]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.550285, -0.62978625, -101.90416)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree14" unique_id=1404642538]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9804494, 14.062648, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree13" unique_id=267882922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.2595725, 0)
+mesh = SubResource("CylinderMesh_rv51q")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree13" unique_id=2016137114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.519145, 0)
 mesh = SubResource("SphereMesh_i1lb1")
 
-[node name="Tree15" type="Node3D" parent="Backdrop" unique_id=152275037]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.210526, -0.82219076, -99.182556)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree13" unique_id=146569021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5294878, 9.254401, 0.3)
+mesh = SubResource("SphereMesh_27t5a")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree15" unique_id=351068260]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6443815, 0)
-mesh = SubResource("CylinderMesh_27t5a")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree15" unique_id=1622153093]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.288763, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree13" unique_id=1193843648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1079066, 9.675982, -0.4)
 mesh = SubResource("SphereMesh_xpy01")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree15" unique_id=343387660]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9688566, 9.804335, 0.3)
-mesh = SubResource("SphereMesh_011gs")
+[node name="Tree14" type="Node3D" parent="Backdrop" unique_id=1452200588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.93808, -1.713707, -101.73168)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree15" unique_id=340708693]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4740472, 10.299144, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree14" unique_id=791624151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.427414, 0)
+mesh = SubResource("CylinderMesh_011gs")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree14" unique_id=1968111052]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.854828, 0)
 mesh = SubResource("SphereMesh_qygex")
 
-[node name="Tree16" type="Node3D" parent="Backdrop" unique_id=1206385696]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.751854, -0.83358026, -101.04708)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree14" unique_id=1787760673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3765392, 13.666558, 0.3)
+mesh = SubResource("SphereMesh_v7ne6")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree16" unique_id=2061582108]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6671605, 0)
-mesh = SubResource("CylinderMesh_v7ne6")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree16" unique_id=943577240]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.334321, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree14" unique_id=2086781401]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9804494, 14.062648, -0.4)
 mesh = SubResource("SphereMesh_jfbui")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree16" unique_id=644510207]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9618783, 9.853382, 0.3)
-mesh = SubResource("SphereMesh_abyhg")
+[node name="Tree15" type="Node3D" parent="Backdrop" unique_id=975381786]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89.210526, -0.82219076, -99.182556)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree16" unique_id=873101785]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.468232, 10.347029, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree15" unique_id=1980136100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6443815, 0)
+mesh = SubResource("CylinderMesh_abyhg")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree15" unique_id=358711271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.288763, 0)
 mesh = SubResource("SphereMesh_t3viw")
 
-[node name="Tree17" type="Node3D" parent="Backdrop" unique_id=56115812]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105.063576, -0.64576554, -100.10586)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree15" unique_id=101628969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9688566, 9.804335, 0.3)
+mesh = SubResource("SphereMesh_8yb8r")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree17" unique_id=813771109]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.291531, 0)
-mesh = SubResource("CylinderMesh_8yb8r")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree17" unique_id=1484538799]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.583062, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree15" unique_id=2122915694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4740472, 10.299144, -0.4)
 mesh = SubResource("SphereMesh_kokcn")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree17" unique_id=1305194817]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1476693, 9.509228, 0.3)
-mesh = SubResource("SphereMesh_gnfjt")
+[node name="Tree16" type="Node3D" parent="Backdrop" unique_id=502654717]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.751854, -0.83358026, -101.04708)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree17" unique_id=1296806317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7897245, 9.867172, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree16" unique_id=864113461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6671605, 0)
+mesh = SubResource("CylinderMesh_gnfjt")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree16" unique_id=941190152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.334321, 0)
 mesh = SubResource("SphereMesh_h37ps")
 
-[node name="Tree18" type="Node3D" parent="Backdrop" unique_id=2035414987]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 115.572014, -0.6878426, -96.00602)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree16" unique_id=786820278]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9618783, 9.853382, 0.3)
+mesh = SubResource("SphereMesh_yi3kx")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree18" unique_id=121192704]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.375685, 0)
-mesh = SubResource("CylinderMesh_yi3kx")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree18" unique_id=1310097094]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.75137, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree16" unique_id=1584051412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.468232, 10.347029, -0.4)
 mesh = SubResource("SphereMesh_lglgx")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree18" unique_id=1344969733]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2089589, 9.646891, 0.3)
-mesh = SubResource("SphereMesh_p7tbi")
+[node name="Tree17" type="Node3D" parent="Backdrop" unique_id=405842084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 105.063576, -0.64576554, -100.10586)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree18" unique_id=2138640568]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.840799, 10.015051, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree17" unique_id=632948409]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.291531, 0)
+mesh = SubResource("CylinderMesh_p7tbi")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree17" unique_id=1910426400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.583062, 0)
 mesh = SubResource("SphereMesh_13xrw")
 
-[node name="Tree19" type="Node3D" parent="Backdrop" unique_id=1295361825]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.43978, -1.8443038, -97.78936)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree17" unique_id=760677131]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1476693, 9.509228, 0.3)
+mesh = SubResource("SphereMesh_bgpjc")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree19" unique_id=1366378435]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.6886077, 0)
-mesh = SubResource("CylinderMesh_bgpjc")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree19" unique_id=1737021237]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.377215, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree17" unique_id=343672065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7897245, 9.867172, -0.4)
 mesh = SubResource("SphereMesh_81q2h")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree19" unique_id=1056354960]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1642892, 14.295071, 0.3)
-mesh = SubResource("SphereMesh_m1xev")
+[node name="Tree18" type="Node3D" parent="Backdrop" unique_id=1703465010]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 115.572014, -0.6878426, -96.00602)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree19" unique_id=56614257]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8035744, 14.655786, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree18" unique_id=622432154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.375685, 0)
+mesh = SubResource("CylinderMesh_m1xev")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree18" unique_id=1506619607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.75137, 0)
 mesh = SubResource("SphereMesh_fg5h7")
 
-[node name="Tree20" type="Node3D" parent="Backdrop" unique_id=904090823]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135.30345, -1.0988009, -99.73621)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree18" unique_id=458847590]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2089589, 9.646891, 0.3)
+mesh = SubResource("SphereMesh_f3fp2")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree20" unique_id=637557238]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.197602, 0)
-mesh = SubResource("CylinderMesh_f3fp2")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree20" unique_id=337795441]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.395204, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree18" unique_id=192208983]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.840799, 10.015051, -0.4)
 mesh = SubResource("SphereMesh_pl2fp")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree20" unique_id=1279610883]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4299738, 11.180217, 0.3)
-mesh = SubResource("SphereMesh_jibli")
+[node name="Tree19" type="Node3D" parent="Backdrop" unique_id=36535569]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.43978, -1.8443038, -97.78936)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree20" unique_id=1955938764]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0249782, 11.585213, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree19" unique_id=183445400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.6886077, 0)
+mesh = SubResource("CylinderMesh_jibli")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree19" unique_id=157998033]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.377215, 0)
 mesh = SubResource("SphereMesh_n8sx0")
 
-[node name="Tree21" type="Node3D" parent="Backdrop" unique_id=669193479]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.47383, -1.7343764, -100.8277)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree19" unique_id=1766326669]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1642892, 14.295071, 0.3)
+mesh = SubResource("SphereMesh_hdjq7")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree21" unique_id=1201277575]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.468753, 0)
-mesh = SubResource("CylinderMesh_hdjq7")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree21" unique_id=1600830967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.937506, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree19" unique_id=725162680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8035744, 14.655786, -0.4)
 mesh = SubResource("SphereMesh_uiu0m")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree21" unique_id=1601290823]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.260689, 13.807161, 0.3)
-mesh = SubResource("SphereMesh_uhs0x")
+[node name="Tree20" type="Node3D" parent="Backdrop" unique_id=650377855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135.30345, -1.0988009, -99.73621)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree21" unique_id=1975797837]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8839076, 14.183943, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree20" unique_id=1104090294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.197602, 0)
+mesh = SubResource("CylinderMesh_uhs0x")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree20" unique_id=974392731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.395204, 0)
 mesh = SubResource("SphereMesh_h34vo")
 
-[node name="Tree22" type="Node3D" parent="Backdrop" unique_id=1811787524]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 154.45757, -1.0047879, -97.5757)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree20" unique_id=313119113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4299738, 11.180217, 0.3)
+mesh = SubResource("SphereMesh_2721t")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree22" unique_id=1944375865]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.009576, 0)
-mesh = SubResource("CylinderMesh_2721t")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree22" unique_id=1203362218]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.019152, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree20" unique_id=372634987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0249782, 11.585213, -0.4)
 mesh = SubResource("SphereMesh_73u1g")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree22" unique_id=140486478]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7746205, 10.631842, 0.3)
-mesh = SubResource("SphereMesh_qtjp2")
+[node name="Tree21" type="Node3D" parent="Backdrop" unique_id=734717828]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145.47383, -1.7343764, -100.8277)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree22" unique_id=1459542861]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3121839, 11.094278, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree21" unique_id=1790765859]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.468753, 0)
+mesh = SubResource("CylinderMesh_qtjp2")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree21" unique_id=1970486304]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.937506, 0)
 mesh = SubResource("SphereMesh_upexs")
 
-[node name="Tree23" type="Node3D" parent="Backdrop" unique_id=22396147]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165.15125, -1.1422243, -99.01498)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree21" unique_id=1311714987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.260689, 13.807161, 0.3)
+mesh = SubResource("SphereMesh_w4pw6")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree23" unique_id=961960851]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2844486, 0)
-mesh = SubResource("CylinderMesh_w4pw6")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree23" unique_id=1681538448]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.568897, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree21" unique_id=486884024]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8839076, 14.183943, -0.4)
 mesh = SubResource("SphereMesh_csbi7")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree23" unique_id=813253320]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8108916, 11.163451, 0.3)
-mesh = SubResource("SphereMesh_v1dh5")
+[node name="Tree22" type="Node3D" parent="Backdrop" unique_id=629506639]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 154.45757, -1.0047879, -97.5757)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree23" unique_id=1327072401]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3424096, 11.631933, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree22" unique_id=2109041633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.009576, 0)
+mesh = SubResource("CylinderMesh_v1dh5")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree22" unique_id=722163215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.019152, 0)
 mesh = SubResource("SphereMesh_xp4oe")
 
-[node name="Tree24" type="Node3D" parent="Backdrop" unique_id=263890342]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 172.3611, -0.5893879, -100.740074)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree22" unique_id=1790325691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7746205, 10.631842, 0.3)
+mesh = SubResource("SphereMesh_ro1eg")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree24" unique_id=1017777551]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.178776, 0)
-mesh = SubResource("CylinderMesh_ro1eg")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree24" unique_id=2032944979]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.357552, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree22" unique_id=1271921465]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3121839, 11.094278, -0.4)
 mesh = SubResource("SphereMesh_jgucs")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree24" unique_id=1538081199]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1905806, 9.262261, 0.3)
-mesh = SubResource("SphereMesh_pllu2")
+[node name="Tree23" type="Node3D" parent="Backdrop" unique_id=713060077]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 165.15125, -1.1422243, -99.01498)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree24" unique_id=1712802491]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8254839, 9.627358, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree23" unique_id=1993624120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2844486, 0)
+mesh = SubResource("CylinderMesh_pllu2")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree23" unique_id=1463382691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.568897, 0)
 mesh = SubResource("SphereMesh_wchff")
 
-[node name="Tree25" type="Node3D" parent="Backdrop" unique_id=802450577]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180.8352, -1.9067898, -98.40647)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree23" unique_id=2137647070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8108916, 11.163451, 0.3)
+mesh = SubResource("SphereMesh_in6np")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree25" unique_id=978157674]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.8135796, 0)
-mesh = SubResource("CylinderMesh_in6np")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree25" unique_id=722802176]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.627159, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree23" unique_id=429967734]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3424096, 11.631933, -0.4)
 mesh = SubResource("SphereMesh_3v0ns")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree25" unique_id=1610510161]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.817374, 14.2184725, 0.3)
-mesh = SubResource("SphereMesh_ltu1l")
+[node name="Tree24" type="Node3D" parent="Backdrop" unique_id=2100479409]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 172.3611, -0.5893879, -100.740074)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree25" unique_id=611698252]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3478117, 14.688034, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree24" unique_id=525750728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.178776, 0)
+mesh = SubResource("CylinderMesh_ltu1l")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree24" unique_id=1172388521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.357552, 0)
 mesh = SubResource("SphereMesh_ckexb")
 
-[node name="Tree26" type="Node3D" parent="Backdrop" unique_id=2081944863]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.63802, -1.8459141, -96.498566)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree24" unique_id=957820935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1905806, 9.262261, 0.3)
+mesh = SubResource("SphereMesh_1pr63")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree26" unique_id=1243276252]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.6918283, 0)
-mesh = SubResource("CylinderMesh_1pr63")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree26" unique_id=243330925]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.3836565, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree24" unique_id=270835723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8254839, 9.627358, -0.4)
 mesh = SubResource("SphereMesh_f3x2g")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree26" unique_id=901423273]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4857469, 14.140783, 0.3)
-mesh = SubResource("SphereMesh_micvg")
+[node name="Tree25" type="Node3D" parent="Backdrop" unique_id=1323146340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180.8352, -1.9067898, -98.40647)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree26" unique_id=130766267]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0714557, 14.555075, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree25" unique_id=1528596642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.8135796, 0)
+mesh = SubResource("CylinderMesh_micvg")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree25" unique_id=593677665]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.627159, 0)
 mesh = SubResource("SphereMesh_uu8wu")
 
-[node name="Tree27" type="Node3D" parent="Backdrop" unique_id=20201579]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 199.85167, -1.1691256, -97.49308)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree25" unique_id=1183828495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.817374, 14.2184725, 0.3)
+mesh = SubResource("SphereMesh_s1xvi")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree27" unique_id=164707945]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.338251, 0)
-mesh = SubResource("CylinderMesh_s1xvi")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree27" unique_id=1483033365]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.676502, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree25" unique_id=1076727185]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3478117, 14.688034, -0.4)
 mesh = SubResource("SphereMesh_t51yf")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree27" unique_id=2097743271]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9242115, 11.214396, 0.3)
-mesh = SubResource("SphereMesh_0lgug")
+[node name="Tree26" type="Node3D" parent="Backdrop" unique_id=1087765291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.63802, -1.8459141, -96.498566)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree27" unique_id=1578897182]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.436843, 11.701765, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree26" unique_id=1002924108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.6918283, 0)
+mesh = SubResource("CylinderMesh_0lgug")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree26" unique_id=1912376530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.3836565, 0)
 mesh = SubResource("SphereMesh_7lbiy")
 
-[node name="Tree28" type="Node3D" parent="Backdrop" unique_id=2013986929]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 210.56981, -1.0223045, -99.5365)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree26" unique_id=1545420945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4857469, 14.140783, 0.3)
+mesh = SubResource("SphereMesh_k20d8")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree28" unique_id=2008800017]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.044609, 0)
-mesh = SubResource("CylinderMesh_k20d8")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree28" unique_id=652951955]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.089218, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree26" unique_id=880697335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0714557, 14.555075, -0.4)
 mesh = SubResource("SphereMesh_gw6v0")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree28" unique_id=1834780897]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.405661, 10.886388, 0.3)
-mesh = SubResource("SphereMesh_uns8s")
+[node name="Tree27" type="Node3D" parent="Backdrop" unique_id=1925658137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 199.85167, -1.1691256, -97.49308)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree28" unique_id=1429545939]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0047176, 11.287331, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree27" unique_id=1968545724]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.338251, 0)
+mesh = SubResource("CylinderMesh_uns8s")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree27" unique_id=536307479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.676502, 0)
 mesh = SubResource("SphereMesh_wike4")
 
-[node name="Tree29" type="Node3D" parent="Backdrop" unique_id=288544756]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 218.19809, -0.55505085, -97.64518)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree27" unique_id=1031918843]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9242115, 11.214396, 0.3)
+mesh = SubResource("SphereMesh_egjyb")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree29" unique_id=1885066471]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1101017, 0)
-mesh = SubResource("CylinderMesh_egjyb")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree29" unique_id=775311336]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.220203, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree27" unique_id=88429567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.436843, 11.701765, -0.4)
 mesh = SubResource("SphereMesh_d7sn5")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree29" unique_id=396309868]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6176698, 8.911368, 0.3)
-mesh = SubResource("SphereMesh_1yo3r")
+[node name="Tree28" type="Node3D" parent="Backdrop" unique_id=351611664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 210.56981, -1.0223045, -99.5365)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree29" unique_id=672173783]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1813915, 9.347647, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree28" unique_id=1221071294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.044609, 0)
+mesh = SubResource("CylinderMesh_1yo3r")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree28" unique_id=1696931290]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.089218, 0)
 mesh = SubResource("SphereMesh_7ic52")
 
-[node name="Tree30" type="Node3D" parent="Backdrop" unique_id=580485289]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 227.15826, -1.4061401, -99.59754)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree28" unique_id=1181528891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.405661, 10.886388, 0.3)
+mesh = SubResource("SphereMesh_33fv3")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree30" unique_id=1174801298]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.81228, 0)
-mesh = SubResource("CylinderMesh_33fv3")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree30" unique_id=694992203]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.62456, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree28" unique_id=932549814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0047176, 11.287331, -0.4)
 mesh = SubResource("SphereMesh_2yh2v")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree30" unique_id=1704515131]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8117304, 12.218695, 0.3)
-mesh = SubResource("SphereMesh_n8yv1")
+[node name="Tree29" type="Node3D" parent="Backdrop" unique_id=1953729276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 218.19809, -0.55505085, -97.64518)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree30" unique_id=1864477870]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3431087, 12.687317, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree29" unique_id=1765635120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.1101017, 0)
+mesh = SubResource("CylinderMesh_n8yv1")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree29" unique_id=1814817110]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.220203, 0)
 mesh = SubResource("SphereMesh_bep0s")
 
-[node name="Tree31" type="Node3D" parent="Backdrop" unique_id=1518496565]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 234.34196, -0.6065564, -98.244865)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree29" unique_id=1082847929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6176698, 8.911368, 0.3)
+mesh = SubResource("SphereMesh_16o0i")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree31" unique_id=1612006635]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.213113, 0)
-mesh = SubResource("CylinderMesh_16o0i")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree31" unique_id=915608614]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.426226, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree29" unique_id=801866011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1813915, 9.347647, -0.4)
 mesh = SubResource("SphereMesh_rta38")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree31" unique_id=1398489396]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.628004, 9.112224, 0.3)
-mesh = SubResource("SphereMesh_hanfi")
+[node name="Tree30" type="Node3D" parent="Backdrop" unique_id=1103984942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 227.15826, -1.4061401, -99.59754)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree31" unique_id=854965178]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1900034, 9.550224, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree30" unique_id=422749594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.81228, 0)
+mesh = SubResource("CylinderMesh_hanfi")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree30" unique_id=304070718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.62456, 0)
 mesh = SubResource("SphereMesh_d33y8")
 
-[node name="Tree32" type="Node3D" parent="Backdrop" unique_id=759385025]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 241.69687, -1.079515, -98.61176)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree30" unique_id=1308383881]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8117304, 12.218695, 0.3)
+mesh = SubResource("SphereMesh_2h5j8")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree32" unique_id=1023543597]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.15903, 0)
-mesh = SubResource("CylinderMesh_2h5j8")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree32" unique_id=1638720114]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.31806, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree30" unique_id=66037494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3431087, 12.687317, -0.4)
 mesh = SubResource("SphereMesh_awk51")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree32" unique_id=149376617]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2783039, 11.178908, 0.3)
-mesh = SubResource("SphereMesh_w53pp")
+[node name="Tree31" type="Node3D" parent="Backdrop" unique_id=1210871327]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 234.34196, -0.6065564, -98.244865)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree32" unique_id=1007045231]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8985865, 11.558625, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree31" unique_id=429353083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.213113, 0)
+mesh = SubResource("CylinderMesh_w53pp")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree31" unique_id=1438797866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.426226, 0)
 mesh = SubResource("SphereMesh_8y42p")
 
-[node name="Tree33" type="Node3D" parent="Backdrop" unique_id=895050822]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 249.3307, -0.836952, -97.121254)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree31" unique_id=1284719186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.628004, 9.112224, 0.3)
+mesh = SubResource("SphereMesh_rpbme")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree33" unique_id=1913596956]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.673904, 0)
-mesh = SubResource("CylinderMesh_rpbme")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree33" unique_id=2061584347]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.347808, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree31" unique_id=122589700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1900034, 9.550224, -0.4)
 mesh = SubResource("SphereMesh_abacy")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree33" unique_id=1492206396]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.453294, 10.1211605, 0.3)
-mesh = SubResource("SphereMesh_78s2h")
+[node name="Tree32" type="Node3D" parent="Backdrop" unique_id=1975385877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 241.69687, -1.079515, -98.61176)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree33" unique_id=527967723]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0444117, 10.530044, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree32" unique_id=1861792297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.15903, 0)
+mesh = SubResource("CylinderMesh_78s2h")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree32" unique_id=223546742]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.31806, 0)
 mesh = SubResource("SphereMesh_1a67g")
 
-[node name="Tree34" type="Node3D" parent="Backdrop" unique_id=467210016]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 258.76907, -0.7580614, -97.41755)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree32" unique_id=1478687386]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2783039, 11.178908, 0.3)
+mesh = SubResource("SphereMesh_jl3uw")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree34" unique_id=69787676]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.516123, 0)
-mesh = SubResource("CylinderMesh_jl3uw")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree34" unique_id=996777184]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.032246, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree32" unique_id=914083553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8985865, 11.558625, -0.4)
 mesh = SubResource("SphereMesh_3id3f")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree34" unique_id=299793709]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51636, 9.774066, 0.3)
-mesh = SubResource("SphereMesh_0kt5q")
+[node name="Tree33" type="Node3D" parent="Backdrop" unique_id=1223639654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 249.3307, -0.836952, -97.121254)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree34" unique_id=599908666]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0969667, 10.193459, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree33" unique_id=114396681]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.673904, 0)
+mesh = SubResource("CylinderMesh_0kt5q")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree33" unique_id=1674439414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.347808, 0)
 mesh = SubResource("SphereMesh_u2kbc")
 
-[node name="Tree35" type="Node3D" parent="Backdrop" unique_id=1741541973]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 268.34607, -1.2862577, -97.37557)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree33" unique_id=655537221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.453294, 10.1211605, 0.3)
+mesh = SubResource("SphereMesh_efefy")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree35" unique_id=926689249]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5725155, 0)
-mesh = SubResource("CylinderMesh_efefy")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree35" unique_id=1321446523]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.145031, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree33" unique_id=335209254]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0444117, 10.530044, -0.4)
 mesh = SubResource("SphereMesh_jlp3g")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree35" unique_id=1805515879]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2408903, 12.024586, 0.3)
-mesh = SubResource("SphereMesh_1slf7")
+[node name="Tree34" type="Node3D" parent="Backdrop" unique_id=682543215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 258.76907, -0.7580614, -97.41755)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree35" unique_id=1790386967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8674086, 12.398067, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree34" unique_id=1642461795]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.516123, 0)
+mesh = SubResource("CylinderMesh_1slf7")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree34" unique_id=2048487117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.032246, 0)
 mesh = SubResource("SphereMesh_i52b7")
 
-[node name="Tree36" type="Node3D" parent="Backdrop" unique_id=1572000007]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 277.85358, -1.0910697, -98.640175)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree34" unique_id=629670121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51636, 9.774066, 0.3)
+mesh = SubResource("SphereMesh_rb4g6")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree36" unique_id=1348053777]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.1821394, 0)
-mesh = SubResource("CylinderMesh_rb4g6")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree36" unique_id=1703048772]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.364279, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree34" unique_id=1971721980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0969667, 10.193459, -0.4)
 mesh = SubResource("SphereMesh_k1lyu")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree36" unique_id=2132224045]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.763253, 10.982653, 0.3)
-mesh = SubResource("SphereMesh_cpcrs")
+[node name="Tree35" type="Node3D" parent="Backdrop" unique_id=159552414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 268.34607, -1.2862577, -97.37557)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree36" unique_id=31867763]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3027108, 11.443194, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree35" unique_id=958625479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5725155, 0)
+mesh = SubResource("CylinderMesh_cpcrs")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree35" unique_id=1076048854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.145031, 0)
 mesh = SubResource("SphereMesh_garsi")
 
-[node name="Tree37" type="Node3D" parent="Backdrop" unique_id=1826015906]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 286.85507, -0.81099725, -101.79475)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree35" unique_id=877583653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2408903, 12.024586, 0.3)
+mesh = SubResource("SphereMesh_s2c6e")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree37" unique_id=260893882]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6219945, 0)
-mesh = SubResource("CylinderMesh_s2c6e")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree37" unique_id=648232346]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.243989, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree35" unique_id=990128471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8674086, 12.398067, -0.4)
 mesh = SubResource("SphereMesh_i45us")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree37" unique_id=1884879304]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.104933, 10.191523, 0.3)
-mesh = SubResource("SphereMesh_iqr0t")
+[node name="Tree36" type="Node3D" parent="Backdrop" unique_id=1496080929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 277.85358, -1.0910697, -98.640175)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree37" unique_id=1784325310]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7541109, 10.542345, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree36" unique_id=781278023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.1821394, 0)
+mesh = SubResource("CylinderMesh_iqr0t")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree36" unique_id=1187539669]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.364279, 0)
 mesh = SubResource("SphereMesh_4t1o4")
 
-[node name="Tree38" type="Node3D" parent="Backdrop" unique_id=663209454]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 294.19778, -0.5343294, -96.07902)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree36" unique_id=600884990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.763253, 10.982653, 0.3)
+mesh = SubResource("SphereMesh_h1650")
 
-[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree38" unique_id=2034492259]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.068659, 0)
-mesh = SubResource("CylinderMesh_h1650")
-
-[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree38" unique_id=1315594867]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.137318, 0)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree36" unique_id=378011878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3027108, 11.443194, -0.4)
 mesh = SubResource("SphereMesh_y1k8n")
 
-[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree38" unique_id=1057328673]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.311302, 8.981667, 0.3)
-mesh = SubResource("SphereMesh_jmi7l")
+[node name="Tree37" type="Node3D" parent="Backdrop" unique_id=1015332118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 286.85507, -0.81099725, -101.79475)
 
-[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree38" unique_id=481444861]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.926085, 9.366883, -0.4)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree37" unique_id=107890984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6219945, 0)
+mesh = SubResource("CylinderMesh_jmi7l")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree37" unique_id=1244234552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.243989, 0)
 mesh = SubResource("SphereMesh_sln5u")
 
-[node name="Hill" type="MeshInstance3D" parent="Backdrop" unique_id=1649875651]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, -14, -40)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree37" unique_id=434842612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.104933, 10.191523, 0.3)
 mesh = SubResource("SphereMesh_v8pbk")
 
-[node name="Hill2" type="MeshInstance3D" parent="Backdrop" unique_id=1568624367]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -16, -130)
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree37" unique_id=316957384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7541109, 10.542345, -0.4)
 mesh = SubResource("SphereMesh_gqgk6")
 
-[node name="Hill3" type="MeshInstance3D" parent="Backdrop" unique_id=791038684]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180, -16, -135)
-mesh = SubResource("SphereMesh_3dujs")
+[node name="Tree38" type="Node3D" parent="Backdrop" unique_id=215600638]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 294.19778, -0.5343294, -96.07902)
 
-[node name="Hill4" type="MeshInstance3D" parent="Backdrop" unique_id=2101133043]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300, -14, -120)
+[node name="Trunk" type="MeshInstance3D" parent="Backdrop/Tree38" unique_id=1870512137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.068659, 0)
+mesh = SubResource("CylinderMesh_3dujs")
+
+[node name="Canopy" type="MeshInstance3D" parent="Backdrop/Tree38" unique_id=1411928997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.137318, 0)
 mesh = SubResource("SphereMesh_03uwr")
 
-[node name="Hill5" type="MeshInstance3D" parent="Backdrop" unique_id=1788270779]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 330, -14, -60)
+[node name="Canopy2" type="MeshInstance3D" parent="Backdrop/Tree38" unique_id=1711792700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.311302, 8.981667, 0.3)
 mesh = SubResource("SphereMesh_5w1o3")
 
-[node name="CameraRail" type="Path3D" parent="." unique_id=324994980]
-curve = SubResource("Curve3D_vs16l")
+[node name="Canopy3" type="MeshInstance3D" parent="Backdrop/Tree38" unique_id=1078055093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.926085, 9.366883, -0.4)
+mesh = SubResource("SphereMesh_vs16l")
 
-[node name="Courtyard" type="Marker3D" parent="CameraRail" unique_id=1602814239]
+[node name="Hill" type="MeshInstance3D" parent="Backdrop" unique_id=280581730]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, -14, -40)
+mesh = SubResource("SphereMesh_1w8ur")
+
+[node name="Hill2" type="MeshInstance3D" parent="Backdrop" unique_id=576619500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -16, -130)
+mesh = SubResource("SphereMesh_gjioy")
+
+[node name="Hill3" type="MeshInstance3D" parent="Backdrop" unique_id=106067279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 180, -16, -135)
+mesh = SubResource("SphereMesh_dstny")
+
+[node name="Hill4" type="MeshInstance3D" parent="Backdrop" unique_id=672925230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300, -14, -120)
+mesh = SubResource("SphereMesh_2otap")
+
+[node name="Hill5" type="MeshInstance3D" parent="Backdrop" unique_id=890198896]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 330, -14, -60)
+mesh = SubResource("SphereMesh_muari")
+
+[node name="CameraRail" type="Path3D" parent="." unique_id=932051802]
+curve = SubResource("Curve3D_h783c")
+
+[node name="Courtyard" type="Marker3D" parent="CameraRail" unique_id=1261311925]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
-script = ExtResource("20_52qpp")
+script = ExtResource("23_va8d4")
 offset = Vector3(2.5, 6, 10)
 
-[node name="CourtyardGaps" type="Marker3D" parent="CameraRail" unique_id=1464936433]
+[node name="CourtyardGaps" type="Marker3D" parent="CameraRail" unique_id=1551950000]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -42)
-script = ExtResource("20_52qpp")
+script = ExtResource("23_va8d4")
 offset = Vector3(6, 7.5, 10)
 fov = 58.0
 look_ahead = 3.0
 blend_in_distance = 8.0
 
-[node name="Colonnade" type="Marker3D" parent="CameraRail" unique_id=524065982]
+[node name="Colonnade" type="Marker3D" parent="CameraRail" unique_id=1141325195]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, -80)
-script = ExtResource("20_52qpp")
+script = ExtResource("23_va8d4")
 offset = Vector3(13, 3.5, 0)
 fov = 50.0
 look_ahead = 3.0
@@ -2586,9 +2656,9 @@ lateral_follow = 0.15
 vertical_follow = 0.45
 blend_in_distance = 10.0
 
-[node name="Stairway" type="Marker3D" parent="CameraRail" unique_id=400524318]
+[node name="Stairway" type="Marker3D" parent="CameraRail" unique_id=322315308]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101, 2, -80)
-script = ExtResource("20_52qpp")
+script = ExtResource("23_va8d4")
 offset = Vector3(9, 8, 9)
 fov = 58.0
 look_ahead = 2.5
@@ -2596,9 +2666,9 @@ lateral_follow = 0.6
 vertical_follow = 0.6
 blend_in_distance = 8.0
 
-[node name="SunkenGarden" type="Marker3D" parent="CameraRail" unique_id=683280239]
+[node name="SunkenGarden" type="Marker3D" parent="CameraRail" unique_id=2005924308]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 171, 14, -80)
-script = ExtResource("20_52qpp")
+script = ExtResource("23_va8d4")
 offset = Vector3(5, 14, 13)
 fov = 55.0
 look_ahead = 4.0
@@ -2606,41 +2676,41 @@ lateral_follow = 0.5
 vertical_follow = 0.3
 blend_in_distance = 8.0
 
-[node name="ThroneArena" type="Marker3D" parent="CameraRail" unique_id=608314392 node_paths=PackedStringArray("lock_camera_point", "lock_look_point")]
+[node name="ThroneArena" type="Marker3D" parent="CameraRail" unique_id=2014884475 node_paths=PackedStringArray("lock_camera_point", "lock_look_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 257, 10, -80)
-script = ExtResource("20_52qpp")
+script = ExtResource("23_va8d4")
 blend_in_distance = 5.0
 locked = true
 lock_camera_point = NodePath("../../CameraPoints/ArenaCamera")
 lock_look_point = NodePath("../../CameraPoints/ArenaCenter")
 lock_player_look_weight = 0.3
 
-[node name="Exit" type="Marker3D" parent="CameraRail" unique_id=757719256]
+[node name="Exit" type="Marker3D" parent="CameraRail" unique_id=445667868]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 284, 10, -80)
-script = ExtResource("20_52qpp")
+script = ExtResource("23_va8d4")
 offset = Vector3(12, 4, 0)
 fov = 55.0
 look_ahead = 3.0
 lateral_follow = 0.2
 blend_in_distance = 3.0
 
-[node name="CameraPoints" type="Node3D" parent="." unique_id=1579084590]
+[node name="CameraPoints" type="Node3D" parent="." unique_id=120148225]
 
-[node name="ArenaCamera" type="Marker3D" parent="CameraPoints" unique_id=1704204954]
+[node name="ArenaCamera" type="Marker3D" parent="CameraPoints" unique_id=2094144451]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 270, 30, -54)
 
-[node name="ArenaCenter" type="Marker3D" parent="CameraPoints" unique_id=708890947]
+[node name="ArenaCenter" type="Marker3D" parent="CameraPoints" unique_id=687032409]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 270, 10.5, -80)
 
-[node name="RailCamera" type="Camera3D" parent="." unique_id=834884229 node_paths=PackedStringArray("rail", "target")]
+[node name="RailCamera" type="Camera3D" parent="." unique_id=1546053901 node_paths=PackedStringArray("rail", "target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 12)
-script = ExtResource("21_5vcr1")
+script = ExtResource("24_t8ggo")
 rail = NodePath("../CameraRail")
 target = NodePath("../Player")
 
-[node name="RailDebugOverlay" type="Node" parent="." unique_id=1882449225 node_paths=PackedStringArray("camera")]
-script = ExtResource("22_2dgrs")
+[node name="RailDebugOverlay" type="Node" parent="." unique_id=428405086 node_paths=PackedStringArray("camera")]
+script = ExtResource("25_xm6ab")
 camera = NodePath("../RailCamera")
 
-[node name="KillPlane" parent="." unique_id=1147935181 instance=ExtResource("23_e56qm")]
+[node name="KillPlane" parent="." unique_id=878510041 instance=ExtResource("26_mju3a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150, -8, -60)
