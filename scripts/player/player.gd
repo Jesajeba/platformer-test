@@ -14,6 +14,8 @@ signal hit_landed(target: Node)
 signal damaged(amount: int)
 signal died
 signal respawned
+## Emitted after any instant position change (respawn, pit) so cameras can snap.
+signal teleported
 
 enum State { IDLE, RUN, JUMP, FALL, HOVER, ATTACK, HURT, DEAD }
 
@@ -417,6 +419,7 @@ func _respawn_at_checkpoint() -> void:
 	_jump_buffer_timer = 0.0
 	_set_state(State.IDLE)
 	reset_physics_interpolation()
+	teleported.emit()
 
 
 func _check_floor_transitions() -> void:

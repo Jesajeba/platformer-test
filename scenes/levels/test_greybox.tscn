@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
-[ext_resource type="Script" path="res://scripts/camera/follow_camera.gd" id="2_cam"]
+[ext_resource type="Script" path="res://scripts/camera/rail_camera.gd" id="2_cam"]
 [ext_resource type="Script" path="res://scripts/level/greybox_block.gd" id="3_block"]
 [ext_resource type="Material" path="res://assets/materials/grey_floor.tres" id="4_floor"]
 [ext_resource type="Material" path="res://assets/materials/grey_ledge.tres" id="5_ledge"]
@@ -12,7 +12,16 @@
 [ext_resource type="PackedScene" path="res://scenes/test/training_dummy.tscn" id="10_dummy"]
 [ext_resource type="PackedScene" path="res://scenes/level/kill_plane.tscn" id="11_kill"]
 [ext_resource type="Script" path="res://scripts/ui/debug_player_label.gd" id="12_debug"]
+[ext_resource type="Script" path="res://scripts/camera/rail_camera_key.gd" id="13_key"]
+[ext_resource type="Script" path="res://scripts/camera/rail_debug_overlay.gd" id="14_overlay"]
 
+[sub_resource type="Curve3D" id="Curve3D_rail"]
+bake_interval = 0.5
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, -6.63, 0, 0, -43, -6.63, 0, 0, 0, 0, 0, 12, 0, -55, 0, 0, 0, 0, 0, 0, 48, 0, -55),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
 [sub_resource type="ProceduralSkyMaterial" id="Sky_mat"]
 sky_top_color = Color(0.38, 0.58, 0.85, 1)
 sky_horizon_color = Color(0.75, 0.82, 0.88, 1)
@@ -39,16 +48,75 @@ environment = SubResource("Environment_main")
 transform = Transform3D(0.866, -0.383, 0.3214, 0, 0.6428, 0.766, -0.5, -0.6634, 0.5567, 0, 10, 0)
 light_energy = 1.1
 shadow_enabled = true
-directional_shadow_max_distance = 60.0
+directional_shadow_max_distance = 80.0
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 4)
 
-[node name="FollowCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+[node name="RailCamera" type="Camera3D" parent="." node_paths=PackedStringArray("rail", "target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, 13)
 fov = 60.0
 script = ExtResource("2_cam")
+rail = NodePath("../CameraRail")
 target = NodePath("../Player")
+
+[node name="CameraRail" type="Path3D" parent="."]
+curve = SubResource("Curve3D_rail")
+
+[node name="Start" type="Marker3D" parent="CameraRail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+script = ExtResource("13_key")
+lateral_follow = 0.85
+
+[node name="Angled34" type="Marker3D" parent="CameraRail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+script = ExtResource("13_key")
+offset = Vector3(6, 6, 9)
+blend_in_distance = 8.0
+
+[node name="PulledBack" type="Marker3D" parent="CameraRail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28)
+script = ExtResource("13_key")
+offset = Vector3(0, 10, 15)
+fov = 55.0
+look_ahead = 5.0
+vertical_follow = 0.3
+
+[node name="Curve34" type="Marker3D" parent="CameraRail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -43)
+script = ExtResource("13_key")
+offset = Vector3(5, 6, 9)
+blend_in_distance = 5.0
+
+[node name="SideScroller" type="Marker3D" parent="CameraRail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -55)
+script = ExtResource("13_key")
+offset = Vector3(12, 3, 0)
+fov = 50.0
+look_ahead = 3.0
+lateral_follow = 0.2
+vertical_follow = 0.4
+blend_in_distance = 8.0
+
+[node name="BossArena" type="Marker3D" parent="CameraRail" node_paths=PackedStringArray("lock_camera_point", "lock_look_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -55)
+script = ExtResource("13_key")
+blend_in_distance = 4.0
+locked = true
+lock_camera_point = NodePath("../../CameraPoints/ArenaCamera")
+lock_look_point = NodePath("../../CameraPoints/ArenaCenter")
+
+[node name="CameraPoints" type="Node3D" parent="."]
+
+[node name="ArenaCamera" type="Marker3D" parent="CameraPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 13, -39)
+
+[node name="ArenaCenter" type="Marker3D" parent="CameraPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0.5, -55)
+
+[node name="RailDebugOverlay" type="Node" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("14_overlay")
+camera = NodePath("../RailCamera")
 
 [node name="Geometry" type="Node3D" parent="."]
 
@@ -112,6 +180,90 @@ script = ExtResource("3_block")
 size = Vector3(8, 1, 8)
 material = ExtResource("4_floor")
 
+[node name="Arc1" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(0.99144, 0, -0.13053, 0, 1, 0, 0.13053, 0, 0.99144, 0.10266, -0.5, -44.56631)
+script = ExtResource("3_block")
+size = Vector3(4, 1, 3.8)
+material = ExtResource("6_ramp")
+
+[node name="Arc2" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(0.92388, 0, -0.38268, 0, 1, 0, 0.38268, 0, 0.92388, 0.91345, -0.5, -47.5922)
+script = ExtResource("3_block")
+size = Vector3(4, 1, 3.8)
+material = ExtResource("6_ramp")
+
+[node name="Arc3" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(0.79335, 0, -0.60876, 0, 1, 0, 0.60876, 0, 0.79335, 2.47976, -0.5, -50.30514)
+script = ExtResource("3_block")
+size = Vector3(4, 1, 3.8)
+material = ExtResource("6_ramp")
+
+[node name="Arc4" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(0.60876, 0, -0.79335, 0, 1, 0, 0.79335, 0, 0.60876, 4.69486, -0.5, -52.52024)
+script = ExtResource("3_block")
+size = Vector3(4, 1, 3.8)
+material = ExtResource("6_ramp")
+
+[node name="Arc5" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(0.38268, 0, -0.92388, 0, 1, 0, 0.92388, 0, 0.38268, 7.4078, -0.5, -54.08655)
+script = ExtResource("3_block")
+size = Vector3(4, 1, 3.8)
+material = ExtResource("6_ramp")
+
+[node name="Arc6" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(0.13053, 0, -0.99144, 0, 1, 0, 0.99144, 0, 0.13053, 10.43369, -0.5, -54.89734)
+script = ExtResource("3_block")
+size = Vector3(4, 1, 3.8)
+material = ExtResource("6_ramp")
+
+
+[node name="SideWalk" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, -0.5, -55)
+script = ExtResource("3_block")
+size = Vector3(21, 1, 4)
+material = ExtResource("4_floor")
+
+[node name="SideStepLow" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0.5, -55)
+script = ExtResource("3_block")
+size = Vector3(2, 1, 4)
+material = ExtResource("5_ledge")
+
+[node name="SideStepHigh" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 1, -55)
+script = ExtResource("3_block")
+size = Vector3(2, 2, 4)
+material = ExtResource("5_ledge")
+
+[node name="SideEnd" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, -0.5, -55)
+script = ExtResource("3_block")
+size = Vector3(5, 1, 4)
+material = ExtResource("4_floor")
+
+[node name="CameraCollisionWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 2.5, -49.5)
+script = ExtResource("3_block")
+size = Vector3(4, 5, 1)
+material = ExtResource("7_wall")
+
+[node name="Arena" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, -0.5, -55)
+script = ExtResource("3_block")
+size = Vector3(14, 1, 14)
+material = ExtResource("4_floor")
+
+[node name="ArenaPillarLeft" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 2, -60)
+script = ExtResource("3_block")
+size = Vector3(1.5, 4, 1.5)
+material = ExtResource("7_wall")
+
+[node name="ArenaPillarRight" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 2, -60)
+script = ExtResource("3_block")
+size = Vector3(1.5, 4, 1.5)
+material = ExtResource("7_wall")
 [node name="BackWall" type="StaticBody3D" parent="Geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 2, 5)
 script = ExtResource("3_block")
