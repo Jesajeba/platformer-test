@@ -150,6 +150,13 @@ func _test_attack() -> void:
 	_check("hit-stop slows time on hit", slowed, "ts=%.2f" % Engine.time_scale)
 	await get_tree().create_timer(hit_stop + 0.1, true, false, true).timeout
 	_check("hit-stop restores time scale", is_equal_approx(Engine.time_scale, 1.0), "ts=%.2f" % Engine.time_scale)
+
+	# Overlapping hit-stops (several hits in quick succession) must still end at normal speed.
+	for i: int in 5:
+		HitStop.apply(get_tree(), 0.05, 0.05)
+		await get_tree().create_timer(0.02, true, false, true).timeout
+	await get_tree().create_timer(0.15, true, false, true).timeout
+	_check("overlapping hit-stops restore time scale", is_equal_approx(Engine.time_scale, 1.0), "ts=%.2f" % Engine.time_scale)
 	await _frames(30)
 	_player.hit_landed.disconnect(on_hit)
 
