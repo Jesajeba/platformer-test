@@ -21,7 +21,9 @@ var _head_rest: Vector3
 var _snaps: int = 0
 
 @onready var _head: Node3D = $Visual/Head
-@onready var _snap_area: Area3D = $Visual/SnapArea
+## Kept outside Visual: Visual gets squashed and scaled to zero on death, and physics shapes
+## can't take that (Jolt rejects non-uniform / zero scale). It follows the facing instead.
+@onready var _snap_area: Area3D = $SnapArea
 
 
 func _ready() -> void:
@@ -82,6 +84,7 @@ func _on_hurt() -> void:
 
 
 func _update_visual(delta: float) -> void:
+	_snap_area.rotation.y = _visual.rotation.y
 	_anim_time += delta
 	var target: Vector3 = _head_rest
 	var head_scale: Vector3 = Vector3.ONE

@@ -126,8 +126,18 @@ func _test_jump_over_shockwave() -> void:
 func _test_summon() -> void:
 	_boss.start_attack(KingMossback.Attack.SUMMON)
 	await _frames(int(_boss.summon_windup * 60.0) + 10)
-	var minions: int = _boss._summons.filter(func(n: Node) -> bool: return is_instance_valid(n)).size()
+	var minions: int = _boss._alive_summons()
 	_check("summon brings in Mosslings", minions == _boss.summon_count, str(minions))
+	# Kill the summons the normal way (they get freed), then let the boss keep ticking:
+	# his bookkeeping must cope with freed minions.
+	for summon: Variant in _boss._summons.duplicate():
+		if is_instance_valid(summon):
+			(summon as EnemyBase).take_hit(5, (summon as Node3D).global_position + Vector3.LEFT, 0.0)
+	await _frames(60)
+	_check("boss copes with his summons being defeated", _boss._alive_summons() == 0 and _boss._summons.is_empty())
+	_boss.start_attack(KingMossback.Attack.SUMMON)
+	await _frames(int(_boss.summon_windup * 60.0) + 10)
+	_check("boss can summon again afterwards", _boss._alive_summons() == _boss.summon_count)
 	_boss.clear_minions()
 	await _wait_until(func() -> bool: return _boss.get_state() == KingMossback.State.IDLE, 200)
 

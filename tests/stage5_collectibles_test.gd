@@ -191,9 +191,9 @@ func _test_enemy_drops() -> void:
 			drops.append(node as Coin)
 	_check("defeated enemy drops coin pickups (not instant coins)", drops.size() == mossling.coin_reward and GameState.coins == coins_before, "drops=%d" % drops.size())
 	await _frames(90)
-	var landed: bool = drops.all(func(c: Coin) -> bool: return is_instance_valid(c) and absf(c.global_position.y - 0.6) < 0.2)
+	var landed: bool = drops.all(func(c: Variant) -> bool: return is_instance_valid(c) and absf((c as Coin).global_position.y - 0.6) < 0.2)
 	_check("dropped coins land on the ground", landed)
-	_check("dropped coins aren't tracked by checkpoints", drops.all(func(c: Coin) -> bool: return not c.persistent))
+	_check("dropped coins aren't tracked by checkpoints", drops.all(func(c: Variant) -> bool: return is_instance_valid(c) and not (c as Coin).persistent))
 	for coin: Coin in drops:
 		await _touch(coin.global_position, 0.0)
 	_check("dropped coins can be collected", GameState.coins == coins_before + drops.size(), "%d" % GameState.coins)

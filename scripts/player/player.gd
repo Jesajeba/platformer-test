@@ -133,7 +133,8 @@ var _arm_right_base: Vector3
 @onready var _foot_left: Node3D = $Visual/Squash/FootLeft
 @onready var _foot_right: Node3D = $Visual/Squash/FootRight
 @onready var _arm_right: Node3D = $Visual/Squash/ArmRight
-@onready var _hitbox: Area3D = $Visual/AttackHitbox
+## Outside Visual so the death shrink can't scale its physics shape; it copies the facing instead.
+@onready var _hitbox: Area3D = $AttackHitbox
 @onready var _swipe_pivot: Node3D = $Visual/SwipePivot
 
 
@@ -448,6 +449,7 @@ func _respawn_at_checkpoint() -> void:
 	_facing.y = 0.0
 	_facing = _facing.normalized() if _facing.length_squared() > 0.001 else Vector3.FORWARD
 	_visual.rotation.y = atan2(-_facing.x, -_facing.z)
+	_hitbox.rotation.y = _visual.rotation.y
 	_can_hover = true
 	_jump_rising = false
 	_coyote_timer = 0.0
@@ -560,6 +562,7 @@ func _update_visuals(delta: float) -> void:
 
 	var target_yaw: float = atan2(-_facing.x, -_facing.z)
 	_visual.rotation.y = lerp_angle(_visual.rotation.y, target_yaw, 1.0 - exp(-turn_speed * delta))
+	_hitbox.rotation.y = _visual.rotation.y
 
 	var target_scale: Vector3 = Vector3.ONE
 	var speed_ratio: float = clampf(Vector2(velocity.x, velocity.z).length() / maxf(max_speed, 0.01), 0.0, 1.0)

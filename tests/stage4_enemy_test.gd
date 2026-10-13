@@ -191,7 +191,12 @@ func _test_snapthorn() -> void:
 	plant.take_hit(1, pos + Vector3(0, 0, 1), 9.0)
 	await _frames(10)
 	_check("snapthorn is rooted (no knockback)", plant.global_position.distance_to(pos) < 0.05)
-	plant.queue_free()
+	# Let it die properly: the death squash must not touch any physics shape (Jolt scale errors).
+	await _frames(15)
+	plant.take_hit(1, pos + Vector3(0, 0, 1), 9.0)
+	_check("snapthorn dies on its second hit", plant.is_dead())
+	await _frames(40)
+	_check("dead snapthorn is removed after its death animation", not is_instance_valid(plant))
 
 
 func _test_sleeping() -> void:

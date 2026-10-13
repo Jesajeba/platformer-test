@@ -164,9 +164,9 @@ func reset_fight() -> void:
 
 
 func clear_minions() -> void:
-	for summon: Node in _summons:
+	for summon: Variant in _summons:  # Untyped: entries may already be freed.
 		if is_instance_valid(summon):
-			summon.queue_free()
+			(summon as Node).queue_free()
 	_summons.clear()
 	for group_name: StringName in [&"boss_projectiles", &"boss_hazards"]:
 		for node: Node in get_tree().get_nodes_in_group(group_name):
@@ -479,12 +479,22 @@ func _finish_defeat() -> void:
 
 #region Helpers and visuals
 
+## Summons get freed when they die, so these loops use untyped variables: a typed Node
+## parameter can't receive a freed instance.
 func _alive_summons() -> int:
-	return _summons.filter(func(n: Node) -> bool: return is_instance_valid(n) and not (n as EnemyBase).is_dead()).size()
+	var count: int = 0
+	for summon: Variant in _summons:
+		if is_instance_valid(summon) and not (summon as EnemyBase).is_dead():
+			count += 1
+	return count
 
 
 func _prune_summons() -> void:
-	_summons = _summons.filter(func(n: Node) -> bool: return is_instance_valid(n))
+	var alive: Array[Node] = []
+	for summon: Variant in _summons:
+		if is_instance_valid(summon):
+			alive.append(summon as Node)
+	_summons = alive
 
 
 func _shake_camera(strength: float, duration: float) -> void:
